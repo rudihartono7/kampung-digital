@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Trisatech.KampDigi.Application\Trisatech.KampDigi.Application.csproj" />
+  </ItemGroup>
+
 </Project>

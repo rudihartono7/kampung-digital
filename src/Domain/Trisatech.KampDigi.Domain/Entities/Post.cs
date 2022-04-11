@@ -11,7 +11,8 @@ namespace Trisatech.KampDigi.Domain.Entities
     {
         Report,
         Forum,
-        Announcement
+        Announcement,
+        Public
     }
     public class Post : BaseEntity
     {
