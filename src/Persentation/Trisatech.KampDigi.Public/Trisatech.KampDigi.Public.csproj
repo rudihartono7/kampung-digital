@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\Trisatech.KampDigi.Application\Trisatech.KampDigi.Application.csproj" />
     <ProjectReference Include="..\..\Domain\Trisatech.KampDigi.Domain\Trisatech.KampDigi.Domain.csproj" />
-    <ProjectReference Include="..\..\Domain\Trisatech.KampDigi.Domain\Trisatech.KampDigi.Application.csproj" />
   </ItemGroup>
 
 </Project>
