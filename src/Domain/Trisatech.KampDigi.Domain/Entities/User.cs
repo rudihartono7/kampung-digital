@@ -36,5 +36,6 @@ namespace Trisatech.KampDigi.Domain.Entities
         [StringLength(128)]
         public string Password { get; set; }
         public Role Role { get; set; }
+        public Guid? ResidentId { get; set; }
     }
 }
