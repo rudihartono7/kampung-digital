@@ -8,19 +8,13 @@ namespace Trisatech.KampDigi.WebApp.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IResidentFundService _residentFundService;
-    public HomeController(ILogger<HomeController> logger,
-    IResidentFundService residentFundService)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        _residentFundService = residentFundService;
     }
 
-    public async Task<IActionResult> Index()
+    public IActionResult Index()
     {
-        var result = await _residentFundService.GetCurrentBalance();
-
-        ViewBag.TestingResidentFund = result;
         return View();
     }
 
