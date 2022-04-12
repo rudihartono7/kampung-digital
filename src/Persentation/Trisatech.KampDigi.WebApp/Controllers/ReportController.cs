@@ -23,4 +23,13 @@ public class ReportController : Controller
         ViewBag.TestingResidentFund = result;
         return View();
     }
+
+    public async Task<IActionResult> History()
+    {
+        var result = await _residentFundService.GetCurrentBalance();
+
+        ViewBag.TestingResidentFund = result;
+        return View();
+    }
+
 }
