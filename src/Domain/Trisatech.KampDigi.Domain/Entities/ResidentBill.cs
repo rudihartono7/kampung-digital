@@ -19,6 +19,7 @@ namespace Trisatech.KampDigi.Domain.Entities
         public DateTime BillOpenDate { get; set; }
         public string Evidence { get; set; }
         public string Note { get; set; }
+        public bool Status { get; set; }
 
         public virtual Resident Resident { get; set; }
     }
