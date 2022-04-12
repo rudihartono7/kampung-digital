@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.WebApp.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
@@ -7,14 +8,19 @@ namespace Trisatech.KampDigi.WebApp.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly IResidentFundService _residentFundService;
+    public HomeController(ILogger<HomeController> logger,
+    IResidentFundService residentFundService)
     {
         _logger = logger;
+        _residentFundService = residentFundService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        var result = await _residentFundService.GetCurrentBalance();
+
+        ViewBag.TestingResidentFund = result;
         return View();
     }
 

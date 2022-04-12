@@ -11,7 +11,7 @@ namespace Trisatech.KampDigi.Domain.Entities
     public enum HouseType
     {
         /// <summary>
-        /// Huniam
+        /// Hunian
         /// </summary>
         Residence,
         /// <summary>
@@ -38,10 +38,7 @@ namespace Trisatech.KampDigi.Domain.Entities
         public string Number { get; set; }
         public HouseType Type { get; set; }
         public HouseStatus Status { get; set; }
-        [Required]
-        [ForeignKey(nameof(Resident))]
-        public Guid OccupantId { get; set; }
-        public virtual Resident Occupant { get; set; }
+        
         public virtual ICollection<Resident> ResidentHistory { get; set; }
     }
 }

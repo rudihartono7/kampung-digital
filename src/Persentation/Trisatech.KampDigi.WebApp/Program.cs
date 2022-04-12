@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Trisatech.KampDigi.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<Trisatech.KampDigi.Domain.KampDigiContext>(
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
         );
+
+builder.Services.AddScoped<IResidentFundService, ResidentFundService>();
 
 builder.Services.AddControllersWithViews();
 

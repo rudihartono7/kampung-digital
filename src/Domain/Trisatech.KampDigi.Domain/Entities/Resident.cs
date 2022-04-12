@@ -45,10 +45,12 @@ namespace Trisatech.KampDigi.Domain.Entities
         public string EmergencyCallNumber { get; set; }
         [Required]
         public Relationship EmergencyCallRelation { get; set; }
+        
         [ForeignKey(nameof(House))]
         public Guid HouseId { get; set; }
         public bool IsOccupant { get; set; }
         
+        public virtual House House { get; set; }
         public virtual ICollection<ResidentFamily> ResidentFamilies { get; set; }
         public virtual ICollection<GuestBook> GuestBooks { get; set; }
 

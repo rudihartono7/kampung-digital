@@ -3,5 +3,6 @@ namespace Trisatech.KampDigi.Domain {
         public const int StringNameLength = 100;
         public const int StringIdentityLength = 50;
         public const int StringContactNumber = 15;
+        public const int StringUserName = 50;
     }
 }

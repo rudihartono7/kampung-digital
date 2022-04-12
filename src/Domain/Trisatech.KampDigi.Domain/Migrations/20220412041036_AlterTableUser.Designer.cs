@@ -11,8 +11,8 @@ using Trisatech.KampDigi.Domain;
 namespace Trisatech.KampDigi.Domain.Migrations
 {
     [DbContext(typeof(KampDigiContext))]
-    [Migration("20220411063146_Initial")]
-    partial class Initial
+    [Migration("20220412041036_AlterTableUser")]
+    partial class AlterTableUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,12 +183,6 @@ namespace Trisatech.KampDigi.Domain.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<Guid>("OccupantId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("OccupantId1")
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
@@ -208,8 +202,6 @@ namespace Trisatech.KampDigi.Domain.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OccupantId1");
 
                     b.HasIndex("ResidenceId");
 
@@ -689,15 +681,13 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<string>("CreatedDate")
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("HouseId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -709,11 +699,10 @@ namespace Trisatech.KampDigi.Domain.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HouseId");
 
                     b.ToTable("Users");
                 });
@@ -742,15 +731,9 @@ namespace Trisatech.KampDigi.Domain.Migrations
 
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.House", b =>
                 {
-                    b.HasOne("Trisatech.KampDigi.Domain.Entities.Resident", "Occupant")
-                        .WithMany()
-                        .HasForeignKey("OccupantId1");
-                        
                     b.HasOne("Trisatech.KampDigi.Domain.Entities.Residence", null)
                         .WithMany("Houses")
                         .HasForeignKey("ResidenceId");
-
-                    b.Navigation("Occupant");
                 });
 
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.Residence", b =>
@@ -766,11 +749,13 @@ namespace Trisatech.KampDigi.Domain.Migrations
 
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.Resident", b =>
                 {
-                    b.HasOne("Trisatech.KampDigi.Domain.Entities.House", null)
+                    b.HasOne("Trisatech.KampDigi.Domain.Entities.House", "House")
                         .WithMany("ResidentHistory")
                         .HasForeignKey("HouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("House");
                 });
 
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentBill", b =>
@@ -813,17 +798,6 @@ namespace Trisatech.KampDigi.Domain.Migrations
                         .HasForeignKey("ResidentProgramId");
 
                     b.Navigation("ResidentProgram");
-                });
-
-            modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.User", b =>
-                {
-                    b.HasOne("Trisatech.KampDigi.Domain.Entities.House", "House")
-                        .WithMany()
-                        .HasForeignKey("HouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("House");
                 });
 
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.House", b =>

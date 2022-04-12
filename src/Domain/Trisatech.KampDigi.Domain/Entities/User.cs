@@ -31,11 +31,10 @@ namespace Trisatech.KampDigi.Domain.Entities
     {
         [StringLength(StringLengthConstant.StringNameLength)]
         public string Name { get; set; }
+        [StringLength(StringLengthConstant.StringUserName)]
         public string Username { get; set; }
+        [StringLength(128)]
         public string Password { get; set; }
         public Role Role { get; set; }
-        [ForeignKey(nameof(House))]
-        public Guid HouseId { get; set; }
-        public virtual House House { get; set; }
     }
 }
