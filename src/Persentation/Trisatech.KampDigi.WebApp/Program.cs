@@ -15,6 +15,8 @@ builder.Services.AddDbContext<Trisatech.KampDigi.Domain.KampDigiContext>(
         );
 
 builder.Services.AddScoped<IResidentFundService, ResidentFundService>();
+builder.Services.AddScoped<IResidentBillBaseInfoService, ResidentBillBaseInfoService>();
+
 
 builder.Services.AddControllersWithViews();
 
