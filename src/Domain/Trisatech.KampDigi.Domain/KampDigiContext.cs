@@ -71,6 +71,8 @@ namespace Trisatech.KampDigi.Domain
         /// Untuk menyimpan transaksi keuangan
         /// </summary>
         public virtual DbSet<TransactionHistory> TransactionHistories { get; set; }
+        public virtual DbSet<ResidentBillBaseInfo> ResidentBillBaseInfos { get; set; }
+        public virtual DbSet<ResidentBillDetailInfo> ResidentBillDetailInfos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); 

@@ -1,8 +1,23 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    ViewData["Menu"] = "Welcome";
+    Layout = "_BaseTemplate";
 }
-
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="card card-flush shadow-sm">
+        <div class="card-header">
+            <h3 class="card-title">Title</h3>
+            <div class="card-toolbar">
+                <button type="button" class="btn btn-sm btn-light">
+                    Action
+                </button>
+            </div>
+        </div>
+        <div class="card-body py-5">
+            Lorem Ipsum is simply dummy text...
+        </div>
+        <div class="card-footer">
+            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        </div>
+    </div>
 </div>

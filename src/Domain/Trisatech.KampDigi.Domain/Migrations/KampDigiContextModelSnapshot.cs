@@ -473,6 +473,82 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.ToTable("ResidentBills");
                 });
 
+            modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentBillBaseInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("AuditActivty")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("DueDateNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MontlyBillOpenDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Nominal")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResidentBillBaseInfos");
+                });
+
+            modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentBillDetailInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("AuditActivty")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Nominal")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("ResidentBillBaseInfoId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResidentBillBaseInfoId");
+
+                    b.ToTable("ResidentBillDetailInfos");
+                });
+
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentFamily", b =>
                 {
                     b.Property<Guid>("Id")
@@ -773,6 +849,17 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Navigation("Resident");
                 });
 
+            modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentBillDetailInfo", b =>
+                {
+                    b.HasOne("Trisatech.KampDigi.Domain.Entities.ResidentBillBaseInfo", "ResidentBillBaseInfo")
+                        .WithMany("ResidentBillDetailInfos")
+                        .HasForeignKey("ResidentBillBaseInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResidentBillBaseInfo");
+                });
+
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentFamily", b =>
                 {
                     b.HasOne("Trisatech.KampDigi.Domain.Entities.Resident", "HeadOfFamily")
@@ -824,6 +911,11 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Navigation("GuestBooks");
 
                     b.Navigation("ResidentFamilies");
+                });
+
+            modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.ResidentBillBaseInfo", b =>
+                {
+                    b.Navigation("ResidentBillDetailInfos");
                 });
 #pragma warning restore 612, 618
         }
