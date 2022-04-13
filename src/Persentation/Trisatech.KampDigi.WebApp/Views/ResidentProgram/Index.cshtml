@@ -1,0 +1,36 @@
+@model List<Trisatech.KampDigi.Application.Models.ResidentProgram.ResidentProgramModel>
+@{
+   ViewData["Title"] = "Agenda Kegiatan Kampung";
+   ViewData["Menu"] = "Kegiatan";
+   Layout = "_Layout";
+}
+<div class="text-center">
+   <div class="card card-flush shadow-sm">
+      <div class="card-header">
+         <h3 class="card-title">@ViewData["Title"]</h3>
+         <div class="card-toolbar">
+            <button type="button" class="btn btn-sm btn-light">
+               Action
+            </button>
+         </div>
+      </div>
+      <div class="card-body py-5">
+         <div class="mb-10">
+            <div id="kt_docs_fullcalendar_populated"></div>
+         </div>
+      </div>
+   </div>
+</div>
+@section Scripts {
+<script>
+
+   document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+         initialView: 'dayGridMonth'
+      });
+      calendar.render();
+   });
+
+</script>
+}

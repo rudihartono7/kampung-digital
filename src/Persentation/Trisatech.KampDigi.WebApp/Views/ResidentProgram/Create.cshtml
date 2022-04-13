@@ -1,0 +1,74 @@
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.ResidentProgram.ResidentProgramModel
+
+@{
+   ViewData["Title"] = "Create";
+   Layout = "_Layout";
+}
+<div class="container">
+   <h4 class="my-3">Agenda Baru</h4>
+
+   <div class="row">
+      <div class="col-md-12">
+         <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+               <label class="control-label">Tahun</label>
+               <input name="Year" type="text" class="form-control" />
+               <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Judul Kegiatan</label>
+               <input name="Title" type="text" class="form-control" />
+               <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Subjek Program</label>
+               <input name="ProgramSubject" type="text" class="form-control" />
+               <span asp-validation-for="ProgramSubject" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Periode Program</label>
+               <select name="ProgramPeriod" id="ProgramPeriod">
+                  <option value="@ProgramPeriod.None">None</option>
+                  <option value="@ProgramPeriod.Daily">Daily</option>
+                  <option value="@ProgramPeriod.Weekly">Weekly</option>
+                  <option value="@ProgramPeriod.BiWeekly">BiWeekly</option>
+                  <option value="@ProgramPeriod.Monthly">Monthly</option>
+               </select>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Deskripsi</label>
+               <textarea name="Desc" id="Desc" cols="15" rows="5">
+               </textarea>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Pennggung Jawab</label>
+               <select name="ProgramPeriod" id="ProgramPeriod">
+               </select>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Mulai Kegiatan</label>
+               <input type="date" name="StartDate">
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Mulai Kegiatan</label>
+               <input type="date" name="EndDate">
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Estimasi Biaya</label>
+               <input type="text" name="Cost">
+            </div>
+
+            <div class="form-group mb-3">
+               <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+         </form>
+      </div>
+   </div>
+   <div>
+      <a asp-action="Index">Back to List</a>
+   </div>
+
+</div>
