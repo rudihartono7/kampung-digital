@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace eCommerce.Controllers;
+namespace Trisatech.KampDigi.WebApp.Controllers;
 
 public class BaseController : Controller
 {
