@@ -11,9 +11,12 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
    {
    }
 
-   public Task<ResidentProgramModel> Add(ResidentProgramModel obj)
+   public async Task<ResidentProgramModel> Add(ResidentProgramModel req)
    {
-      throw new NotImplementedException();
+      await Db.AddAsync(req);
+      await Db.SaveChangesAsync();
+
+      return req;
    }
 
    public Task<bool> Delete(Guid id)

@@ -6,6 +6,7 @@ namespace Trisatech.KampDigi.Application.Models.ResidentProgram
 {
    public class ResidentProgramModel
    {
+      public Guid Id {get; set;}
       public int Year { get; set; }
       public string ProgramSubject { get; set; }
       public string Title { get; set; }
@@ -14,7 +15,6 @@ namespace Trisatech.KampDigi.Application.Models.ResidentProgram
       public ProgramPeriod ProgramPeriod { get; set; }
       public DateTime? StartDate { get; set; }
       public DateTime? EndDate { get; set; }
-      [ForeignKey(nameof(Resident))]
       public Guid PersonInChargeId { get; set; }
       public virtual Resident PersonInCharge { get; set; }
    }
