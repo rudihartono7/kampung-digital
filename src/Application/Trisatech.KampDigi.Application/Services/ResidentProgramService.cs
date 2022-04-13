@@ -5,7 +5,8 @@ using Trisatech.KampDigi.Domain;
 
 namespace Trisatech.KampDigi.Application.Interfaces;
 
-public class ResidentProgramService : BaseDbService, IResidentProgramService {
+public class ResidentProgramService : BaseDbService, IResidentProgramService
+{
    public ResidentProgramService(KampDigiContext dbContext) : base(dbContext)
    {
    }
@@ -35,9 +36,23 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService {
       throw new NotImplementedException();
    }
 
-   public Task<List<ResidentProgramModel>> GetAll()
+   public async Task<List<ResidentProgramModel>> GetAll()
    {
-      throw new NotImplementedException();
+      var data = await (from a in Db.ResidentPrograms
+                        select new ResidentProgramModel
+                        {
+                           Year = a.Year,
+                           Title = a.Title,
+                           Desc = a.Desc,
+                           StartDate = a.StartDate,
+                           EndDate = a.EndDate,
+                           ProgramSubject = a.ProgramSubject,
+                           Cost = a.Cost,
+                           PersonInCharge = a.PersonInCharge,
+                           PersonInChargeId = a.PersonInChargeId,
+                           ProgramPeriod = a.ProgramPeriod
+                        }).ToListAsync();
+      return data;
    }
 
    public Task<ResidentProgramModel> Update(ResidentProgramModel obj)
