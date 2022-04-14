@@ -1,0 +1,65 @@
+@model IEnumerable<Trisatech.KampDigi.Application.Models.PostModel>
+@{
+    ViewData["Title"] = "Thread";
+    int i = 0;
+    Layout = "_BaseTemplate";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                Gambar
+            </th>
+            <th>
+                Subject
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                IsResidentProgram
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td><img src="~/@item.Image" height="100" /></td>
+                    <td>@item.PostSubject</td>
+                    <td>@item.Title</td>
+                    <td>@item.Desc</td>
+                    <td>@item.Type</td>
+                    <td>@item.IsResidentProgram</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a><br><br>
+                        <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a><br><br>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Data kosong</td>
+            </tr>
+        }
+    </tbody>
+</table>

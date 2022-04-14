@@ -1,0 +1,43 @@
+@model Trisatech.KampDigi.Application.Models.PostModel
+@{
+    ViewData["Title"] = "Edit Thread";
+    int i = 0;
+    Layout = "_BaseTemplate";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Edit Produk</h4>
+            <p class="card-description">
+                Edit informasi produk dalam form berikut
+            </p>
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="PostId" type="hidden" class="form-control">
+                <div class="form-group">
+                    <label asp-for="PostSubject" for="exampleInput1"></label>
+                    <input class="form-control" id="exampleInput1" placeholder="Name" asp-for="PostSubject">
+                    <span asp-validation-for="PostSubject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title" for="exampleInput2"></label>
+                    <input class="form-control" id="exampleInput2" placeholder="Deskripsi Produk" asp-for="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Desc" for="exampleInput3"></label>
+                    <input class="form-control" id="exampleInput3" placeholder="Harga Produk" asp-for="Desc">
+                    <span asp-validation-for="Desc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Type" for="exampleInput4"></label>
+                    <input class="form-control" id="exampleInput4" placeholder="Stok Produk" asp-for="Type">
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Edit</button>
+            </form>
+            <a asp-action="Index" class="btn btn-light">Cancel</a>
+        </div>
+    </div>
+</div>

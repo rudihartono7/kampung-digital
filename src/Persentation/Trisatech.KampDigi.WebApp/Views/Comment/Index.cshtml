@@ -1,0 +1,45 @@
+@model IEnumerable<Trisatech.KampDigi.Application.Models.CommentModel>
+@{
+    ViewData["Title"] = "Comment";
+    int i = 0;
+    Layout = "_BaseTemplate";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Desc</td>
+                    <td>
+                        <a href="/Comment/edit/@item.PostId">Edit</a><br><br>
+                        <a href="/Comment/delete/@item.PostId">Delete</a><br><br>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Data kosong</td>
+            </tr>
+        }
+    </tbody>
+</table>
