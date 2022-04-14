@@ -1,0 +1,99 @@
+@model Trisatech.KampDigi.Application.Models.Rumah.HouseModel
+@{
+   ViewData["Title"] = "List Rumah";
+   ViewData["Menu"] = "Rumah";
+   Layout = "_BaseTemplate";
+}
+<div class="text-center">
+   <div class="card card-flush shadow-sm card-xl">
+      <div class="card-header">
+         <h3 class="card-title">List Rumah</h3>
+      </div>
+      <div class="card-body py-5">
+         <table id="table-house" class="table table-hover table-rounded table-striped border gy-7 gs-7">
+            <thead>
+               <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                  <th>No.Rumah</th>
+                  <th>Status</th>
+                  <th>Tipe</th>
+                  <th>#</th>
+               </tr>
+            </thead>
+            <tbody>
+               @foreach (var item in ViewBag.DaftarRumah)
+               {
+                  <tr>
+
+                     <td>@item.Number</td>
+                     @if (item.Status == Trisatech.KampDigi.Domain.Entities.HouseStatus.Occupied)
+                     {
+                        <td>Dimiliki</td>
+                     }
+                     else if (item.Status == Trisatech.KampDigi.Domain.Entities.HouseStatus.Empty)
+                     {
+                        <td>Kosong</td>
+                     }
+                     else
+                     {
+                        <td>Disewakan</td>
+                     }
+                     @if (item.Type == Trisatech.KampDigi.Domain.Entities.HouseType.Residence)
+                     {
+                        <td>Bangunan Hunian</td>
+                     }
+                     else if (item.Type == Trisatech.KampDigi.Domain.Entities.HouseType.Business)
+                     {
+                        <td>Tempat Bisnis</td>
+                     }
+                     else
+                     {
+                        <td>Lahan Kosong</td>
+                     }
+                     <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit </a>
+                        <button type="button" data-id="@item.Id" class="btn btn-sm btn-danger b-hapus">Hapus</button>
+                     </td>
+                  </tr>
+               }
+            </tbody>
+         </table>
+      </div>
+   </div>
+</div>
+@section Scripts {
+<script type="text/javascript">
+   $(document).ready(function () {
+
+      $(".b-hapus").on('click', function (e) {
+         let id = $(this).attr("data-id");
+         Swal.fire({
+            title: 'Hapus Produk dari keranjang?',
+            showDenyButton: true,
+            confirmButtonText: 'Tidak',
+            denyButtonText: `Ya`,
+         }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (!result.isConfirmed) {
+               $.ajax({
+                  url: "/House/Delete",
+                  type: "post",
+                  data: { id: id },
+                  dataType: "json",
+                  success: function (response) {
+                     if (response.success) {
+                        console.log(response.message);
+                        window.location.reload(true);
+                     } else {
+                        console.log(response.message);
+                     }
+                  }
+               })
+            } else if (result.isDenied) {
+               Swal.fire('Changes are not saved', '', 'info')
+            }
+         })
+      });
+
+   });
+</script>
+}
