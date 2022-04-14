@@ -21,7 +21,8 @@ public class HouseService : BaseDbService, IHouseService
       obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
       obj.CreatedBy = Guid.NewGuid();
       obj.UpdatedBy = obj.CreatedBy;
-      obj.CreatedDate = DateTime.Now.ToLongDateString();
+      obj.CreatedDate = DateTime.Now;
+
       await Db.AddAsync(obj);
       await Db.SaveChangesAsync();
 
@@ -48,7 +49,7 @@ public class HouseService : BaseDbService, IHouseService
 
    public async Task<House> Get(Guid id)
    {
-      var house = await Db.Houses.FirstOrDefaultAsync(x=> x.Id == id);
+      var house = await Db.Houses.FirstOrDefaultAsync(x => x.Id == id);
       return house;
    }
 
@@ -80,6 +81,7 @@ public class HouseService : BaseDbService, IHouseService
       house.Order = obj.Order;
       house.Status = obj.Status;
       house.Type = obj.Type;
+      house.UpdatedDate = DateTime.Now;
       house.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;
 
       Db.Update(house);
