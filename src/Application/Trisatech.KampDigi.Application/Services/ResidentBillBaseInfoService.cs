@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Trisatech.KampDigi.Application.Models;
@@ -84,6 +86,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
         bill.Nominal = obj.Nominal;
         bill.MontlyBillOpenDate = obj.MontlyBillOpenDate;
         bill.DueDateNumber = obj.DueDateNumber;
+        String billNumber = new DateTime.Now.ToLongDateString();
 
         Db.Update(bill);
         await Db.SaveChangesAsync();
