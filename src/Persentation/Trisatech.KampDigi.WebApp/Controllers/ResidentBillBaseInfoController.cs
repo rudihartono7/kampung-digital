@@ -27,6 +27,7 @@ public class ResidentBillBaseInfoController : Controller
         {
             model.Add(new ResidentBillBaseInfoModel
             {
+                Id = result[i].Id,
                 Year = result[i].Year,
                 Nominal = result[i].Nominal,
                 MontlyBillOpenDate = result[i].MontlyBillOpenDate,
@@ -34,6 +35,10 @@ public class ResidentBillBaseInfoController : Controller
             });
         }
         return View(model);
+    }
+
+    public IActionResult Create() {
+        return View(new ResidentBillBaseInfoModel());
     }
 
     [HttpPost]
@@ -74,11 +79,11 @@ public class ResidentBillBaseInfoController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Guid id, ResidentBillBaseInfoModel request)
+    public async Task<IActionResult> Edit(Guid? id, ResidentBillBaseInfoModel request)
     {
         if (id == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         if (!ModelState.IsValid)
@@ -140,5 +145,4 @@ public class ResidentBillBaseInfoController : Controller
         return View(request);
     }
     
-
 }

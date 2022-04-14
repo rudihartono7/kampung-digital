@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using Trisatech.KampDigi.Domain.Entities;
 
 namespace Trisatech.KampDigi.Application.Models;
@@ -25,6 +27,7 @@ public class ResidentBillBaseInfoModel
     {
         return new ResidentBillBaseInfo
         {
+            Id = this.Id,
             Year = this.Year,
             Nominal = this.Nominal,
             MontlyBillOpenDate = this.MontlyBillOpenDate,

@@ -30,7 +30,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
 
         if(bill == null)
         {
-            throw new Exception("Resident Bill Base Info not found");
+            throw new Exception("Resident Bill Base Info not found (DELETE)");
         }
 
         Db.ResidentBillBaseInfos.Remove(bill);
@@ -50,7 +50,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
 
         if(result == null)
         {
-            throw new Exception("Resident Bill Base Info not found");
+            throw new Exception("Resident Bill Base Info not found (GET)");
         }
 
         return result;
@@ -70,7 +70,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
     {
         if(obj == null)
         {
-            throw new Exception("Resident Bill Base Info not found");
+            throw new Exception("Resident Bill Base Info not found (Update)");
         }
 
         var bill = await Db.ResidentBillBaseInfos.FirstOrDefaultAsync(x => x.Id == obj.Id);
