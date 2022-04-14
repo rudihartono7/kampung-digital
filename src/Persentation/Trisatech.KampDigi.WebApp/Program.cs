@@ -15,13 +15,9 @@ builder.Services.AddDbContext<Trisatech.KampDigi.Domain.KampDigiContext>(
         );
 
 builder.Services.AddScoped<IResidentFundService, ResidentFundService>();
-<<<<<<< HEAD
 builder.Services.AddScoped<IResidentBillBaseInfoService, ResidentBillBaseInfoService>();
-
-=======
 builder.Services.AddScoped<IResidentFamilyService, ResidentFamilyService>();
 builder.Services.AddScoped<IHouseService, HouseService>();
->>>>>>> f74f9bffc27ef088e2b83e5cecc880cf2d02923f
 
 builder.Services.AddControllersWithViews();
 

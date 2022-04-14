@@ -86,7 +86,6 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
         bill.Nominal = obj.Nominal;
         bill.MontlyBillOpenDate = obj.MontlyBillOpenDate;
         bill.DueDateNumber = obj.DueDateNumber;
-        String billNumber = new DateTime.Now.ToLongDateString();
 
         Db.Update(bill);
         await Db.SaveChangesAsync();
