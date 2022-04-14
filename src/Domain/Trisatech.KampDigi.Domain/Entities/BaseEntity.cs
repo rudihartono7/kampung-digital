@@ -24,7 +24,7 @@ namespace Trisatech.KampDigi.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         public Guid CreatedBy { get; set; }
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public Guid UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public AuditActivtyType AuditActivty { get; set; } 
