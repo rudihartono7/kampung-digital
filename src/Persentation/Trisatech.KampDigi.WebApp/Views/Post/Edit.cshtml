@@ -14,7 +14,7 @@
             <form asp-action="Edit" method="post">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="PostId" type="hidden" class="form-control">
+                <input asp-for="Id" type="hidden" class="form-control">
                 <div class="form-group">
                     <label asp-for="PostSubject" for="exampleInput1"></label>
                     <input class="form-control" id="exampleInput1" placeholder="Name" asp-for="PostSubject">

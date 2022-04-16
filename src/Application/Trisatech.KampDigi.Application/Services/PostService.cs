@@ -6,31 +6,38 @@ using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Application.Models;
 
 namespace Trisatech.KampDigi.Application.Interfaces;
-public class PostService : BaseDbService, IPostService {
+public class PostService : BaseDbService, IPostService
+{
     public PostService(KampDigiContext dbContext) : base(dbContext)
     {
     }
 
     public async Task<Post> Add(Post obj)
     {
-        if(await Db.Posts.AnyAsync(x=>x.Id == obj.Id)){
+        if (await Db.Posts.AnyAsync(x => x.Id == obj.Id))
+        {
             throw new InvalidOperationException($"Post with Id {obj.Id} already exists");
         }
 
+        obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
+        obj.CreatedBy = Guid.NewGuid();
+        obj.UpdatedBy = obj.CreatedBy;
+        obj.CreatedDate = DateTime.Now;
         await Db.AddAsync(obj);
         await Db.SaveChangesAsync();
-        
-       return obj;
+
+        return obj;
     }
 
     public async Task<bool> Delete(Guid id)
     {
-        var post = await Db.Posts.FirstOrDefaultAsync(x=>x.Id == id);
+        var post = await Db.Posts.FirstOrDefaultAsync(x => x.Id == id);
 
-        if(post == null) {
+        if (post == null)
+        {
             throw new InvalidOperationException($"Post with ID {id} doesn't exist");
         }
-        Db.Posts.RemoveRange(Db.Posts.Where(x=>x.Id == id));
+        Db.Posts.RemoveRange(Db.Posts.Where(x => x.Id == id));
         Db.Remove(post);
         await Db.SaveChangesAsync();
 
@@ -39,7 +46,8 @@ public class PostService : BaseDbService, IPostService {
 
     public async Task<List<Post>> Get(int limit, int offset, string keyword)
     {
-        if(string.IsNullOrEmpty(keyword)){
+        if (string.IsNullOrEmpty(keyword))
+        {
             keyword = "";
         }
 
@@ -52,7 +60,7 @@ public class PostService : BaseDbService, IPostService {
     {
         var result = await Db.Posts.FirstOrDefaultAsync(x => x.Id == id);
 
-        if(result == null)
+        if (result == null)
         {
             throw new InvalidOperationException($"Post with ID {id} doesn't exist");
         }
@@ -82,14 +90,15 @@ public class PostService : BaseDbService, IPostService {
 
     public async Task<Post> Update(Post obj)
     {
-        if(obj == null)
+        if (obj == null)
         {
             throw new ArgumentNullException("Post with ID {id} doesn't exist");
         }
 
-        var post = await Db.Posts.FirstOrDefaultAsync(x=>x.Id == obj.Id);
+        var post = await Db.Posts.FirstOrDefaultAsync(x => x.Id == obj.Id);
 
-        if(post == null) {
+        if (post == null)
+        {
             throw new InvalidOperationException($"");
         }
 
@@ -99,7 +108,7 @@ public class PostService : BaseDbService, IPostService {
         post.Desc = obj.Desc;
         post.Image = obj.Image;
         post.Type = obj.Type;
-        
+
         Db.Update(post);
         await Db.SaveChangesAsync();
 

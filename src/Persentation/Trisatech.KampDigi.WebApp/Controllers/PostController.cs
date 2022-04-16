@@ -11,7 +11,7 @@ public class PostController : Controller
     private readonly ILogger<PostController> _logger;
     private readonly IPostService _postService;
     public PostController(
-        ILogger<PostController> logger,    
+        ILogger<PostController> logger,
         IPostService postService
     )
     {
@@ -29,7 +29,7 @@ public class PostController : Controller
         {
             viewModels.Add(new PostModel
             {
-                PostId = dbResult[i].Id,
+                Id = dbResult[i].Id,
                 PostSubject = dbResult[i].PostSubject,
                 Title = dbResult[i].Title,
                 Desc = dbResult[i].Desc,
@@ -38,17 +38,16 @@ public class PostController : Controller
                 IsResidentProgram = dbResult[i].IsResidentProgram
             });
         }
-        
+
         return View(viewModels);
     }
 
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
         return View(new PostModel());
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(PostModel request)
     {
         if (!ModelState.IsValid)
@@ -73,23 +72,31 @@ public class PostController : Controller
         return View(request);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Edit(Guid id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
+    // public async Task<IActionResult> Edit(Guid id)
+    // {
+    //     if (id == null)
+    //     {
+    //         return NotFound();
+    //     }
 
-        var dbResult = await _postService.Get(id);
+    //     var dbResult = await _postService.Get(id.Value);
 
-        if (dbResult == null)
-        {
-            return NotFound();
-        }
+    //     if (dbResult == null)
+    //     {
+    //         return NotFound();
+    //     }
 
-        return View(new PostModel(dbResult));
-    }
+    //     return View(new PostModel()
+    //   {
+    //      PostId = dbResult.Id,
+    //      PostSubject = dbResult.PostSubject,
+    //      Title = dbResult.Title,
+    //      Desc = dbResult.Desc,
+    //      Image = dbResult.Image,
+    //      Type = dbResult.Type,
+    //      IsResidentProgram = dbResult.IsResidentProgram
+    //   });
+    // }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -123,18 +130,23 @@ public class PostController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid PostId)
     {
-        if(PostId == null) {
+        if (PostId == null)
+        {
             return BadRequest();
         }
-        
-        try{
+
+        try
+        {
             await _postService.Delete(PostId);
 
-            return RedirectToAction(nameof(Index));  
-        }catch(InvalidOperationException ex){
+            return RedirectToAction(nameof(Index));
+        }
+        catch (InvalidOperationException ex)
+        {
             ViewBag.ErrorMessage = ex.Message;
         }
-        catch(Exception) {
+        catch (Exception)
+        {
             throw;
         }
 
