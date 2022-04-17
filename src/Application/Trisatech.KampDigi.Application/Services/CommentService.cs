@@ -115,7 +115,7 @@ public class CommentService : BaseDbService, ICommentService {
           return result;
     }
 
-    Task<List<CommentModel>> ICommentService.GetComment(Guid PostId)
+    Task<List<CommentModel>> ICommentService.Get(Guid Id)
     {
         throw new NotImplementedException();
     }

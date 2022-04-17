@@ -64,4 +64,52 @@ public class CommentController : Controller
 
         return View(request);
     }
+    // [HttpGet]
+    // public async Task<IActionResult> Delete(Guid? id)
+    // {
+    //     if (id == null)
+    //     {
+    //         return BadRequest();
+    //     }
+
+    //     var result = await _commentService.Get(id.Value);
+
+    //     if (result == null)
+    //     {
+    //         return NotFound();
+    //     }
+
+    //     return View(new CommentModel()
+    //     {
+    //         Id = result.Id,
+    //         Desc = result.Desc,
+
+    //     });
+    // }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
+
+        try
+        {
+            await _commentService.Delete(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+        catch (InvalidOperationException ex)
+        {
+            ViewBag.ErrorMessage = ex.Message;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+
+        return View(id);
+    }
 }

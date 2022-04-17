@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Application.Models;
 using Trisatech.KampDigi.Domain.Entities;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Trisatech.KampDigi.Helpers;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
@@ -10,13 +13,16 @@ public class PostController : Controller
 {
     private readonly ILogger<PostController> _logger;
     private readonly IPostService _postService;
+    private readonly IWebHostEnvironment _iwebHost;
     public PostController(
         ILogger<PostController> logger,
-        IPostService postService
+        IPostService postService,
+        IWebHostEnvironment iwebHost
     )
     {
         _logger = logger;
         _postService = postService;
+        _iwebHost = iwebHost;
     }
 
     public async Task<IActionResult> Index()
@@ -44,7 +50,15 @@ public class PostController : Controller
 
     public async Task<IActionResult> Create()
     {
-        return View(new PostModel());
+        return View(new PostModel
+        {
+            PostSubject = "",
+            Title = "",
+            Desc = "",
+            Image = "",
+          
+            IsResidentProgram = false
+        });
     }
 
     [HttpPost]
@@ -56,8 +70,24 @@ public class PostController : Controller
         }
         try
         {
-            await _postService.Add(request.ConvertToDbModel());
+            string fileName = string.Empty;
 
+            if (request.ImageFile != null)
+            {
+                fileName = $"{Guid.NewGuid()}-{request.ImageFile?.FileName}";
+                string filePathName = _iwebHost.WebRootPath + "\\images\\" + fileName;
+
+                using (var streamWriter = System.IO.File.Create(filePathName))
+                {
+                    await streamWriter.WriteAsync(request.ImageFile.OpenReadStream().ToBytes());
+                }
+            }
+            
+            var post = await _postService.Add(request.ConvertToDbModel());
+            if (request.ImageFile != null)
+            {
+                post.Image = $"/images/{fileName}";
+            }
             return Redirect(nameof(Index));
         }
         catch (InvalidOperationException ex)
@@ -72,35 +102,35 @@ public class PostController : Controller
         return View(request);
     }
 
-    // public async Task<IActionResult> Edit(Guid id)
-    // {
-    //     if (id == null)
-    //     {
-    //         return NotFound();
-    //     }
+    [HttpGet]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
 
-    //     var dbResult = await _postService.Get(id.Value);
+        var post = await _postService.Get(id);
 
-    //     if (dbResult == null)
-    //     {
-    //         return NotFound();
-    //     }
-
-    //     return View(new PostModel()
-    //   {
-    //      PostId = dbResult.Id,
-    //      PostSubject = dbResult.PostSubject,
-    //      Title = dbResult.Title,
-    //      Desc = dbResult.Desc,
-    //      Image = dbResult.Image,
-    //      Type = dbResult.Type,
-    //      IsResidentProgram = dbResult.IsResidentProgram
-    //   });
-    // }
+        if (post == null)
+        {
+            return NotFound();
+        }
+        return View(new PostModel()
+        {
+            Id = id,
+            PostSubject = post.PostSubject,
+            Title = post.Title,
+            Desc = post.Desc,
+            Image = post.Image,
+            Type = post.Type,
+            IsResidentProgram = post.IsResidentProgram
+        });
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, PostModel request)
+    public async Task<IActionResult> Edit(Guid? id, PostModel request)
     {
         if (id == null)
         {
@@ -126,18 +156,45 @@ public class PostController : Controller
         }
         return View(request);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(Guid? id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
+
+        var result = await _postService.Get(id.Value);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return View(new PostModel()
+        {
+            Id = result.Id,
+            PostSubject = result.PostSubject,
+            Title = result.Title,
+            Desc = result.Desc,
+            Image = result.Image,
+            Type = result.Type,
+            IsResidentProgram = result.IsResidentProgram
+        });
+    }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(Guid PostId)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        if (PostId == null)
+        if (id == null)
         {
             return BadRequest();
         }
 
         try
         {
-            await _postService.Delete(PostId);
+            await _postService.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }
@@ -150,6 +207,6 @@ public class PostController : Controller
             throw;
         }
 
-        return View(PostId);
+        return View(id);
     }
 }

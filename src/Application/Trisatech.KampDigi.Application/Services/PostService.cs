@@ -14,10 +14,6 @@ public class PostService : BaseDbService, IPostService
 
     public async Task<Post> Add(Post obj)
     {
-        if (await Db.Posts.AnyAsync(x => x.Id == obj.Id))
-        {
-            throw new InvalidOperationException($"Post with Id {obj.Id} already exists");
-        }
 
         obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
         obj.CreatedBy = Guid.NewGuid();

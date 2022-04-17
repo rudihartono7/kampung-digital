@@ -2035,6 +2035,11 @@
                             <td>
                                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a><br><br>
                                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a><br><br>
+								<form asp-action="Index" asp-controller="Comment" method="post">
+									@Html.AntiForgeryToken()
+									<input type="hidden" name="Id" value="@item.Id" />
+									<button class="cart-btn" type="submit"> Comment </button>
+								</form>
                             </td>
                         </tr>
                     }

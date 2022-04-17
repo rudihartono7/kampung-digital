@@ -10,6 +10,7 @@
             <h4 class="card-title">Create Thread</h4>
             <form class="forms-sample" asp-action="Create" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @* <input asp-for="Id" hidden> *@
                 <div class="form-group">
                     <label asp-for="PostSubject" for="exampleInput1"></label>
                     <input class="form-control" id="exampleInput1" placeholder="Name" asp-for="PostSubject">
@@ -37,9 +38,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Image" class="control-label"></label>
-                    <input asp-for="Image" type="file" class="form-control" />
-                    <span asp-validation-for="Image" class="text-danger"></span>
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary me-2">Submit</button>
             </form>

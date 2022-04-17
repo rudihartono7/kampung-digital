@@ -10,6 +10,7 @@ namespace Trisatech.KampDigi.Application.Models
         
         public Comment ConvertToDbModel(){
             return new Comment {
+                Id = this.Id,
                 Desc = this.Desc,
                 PostId = this.PostId
             };
