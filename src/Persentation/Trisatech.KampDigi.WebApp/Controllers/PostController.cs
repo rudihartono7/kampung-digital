@@ -41,7 +41,9 @@ public class PostController : Controller
                 Desc = dbResult[i].Desc,
                 Image = dbResult[i].Image,
                 Type = dbResult[i].Type,
-                IsResidentProgram = dbResult[i].IsResidentProgram
+                IsResidentProgram = dbResult[i].IsResidentProgram,
+                CreatedDate = dbResult[i].CreatedDate,
+                UpdatedDate = dbResult[i].UpdatedDate
             });
         }
 
@@ -56,7 +58,6 @@ public class PostController : Controller
             Title = "",
             Desc = "",
             Image = "",
-          
             IsResidentProgram = false
         });
     }
@@ -75,7 +76,7 @@ public class PostController : Controller
             if (request.ImageFile != null)
             {
                 fileName = $"{Guid.NewGuid()}-{request.ImageFile?.FileName}";
-                string filePathName = _iwebHost.WebRootPath + "\\images\\" + fileName;
+                string filePathName = _iwebHost.WebRootPath + $"\\images\\{fileName}";
 
                 using (var streamWriter = System.IO.File.Create(filePathName))
                 {
@@ -83,11 +84,10 @@ public class PostController : Controller
                 }
             }
             
-            var post = await _postService.Add(request.ConvertToDbModel());
-            if (request.ImageFile != null)
-            {
-                post.Image = $"/images/{fileName}";
-            }
+            var post = request.ConvertToDbModelAdd();
+            post.Image = $"\\images\\{fileName}";
+            
+            await _postService.Add(post);
             return Redirect(nameof(Index));
         }
         catch (InvalidOperationException ex)
@@ -142,7 +142,7 @@ public class PostController : Controller
         }
         try
         {
-            await _postService.Update(request.ConvertToDbModel());
+            await _postService.Update(request.ConvertToDbModelEdit());
             return RedirectToAction(nameof(Index));
         }
         catch (InvalidOperationException ex)

@@ -19,7 +19,19 @@ namespace Trisatech.KampDigi.Application.Models
         public IFormFile? ImageFile { get; set; }
         public PostType Type { get; set; }
         public bool IsResidentProgram { get; set; }
-    public Post ConvertToDbModel(){
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+    public Post ConvertToDbModelAdd(){
+            return new Post {
+                PostSubject = this.PostSubject,
+                Title = this.Title,
+                Desc = this.Desc,
+                Image = this.Image,
+                Type = this.Type,
+                IsResidentProgram = this.IsResidentProgram,
+            };
+    }
+    public Post ConvertToDbModelEdit(){
             return new Post {
                 Id = this.Id,
                 PostSubject = this.PostSubject,
@@ -27,7 +39,7 @@ namespace Trisatech.KampDigi.Application.Models
                 Desc = this.Desc,
                 Image = this.Image,
                 Type = this.Type,
-                IsResidentProgram = this.IsResidentProgram
+                IsResidentProgram = this.IsResidentProgram,
             };
     }
     }

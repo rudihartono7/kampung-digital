@@ -104,7 +104,9 @@ public class PostService : BaseDbService, IPostService
         post.Desc = obj.Desc;
         post.Image = obj.Image;
         post.Type = obj.Type;
-
+        post.IsResidentProgram = obj.IsResidentProgram;
+        post.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;
+        post.UpdatedDate = DateTime.Now;
         Db.Update(post);
         await Db.SaveChangesAsync();
 

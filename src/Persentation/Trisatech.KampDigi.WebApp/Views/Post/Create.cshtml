@@ -13,23 +13,20 @@
                 @* <input asp-for="Id" hidden> *@
                 <div class="form-group">
                     <label asp-for="PostSubject" for="exampleInput1"></label>
-                    <input class="form-control" id="exampleInput1" placeholder="Name" asp-for="PostSubject">
+                    <input class="form-control" id="exampleInput1" placeholder="PostSubject" asp-for="PostSubject">
                     <span asp-validation-for="PostSubject" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Title" for="exampleInput2"></label>
-                    <input class="form-control" id="exampleInput2" placeholder="Deskripsi Produk" asp-for="Title">
+                    <input class="form-control" id="exampleInput2" placeholder="Title" asp-for="Title">
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Desc" for="exampleInput3"></label>
-                    <input class="form-control" id="exampleInput3" placeholder="Harga Produk" asp-for="Desc">
+                    <input class="form-control" id="exampleInput3" placeholder="Description" asp-for="Desc">
                     <span asp-validation-for="Desc" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    @* <label asp-for="Type" for="exampleInput3"></label>
-                    <input class="form-control" id="exampleInput3" placeholder="Harga Produk" asp-for="Type">
-                    <span asp-validation-for="Type" class="text-danger"></span> *@
                     <select name="type" id="">
                         <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
                         <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
