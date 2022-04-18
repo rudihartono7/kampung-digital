@@ -47,7 +47,6 @@ public class AccountController : BaseController
         return View();
     }
 
-    [Authorize(Roles = AppConstant.ADMIN)]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegisterAdminModel dataUser)
