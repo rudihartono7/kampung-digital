@@ -1,10 +1,21 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Trisatech.KampDigi.Application.Interfaces;
+using Trisatech.KampDigi.WebApp.Models;
 using Trisatech.KampDigi.Application.Models;
+using Trisatech.KampDigi.Domain.Entities;
+using Trisatech.KampDigi.Application;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Trisatech.KampDigi.Domain;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
+[Authorize(Roles = AppConstant.ADMIN)]
 public class ResidentBillBaseInfoController : Controller
 {
     private readonly ILogger<ResidentBillBaseInfoController> _logger;
@@ -93,7 +104,7 @@ public class ResidentBillBaseInfoController : Controller
 
         try
         {
-            await _residentBillBaseInfoService.Update(request.ConvertToDbModel());
+            await _residentBillBaseInfoService.Update(request.UpdateConvertToDbModel());
 
             return Redirect(nameof(Index));
         }

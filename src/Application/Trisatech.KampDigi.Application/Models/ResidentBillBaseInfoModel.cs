@@ -27,6 +27,17 @@ public class ResidentBillBaseInfoModel
     {
         return new ResidentBillBaseInfo
         {
+            Year = this.Year,
+            Nominal = this.Nominal,
+            MontlyBillOpenDate = this.MontlyBillOpenDate,
+            DueDateNumber = this.DueDateNumber
+        };
+    }
+
+    public ResidentBillBaseInfo UpdateConvertToDbModel()
+    {
+        return new ResidentBillBaseInfo
+        {
             Id = this.Id,
             Year = this.Year,
             Nominal = this.Nominal,

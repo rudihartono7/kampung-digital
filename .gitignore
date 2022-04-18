@@ -76,3 +76,6 @@ _[Ss]cripts
 *.pubxml
 /.vs
 .vs/
+
+/images
+images/
