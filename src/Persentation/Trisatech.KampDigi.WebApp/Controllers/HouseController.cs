@@ -7,7 +7,7 @@ using Trisatech.KampDigi.WebApp.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
-public class HouseController : Controller
+public class HouseController : BaseController
 {
    private readonly ILogger<HouseController> _logger;
    private readonly IHouseService _houseService;

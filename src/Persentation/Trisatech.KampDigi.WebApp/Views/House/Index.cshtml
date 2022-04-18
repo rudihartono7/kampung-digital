@@ -2,6 +2,7 @@
 @{
    ViewData["Title"] = "List Rumah";
    ViewData["Menu"] = "Rumah";
+   var userRole = Context.User.IsInRole("Admin");
    Layout = "_BaseTemplate";
 }
 
@@ -11,82 +12,206 @@
       <h3 class="card-title align-items-start flex-column">
          <span class="card-label fw-bolder fs-3 mb-1">@ViewData["Title"]</span>
       </h3>
-      <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
-         title="Klik untuk menambah keterangan rumah">
-         <button type="button" class="btn btn-sm btn-light-primary b-modal" data-bs-toggle="modal"
-            data-bs-target="#modalCreate">
-            <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
-            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                  height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                     d="M21.4622 10.699C21.4618 10.6986 21.4613 10.6981 21.4609 10.6977L13.3016 2.53955C12.9538 2.19165 12.4914 2 11.9996 2C11.5078 2 11.0454 2.1915 10.6974 2.5394L2.54246 10.6934C2.53971 10.6961 2.53696 10.699 2.53422 10.7018C1.82003 11.42 1.82125 12.5853 2.53773 13.3017C2.86506 13.6292 3.29739 13.8188 3.75962 13.8387C3.77839 13.8405 3.79732 13.8414 3.81639 13.8414H4.14159V19.8453C4.14159 21.0334 5.10833 22 6.29681 22H9.48897C9.81249 22 10.075 21.7377 10.075 21.4141V16.707C10.075 16.1649 10.516 15.7239 11.0582 15.7239H12.941C13.4832 15.7239 13.9242 16.1649 13.9242 16.707V21.4141C13.9242 21.7377 14.1866 22 14.5102 22H17.7024C18.8909 22 19.8576 21.0334 19.8576 19.8453V13.8414H20.1592C20.6508 13.8414 21.1132 13.6499 21.4613 13.302C22.1786 12.5844 22.1789 11.4171 21.4622 10.699V10.699Z"
-                     fill="#00B2FF" />
-               </svg></span>
-            <!--end::Svg Icon--> Create New
-         </button>
-      </div>
    </div>
    <!--end::Header-->
    <!--begin::Body-->
-   <div class="card-body py-3">
-      <!--begin::Table container-->
-      <div class="table-responsive">
+   <!--begin::Card-->
+   <div class="card">
+      <!--begin::Card header-->
+      <div class="card-header border-0 pt-6">
+         <!--begin::Card title-->
+         <div class="card-title">
+            <!--begin::Search-->
+            <div class="d-flex align-items-center position-relative my-1">
+               <!--begin::Svg Icon | path: icons/duotone/General/Search.svg-->
+               <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                     height="24px" viewBox="0 0 24 24" version="1.1">
+                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <rect x="0" y="0" width="24" height="24"></rect>
+                        <path
+                           d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+                           fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                        <path
+                           d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+                           fill="#000000" fill-rule="nonzero"></path>
+                     </g>
+                  </svg>
+               </span>
+               <!--end::Svg Icon-->
+               <input type="text" data-kt-user-table-filter="search"
+                  class="form-control form-control-solid w-250px ps-14" placeholder="Search user">
+            </div>
+            <!--end::Search-->
+         </div>
+         <!--begin::Card title-->
+         <!--begin::Card toolbar-->
+         <div class="card-toolbar">
+            <!--begin::Toolbar-->
+            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+               <!--begin::Add user-->
+               <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+                  title="Klik untuk menambah keterangan rumah">
+                  <button type="button" class="btn btn-sm btn-light-primary b-modal" data-bs-toggle="modal"
+                     data-bs-target="#modalCreate">
+                     <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
+                     <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg"
+                           width="24" height="24" viewBox="0 0 24 24" fill="none">
+                           <path
+                              d="M21.4622 10.699C21.4618 10.6986 21.4613 10.6981 21.4609 10.6977L13.3016 2.53955C12.9538 2.19165 12.4914 2 11.9996 2C11.5078 2 11.0454 2.1915 10.6974 2.5394L2.54246 10.6934C2.53971 10.6961 2.53696 10.699 2.53422 10.7018C1.82003 11.42 1.82125 12.5853 2.53773 13.3017C2.86506 13.6292 3.29739 13.8188 3.75962 13.8387C3.77839 13.8405 3.79732 13.8414 3.81639 13.8414H4.14159V19.8453C4.14159 21.0334 5.10833 22 6.29681 22H9.48897C9.81249 22 10.075 21.7377 10.075 21.4141V16.707C10.075 16.1649 10.516 15.7239 11.0582 15.7239H12.941C13.4832 15.7239 13.9242 16.1649 13.9242 16.707V21.4141C13.9242 21.7377 14.1866 22 14.5102 22H17.7024C18.8909 22 19.8576 21.0334 19.8576 19.8453V13.8414H20.1592C20.6508 13.8414 21.1132 13.6499 21.4613 13.302C22.1786 12.5844 22.1789 11.4171 21.4622 10.699V10.699Z"
+                              fill="#00B2FF" />
+                        </svg></span>
+                     <!--end::Svg Icon--> Create New
+                  </button>
+               </div>
+               <!--end::Add user-->
+            </div>
+            <!--end::Toolbar-->
+            <!--begin::Group actions-->
+            <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
+               <div class="fw-bolder me-5">
+                  <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+               </div>
+               <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete
+                  Selected</button>
+            </div>
+            <!--end::Group actions-->
+         </div>
+         <!--end::Card toolbar-->
+      </div>
+      <!--end::Card header-->
+      <!--begin::Card body-->
+      <div class="card-body pt-0">
          <!--begin::Table-->
-         <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-            <!--begin::Table head-->
-            <thead>
-               <tr class="fw-bolder text-muted">
-                  <th class="min-w-150px">No.Rumah</th>
-                  <th class="min-w-140px">Status</th>
-                  <th class="min-w-120px">Tipe</th>
-                  <th class="min-w-100px text-end">Actions</th>
-               </tr>
-            </thead>
-            <!--end::Table head-->
-            <!--begin::Table body-->
-            <tbody>
-               @foreach (var item in ViewBag.DaftarRumah)
-               {
-                  <tr>
+         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+               <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users"
+                  role="grid">
+                  <!--begin::Table head-->
+                  <thead>
+                     <!--begin::Table row-->
+                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+                        <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" style="width: 29.25px;"
+                           aria-label="
 
-                     <td>@item.Number</td>
-                     @if (item.Status == Trisatech.KampDigi.Domain.Entities.HouseStatus.Occupied)
+
+
+                                       ">
+                           <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                              <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                 data-kt-check-target="#kt_table_users .form-check-input" value="1">
+                           </div>
+                        </th>
+                        <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                           colspan="1" style="width: 257.783px;" aria-label="User: activate to sort column ascending">No
+                           Rumah</th>
+                        <th class="min-w-125px sorting text-center" tabindex="0" aria-controls="kt_table_users"
+                           rowspan="1" colspan="1" style="width: 145.317px;"
+                           aria-label="Telephone: activate to sort column ascending">Status</th>
+                        <th class="min-w-125px sorting text-center" tabindex="0" aria-controls="kt_table_users"
+                           rowspan="1" colspan="1" style="width: 145.3px;"
+                           aria-label="Gender: activate to sort column ascending">Tipe</th>
+                        @if (userRole)
+                        {
+                           <th class="text-end min-w-100px sorting_disabled text-center" rowspan="1" colspan="1"
+                           style="width: 113.533px;" aria-label="Actions">Actions</th>
+                        }
+                     </tr>
+                     <!--end::Table row-->
+                  </thead>
+                  <!--end::Table head-->
+                  <!--begin::Table body-->
+                  <tbody class="text-gray-600 fw-bold">
+                     @foreach (var item in ViewBag.DaftarRumah)
                      {
-                        <td>Dimiliki</td>
+                        <tr class="odd">
+                           <!--begin::Checkbox-->
+                        <td>
+                              <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                 <input class="form-check-input" type="checkbox" value="1">
+                              </div>
+                           </td>
+                           <!--end::Checkbox-->
+                           <!--begin::User=-->
+                        <td class="d-flex align-items-center">
+                              <!--begin:: Avatar -->
+                           <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                 <div class="symbol-label">
+                                    <div class="symbol-label fs-3 bg-light-danger text-danger">@item.Number</div>
+                                    @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
+                                 </div>
+                              </div>
+                              <!--end::Avatar-->
+                        </td>
+                           <!--end::User=-->
+                           <!--begin::Role=-->
+                           @if (item.Status == Trisatech.KampDigi.Domain.Entities.HouseStatus.Occupied)
+                           {
+                              <td class="text-center">Dimiliki</td>
+                           }
+                           else if (item.Status == Trisatech.KampDigi.Domain.Entities.HouseStatus.Empty)
+                           {
+                              <td class="text-center">Kosong</td>
+                           }
+                           else
+                           {
+                              <td class="text-center">Disewakan</td>
+                           }
+                           @if (item.Type == Trisatech.KampDigi.Domain.Entities.HouseType.Residence)
+                           {
+                              <td class="text-center">Bangunan Hunian</td>
+                           }
+                           else if (item.Type == Trisatech.KampDigi.Domain.Entities.HouseType.Business)
+                           {
+                              <td class="text-center">Tempat Bisnis</td>
+                           }
+                           else
+                           {
+                              <td class="text-center">Lahan Kosong</td>
+                           }
+                           @if (userRole)
+                           {
+                              <td class="text-center">
+                                 <button type="button" data-id="@item.Id" class="btn btn-xs btn-warning b-edit">Edit</button>
+                                 <button type="button" data-id="@item.Id" class="btn btn-xs btn-danger b-hapus">Hapus</button>
+                              </td>
+
+                           }
+                        </tr>
                      }
-                     else if (item.Status == Trisatech.KampDigi.Domain.Entities.HouseStatus.Empty)
-                     {
-                        <td>Kosong</td>
-                     }
-                     else
-                     {
-                        <td>Disewakan</td>
-                     }
-                     @if (item.Type == Trisatech.KampDigi.Domain.Entities.HouseType.Residence)
-                     {
-                        <td>Bangunan Hunian</td>
-                     }
-                     else if (item.Type == Trisatech.KampDigi.Domain.Entities.HouseType.Business)
-                     {
-                        <td>Tempat Bisnis</td>
-                     }
-                     else
-                     {
-                        <td>Lahan Kosong</td>
-                     }
-                     <td>
-                        <button type="button" data-id="@item.Id" class="btn btn-sm btn-warning b-edit">Edit</button>
-                        <button type="button" data-id="@item.Id" class="btn btn-sm btn-danger b-hapus">Hapus</button>
-                     </td>
-                  </tr>
-               }
-            </tbody>
-            <!--end::Table body-->
-         </table>
+                  </tbody>
+                  <!--end::Table body-->
+               </table>
+            </div>
+            <div class="row">
+               <div
+                  class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+               </div>
+               <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+                  <div class="dataTables_paginate paging_simple_numbers" id="kt_table_users_paginate">
+                     <ul class="pagination">
+                        <li class="paginate_button page-item previous disabled" id="kt_table_users_previous"><a href="#"
+                              aria-controls="kt_table_users" data-dt-idx="0" tabindex="0" class="page-link"><i
+                                 class="previous"></i></a></li>
+                        <li class="paginate_button page-item active"><a href="#" aria-controls="kt_table_users"
+                              data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="kt_table_users"
+                              data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                        <li class="paginate_button page-item "><a href="#" aria-controls="kt_table_users"
+                              data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                        <li class="paginate_button page-item next" id="kt_table_users_next"><a href="#"
+                              aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" class="page-link"><i
+                                 class="next"></i></a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
          <!--end::Table-->
       </div>
-      <!--end::Table container-->
+      <!--end::Card body-->
    </div>
+   <!--end::Card-->
    <!--begin::Body-->
 </div>
 
