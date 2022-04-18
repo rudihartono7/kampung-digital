@@ -142,6 +142,7 @@ public class AccountController : BaseController
 
         return RedirectToAction("Index", "Home");
     }
+
     [Authorize(Roles = AppConstant.ADMIN)]
     public async Task<IActionResult> EditRole(Guid id)
     {
@@ -152,6 +153,11 @@ public class AccountController : BaseController
         }
 
         var dataUser = await _digiContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+        if (dataUser == null)
+        {
+            TempData["message"] = "User tidak dapat ditemukan";
+            return View();
+        }
 
         return View(new EditRoleModel
         {
