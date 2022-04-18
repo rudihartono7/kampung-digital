@@ -3,6 +3,13 @@
     ViewData["Menu"] = "Welcome";
     Layout = "_BaseTemplate";
 }
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success text-center" role="alert">
+        @ViewBag.Message
+    </div>
+}
 <div class="text-center">
     <div class="card card-flush shadow-sm">
         <div class="card-header">

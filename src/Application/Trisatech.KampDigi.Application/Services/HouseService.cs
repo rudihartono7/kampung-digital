@@ -21,7 +21,7 @@ public class HouseService : BaseDbService, IHouseService
       obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
       obj.CreatedBy = Guid.NewGuid();
       obj.UpdatedBy = obj.CreatedBy;
-      // obj.CreatedDate = DateTime.Now.ToLongDateString();
+      obj.CreatedDate = DateTime.Now;
       await Db.AddAsync(obj);
       await Db.SaveChangesAsync();
 

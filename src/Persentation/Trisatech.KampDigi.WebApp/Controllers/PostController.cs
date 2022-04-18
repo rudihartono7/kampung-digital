@@ -5,7 +5,7 @@ using Trisatech.KampDigi.Application.Models;
 using Trisatech.KampDigi.Domain.Entities;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using Trisatech.KampDigi.Helpers;
+using Trisatech.KampDigi.WebApp.Helpers;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
