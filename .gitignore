@@ -1,4 +1,4 @@
-###################
+﻿###################
 # compiled source #
 ###################
 *.com
@@ -76,4 +76,9 @@ _[Ss]cripts
 *.pubxml
 /.vs
 .vs/
+
 /.config
+
+/images
+images/
+
