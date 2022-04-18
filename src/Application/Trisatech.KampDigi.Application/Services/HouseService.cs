@@ -22,7 +22,6 @@ public class HouseService : BaseDbService, IHouseService
       obj.CreatedBy = Guid.NewGuid();
       obj.UpdatedBy = obj.CreatedBy;
       obj.CreatedDate = DateTime.Now;
-
       await Db.AddAsync(obj);
       await Db.SaveChangesAsync();
 
@@ -81,7 +80,7 @@ public class HouseService : BaseDbService, IHouseService
       house.Order = obj.Order;
       house.Status = obj.Status;
       house.Type = obj.Type;
-      house.UpdatedDate =  DateTime.Now;
+      house.UpdatedDate = DateTime.Now;
       house.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;
 
       Db.Update(house);

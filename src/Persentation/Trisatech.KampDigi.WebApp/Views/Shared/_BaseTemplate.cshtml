@@ -14,105 +14,147 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Head-->
 
 <head>
-	<meta charset="utf-8" />
-	<title>Kampung Digital</title>
-	<link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="shortcut icon" href="~/assets/media/logos/kamDig.svg" />
-	<!--begin::Fonts-->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-	<!--end::Fonts-->
-	<!--begin::Global Stylesheets Bundle(used by all pages)-->
-	<link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-	<link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	@RenderSection("Styles",required:false)
-	<!--end::Global Stylesheets Bundle-->
+    <meta charset="utf-8" />
+    <title>Kampung Digital</title>
+    <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="assets/media/logos/kamDig.svg" />
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
 </head>
 <!--end::Head-->
 <!--begin::Body-->
 
 <body id="kt_body" style="background-image: url(/assets/media/patterns/header-bg.jpg)"
-	class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
-	<!--begin::Main-->
-	<!--begin::Root-->
-	<div class="d-flex flex-column flex-root">
-		<!--begin::Page-->
-		<div class="page d-flex flex-row flex-column-fluid">
-			<!--begin::Wrapper-->
-			<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-				@Html.Partial("_HeaderPartial")
-				<!--begin::Toolbar-->
-				<div class="toolbar py-5 py-lg-15" id="kt_toolbar">
-					<!--begin::Container-->
-					<div id="kt_toolbar_container" class="container d-flex flex-stack flex-wrap">
-						<!--begin::Page title-->
-						<div class="page-title d-flex flex-column me-3">
-							<!--begin::Title-->
-							<h1 class="d-flex text-white fw-bolder my-1 fs-3">@ViewData["Title"]</h1>
-							<!--end::Title-->
-							<!--begin::Breadcrumb-->
-							<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
-								<!--begin::Item-->
-								<li class="breadcrumb-item text-white opacity-75">
-									<a href="index.html" class="text-white text-hover-primary">@ViewData["Menu"]</a>
-								</li>
-								<!--end::Item-->
-								<!--begin::Item-->
-								<li class="breadcrumb-item">
-									<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-								</li>
-								<!--end::Item-->
-								<!--begin::Item-->
-								<li class="breadcrumb-item text-white opacity-75">@ViewData["Title"]</li>
-								<!--end::Item-->
-							</ul>
-							<!--end::Breadcrumb-->
-						</div>
-						<!--end::Page title-->
-					</div>
-					<!--end::Container-->
-				</div>
-				<!--end::Toolbar-->
-				<!--begin::Container-->
-				<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
-					<!--begin::Post-->
-					<div class="content flex-row-fluid" id="kt_content">
-						<!--begin::Row-->
-						<div class="row gy-5 g-xl-8">
-							<!--begin::Col-->
-							<div class="col-xxl-12">
-								<!--begin::Mixed Widget 2-->
-								@RenderBody()
-								<!--end::Mixed Widget 2-->
-							</div>
-							<!--end::Col-->
-						</div>
-					</div>
-					<!--end::Post-->
-				</div>
-				<!--end::Container-->
-				@Html.Partial("_FooterPartial")
-			</div>
-			<!--end::Wrapper-->
-		</div>
-		<!--end::Page-->
-	</div>
-	<!--end::Root-->
-	<!--end::Main-->
-	<!--begin::Javascript-->
-	<!--begin::Global Javascript Bundle(used by all pages)-->
-	<script src="~/assets/plugins/global/plugins.bundle.js"></script>
-	<script src="~/assets/js/scripts.bundle.js"></script>
-	<!--end::Global Javascript Bundle-->
-	<!--begin::Page Custom Javascript(used by this page)-->
-	<script src="~/assets/js/custom/widgets.js"></script>
-	<script src="~/assets/js/custom/apps/chat/chat.js"></script>
-	<script src="~/assets/js/custom/modals/create-app.js"></script>
-	<script src="~/assets/js/custom/modals/upgrade-plan.js"></script>
-	<!--end::Page Custom Javascript-->
-	@await RenderSectionAsync("Scripts", required:false)
-	<!--end::Javascript-->
+      class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">
+    <!--begin::Main-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="page d-flex flex-row flex-column-fluid">
+            <!--begin::Wrapper-->
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                @if (ViewBag.IsLogged != null && ViewBag.IsLogged)
+                {
+                    @Html.Partial("_HeaderPartial")
+                }
+                else
+                {
+                    <div>
+                        <div id="kt_header" class="header align-items-stretch" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+                            <!--begin::Container-->
+                        <div class="container d-flex align-items-center">
+                                <!--begin::Heaeder menu toggle-->
+                            <div class="d-flex topbar align-items-center d-lg-none ms-n2 me-3" title="Show aside menu">
+                                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" id="kt_header_menu_mobile_toggle">
+                                        <!--begin::Svg Icon | path: icons/duotone/Text/Menu.svg-->
+                                    <span class="svg-icon svg-icon-2x">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
+                                                    <path d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z" fill="#000000" opacity="0.3" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                </div>
+                                </div>
+                                <!--end::Heaeder menu toggle-->
+                                <!--begin::Header Logo-->
+                            <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
+                                    <a asp-action="Index" asp-controller="Home">
+                                        <img alt="Logo" src="/assets/media/logos/kamDig.svg" class="logo-default h-50px rounded" />
+                                        <img alt="Logo" src="/assets/media/logos/kamDig.svg" class="logo-sticky h-50px rounded" />
+                                    </a>
+                                </div>
+                                <!--end::Header Logo-->
+                                <!--begin::Wrapper-->
+                            <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+                                    <!--begin::Navbar-->
+                                <div class="d-flex align-items-stretch" id="kt_header_nav">
+                                        <!--begin::Menu wrapper-->
+                                    <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+                                            <!--begin::Menu-->
+                                        <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
+                                                <div data-kt-menu-placement="bottom-start" class="menu-item here show menu-lg-down-accordion me-lg-1">
+                                                    <a class="menu-link active py-3" asp-action="Login" asp-controller="Account">
+                                                        <span class="menu-title">Login</span>
+                                                        <span class="menu-arrow d-lg-none" />
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item here show menu-lg-down-accordion me-lg-1">
+                                                    <a class="menu-link py-3" asp-action="Register" asp-controller="Account">
+                                                        <span class="menu-title">Register</span>
+                                                        <span class="menu-arrow d-lg-none" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Menu-->
+                                </div>
+                                    <!--end::Menu wrapper-->
+                            </div>
+                                <!--end::Navbar-->
+                                <!--begin::Topbar-->
+                                <!--end::Topbar-->
+                        </div>
+                            <!--end::Wrapper-->
+                    </div>
+                    </div>
+                }
+                <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+                    <!--begin::Container-->
+                    <!--end::Container-->
+                </div>
+                <!--end::Toolbar-->
+                <!--begin::Container-->
+                <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
+                    <!--begin::Post-->
+                    <div class="content flex-row-fluid" id="kt_content">
+                        <!--begin::Row-->
+                        <div class="row gy-5 g-xl-8">
+                            <!--begin::Col-->
+                            @RenderBody()
+                            <!--end::Col-->
+                        </div>
+                    </div>
+                    <!--end::Post-->
+                </div>
+                <!--end::Container-->
+                @Html.Partial("_FooterPartial")
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+    <!--end::Root-->
+    <!--end::Main-->
+    <!--begin::Javascript-->
+    <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Page Vendors Javascript(used by this page)-->
+    <script src="~/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    <!--end::Page Vendors Javascript-->
+    <!--begin::Page Custom Javascript(used by this page)-->
+    <script src="~/assets/js/custom/widgets.js"></script>
+    <script src="~/assets/js/custom/apps/chat/chat.js"></script>
+    <script src="~/assets/js/custom/modals/create-app.js"></script>
+    <script src="~/assets/js/custom/modals/upgrade-plan.js"></script>
+    <script src="~/assets/js/custom/apps/user-management/users/list/table.js"></script>
+    <script src="~/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
+    <script src="~/assets/js/custom/apps/user-management/users/list/add.js"></script>
+    <!--end::Page Custom Javascript-->
+    <!--end::Javascript-->
+    @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 <!--end::Body-->
 

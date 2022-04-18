@@ -1,0 +1,72 @@
+﻿@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.Account.EditRoleModel
+@{
+    Layout = "_BaseTemplate";
+}
+
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Edit User</h2>
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+        <!--begin::Form-->
+        <form asp-action="EditRole" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--begin::Scroll-->
+            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px" style="max-height: 108px;">
+                <!--begin::Input group-->
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">UserName</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input asp-for="Username" type="text" disabled class="form-control form-control-solid mb-3 mb-lg-0" value="@Model.Username">
+                    <!--end::Input-->
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Email</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <select asp-for="Role" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<Role>()">
+                        </select>
+                    <!--end::Input-->
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <!--end::Input group-->
+            </div>
+            <!--end::Scroll-->
+            <!--begin::Actions-->
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-white me-3" data-kt-users-modal-action="cancel">Discard</button>
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">Submit</span>
+                </button>
+            </div>
+            <!--end::Actions-->
+            <div></div>
+            <div></div>
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>

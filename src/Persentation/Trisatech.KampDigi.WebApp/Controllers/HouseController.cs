@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trisatech.KampDigi.Application.Interfaces;
-using Trisatech.KampDigi.Application.Models.Rumah;
+using Trisatech.KampDigi.Application.Models;
 using Trisatech.KampDigi.WebApp.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
