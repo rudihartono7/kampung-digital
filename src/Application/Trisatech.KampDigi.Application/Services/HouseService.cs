@@ -81,7 +81,7 @@ public class HouseService : BaseDbService, IHouseService
       house.Order = obj.Order;
       house.Status = obj.Status;
       house.Type = obj.Type;
-      house.UpdatedDate = DateTime.Now;
+      house.UpdatedDate =  DateTime.Now;
       house.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;
 
       Db.Update(house);
