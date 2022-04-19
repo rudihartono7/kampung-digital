@@ -1,0 +1,100 @@
+﻿@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.Resident.ResidentAddModel
+
+@{
+    Layout = "_BaseTemplate";
+}
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="ResidentAdd" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdentityNumber" class="control-label"></label>
+                <input asp-for="IdentityNumber" class="form-control" />
+                <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupantType" class="control-label"></label>
+                <select asp-for="OccupantType" asp-items="Html.GetEnumSelectList<OccupantType>()">
+                </select>
+                <span asp-validation-for="OccupantType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalOccupant" class="control-label"></label>
+                <input asp-for="TotalOccupant" class="form-control" />
+                <span asp-validation-for="TotalOccupant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyCallName" class="control-label"></label>
+                <input asp-for="EmergencyCallName" class="form-control" />
+                <span asp-validation-for="EmergencyCallName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyCallNumber" class="control-label"></label>
+                <input asp-for="EmergencyCallNumber" class="form-control" />
+                <span asp-validation-for="EmergencyCallNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyCallRelation" class="control-label"></label>
+                <select asp-for="EmergencyCallRelation" asp-items="Html.GetEnumSelectList<Relationship>()">
+                    </select>
+                <span asp-validation-for="EmergencyCallRelation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KTP" class="control-label"></label>
+                <input asp-for="KTP" class="form-control" />
+                <span asp-validation-for="KTP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KK" class="control-label"></label>
+                <input asp-for="KK" class="form-control" />
+                <span asp-validation-for="KK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HouseId" class="control-label"></label>
+                <select asp-for="HouseId" class="form-control" asp-items="ViewBag.House"></select>
+                <span asp-validation-for="HouseId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsOccupant" /> @Html.DisplayNameFor(model => model.IsOccupant)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" asp-items="Html.GetEnumSelectList<Role>()">
+                    </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

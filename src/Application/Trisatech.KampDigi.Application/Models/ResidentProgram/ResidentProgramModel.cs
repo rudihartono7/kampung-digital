@@ -1,12 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Trisatech.KampDigi.Domain.Entities;
-
-namespace Trisatech.KampDigi.Application.Models.ResidentProgram
+namespace Trisatech.KampDigi.Application.Models
 {
    public class ResidentProgramModel
    {
-      public Guid Id {get; set;}
+      public Guid? Id { get; set; }
       public int Year { get; set; }
       public string ProgramSubject { get; set; }
       public string Title { get; set; }
@@ -16,6 +13,27 @@ namespace Trisatech.KampDigi.Application.Models.ResidentProgram
       public DateTime? StartDate { get; set; }
       public DateTime? EndDate { get; set; }
       public Guid PersonInChargeId { get; set; }
-      public virtual Resident PersonInCharge { get; set; }
+      public string PersonInChargeName { get; set; }
+      public virtual Trisatech.KampDigi.Domain.Entities.Resident PersonInCharge { get; set; }
+
+      public ResidentProgram ConvertToDbModel()
+      {
+         return new ResidentProgram()
+         {
+            Id = (this.Id == null) ? Guid.NewGuid() : this.Id.Value,
+            Year = this.Year,
+            ProgramSubject = this.ProgramSubject,
+            Title = this.Title,
+            Desc = this.Desc,
+            Cost = this.Cost,
+            ProgramPeriod = this.ProgramPeriod,
+            StartDate = this.StartDate,
+            EndDate = this.EndDate,
+            PersonInChargeId = this.PersonInChargeId
+         };
+      }
+
    }
+
 }
+

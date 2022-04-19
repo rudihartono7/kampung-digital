@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Trisatech.KampDigi.Application.Models.ResidentProgram;
 using Trisatech.KampDigi.Domain;
+using Trisatech.KampDigi.Domain.Entities;
 
 namespace Trisatech.KampDigi.Application.Interfaces;
 
@@ -11,7 +11,7 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
    {
    }
 
-   public async Task<ResidentProgramModel> Add(ResidentProgramModel req)
+   public async Task<ResidentProgram> Add(ResidentProgram req)
    {
       await Db.AddAsync(req);
       await Db.SaveChangesAsync();
@@ -24,25 +24,25 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
       throw new NotImplementedException();
    }
 
-   public Task<List<ResidentProgramModel>> Get(int limit, int offset, string keyword)
+   public Task<List<ResidentProgram>> Get(int limit, int offset, string keyword)
    {
       throw new NotImplementedException();
    }
 
-   public Task<ResidentProgramModel> Get(Guid id)
+   public Task<ResidentProgram> Get(Guid id)
    {
       throw new NotImplementedException();
    }
 
-   public Task<ResidentProgramModel> Get(Expression<Func<ResidentProgramModel, bool>> func)
+   public Task<ResidentProgram> Get(Expression<Func<ResidentProgram, bool>> func)
    {
       throw new NotImplementedException();
    }
 
-   public async Task<List<ResidentProgramModel>> GetAll()
+   public async Task<List<ResidentProgram>> GetAll()
    {
       var data = await (from a in Db.ResidentPrograms
-                        select new ResidentProgramModel
+                        select new ResidentProgram
                         {
                            Year = a.Year,
                            Title = a.Title,
@@ -58,7 +58,7 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
       return data;
    }
 
-   public Task<ResidentProgramModel> Update(ResidentProgramModel obj)
+   public Task<ResidentProgram> Update(ResidentProgram obj)
    {
       throw new NotImplementedException();
    }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trisatech.KampDigi.Domain;
 
@@ -10,9 +11,10 @@ using Trisatech.KampDigi.Domain;
 namespace Trisatech.KampDigi.Domain.Migrations
 {
     [DbContext(typeof(KampDigiContext))]
-    partial class KampDigiContextModelSnapshot : ModelSnapshot
+    [Migration("20220413064606_AlterTableUser2")]
+    partial class AlterTableUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +32,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Desc")
                         .IsRequired()
@@ -64,8 +66,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Evidence")
                         .HasColumnType("longtext");
@@ -125,8 +127,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime(6)");
@@ -173,8 +175,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -217,8 +219,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Desc")
                         .HasColumnType("longtext");
@@ -251,58 +253,6 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("char(36)");
-
-                    b.Property<int>("AuditActivty")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Desc")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("PublicLink")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("SellerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("WhatsappNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Trisatech.KampDigi.Domain.Entities.Publication", b =>
@@ -357,8 +307,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("GMapLink")
                         .HasColumnType("longtext");
@@ -409,8 +359,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("EmergencyCallName")
                         .IsRequired()
@@ -482,8 +432,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
@@ -536,8 +486,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("DueDateNumber")
                         .HasColumnType("int");
@@ -573,8 +523,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Desc")
                         .HasColumnType("longtext");
@@ -615,8 +565,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
@@ -659,8 +609,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<decimal>("CurrentBalance")
                         .HasColumnType("decimal(65,30)");
@@ -699,8 +649,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Desc")
                         .HasColumnType("longtext");
@@ -754,8 +704,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("CreditSource")
                         .HasColumnType("int");
@@ -807,8 +757,8 @@ namespace Trisatech.KampDigi.Domain.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("CreatedDate")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasMaxLength(100)
