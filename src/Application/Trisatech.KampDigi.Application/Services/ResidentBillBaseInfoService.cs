@@ -20,6 +20,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
             throw new Exception("Resident Bill Base Info already exists");
         }
 
+        obj.CreatedDate = DateTime.Now;
         await Db.ResidentBillBaseInfos.AddAsync(obj);
         await Db.SaveChangesAsync();
 
@@ -86,6 +87,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
         bill.Nominal = obj.Nominal;
         bill.MontlyBillOpenDate = obj.MontlyBillOpenDate;
         bill.DueDateNumber = obj.DueDateNumber;
+        bill.UpdatedDate = DateTime.Now;
 
         Db.Update(bill);
         await Db.SaveChangesAsync();

@@ -4,10 +4,7 @@ using Trisatech.KampDigi.Domain.Entities;
 using Trisatech.KampDigi.Application.Models;
 
 namespace Trisatech.KampDigi.Application.Interfaces;
-public interface IResidentBillService 
+public interface IResidentBillService : ICrudService<ResidentBill>
 {
-    Task<ResidentBill> Generated(ResidentBill newResidentBill);
-    Task<List<ResidentBillModel>> GetAll();
-    Task<List<ResidentBillModel>> Get(Guid idResident);
-    //Task<ResidentBillModel> GetDetail(Guid idResidentBill, Guid idResident);
+    Task<List<ResidentBillModel>> GetResident(Guid residentId);
 }
