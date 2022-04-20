@@ -49,6 +49,7 @@ public class ResidentBillBaseInfoController : Controller
         {
             return BadRequest(ModelState);
         }
+
         try{
             await _residentBillBaseInfoService.Add(request.ConvertToDbModel());
 
@@ -93,7 +94,7 @@ public class ResidentBillBaseInfoController : Controller
 
         try
         {
-            await _residentBillBaseInfoService.Update(request.ConvertToDbModel());
+            await _residentBillBaseInfoService.Update(request.ConvertUpdateToDbModel());
 
             return Redirect(nameof(Index));
         }

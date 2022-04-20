@@ -15,7 +15,7 @@ public class ResidentBillBaseInfoService : BaseDbService, IResidentBillBaseInfoS
 
     public async Task<ResidentBillBaseInfo> Add(ResidentBillBaseInfo obj)
     {
-        if(await Db.ResidentBillBaseInfos.AnyAsync(x=>x.Id== obj.Id))
+        if(await Db.ResidentBillBaseInfos.AnyAsync(x=>x.Id== obj.Id || x.Year == obj.Year))
         {
             throw new Exception("Resident Bill Base Info already exists");
         }

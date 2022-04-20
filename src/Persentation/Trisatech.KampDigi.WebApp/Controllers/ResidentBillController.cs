@@ -22,19 +22,7 @@ public class ResidentBillController : Controller
     {
         var result = await _residentBillService.Get(GetCurrentUserGuid());
 
-        var model = new List<ResidentBillModel>();
-
-        for(int i = 0; i < result.Count; i++)
-        {
-            model.Add(new ResidentBillBaseInfoModel
-            {
-                Id = result[i].Id,
-                NameResident = result[i].NameResident,
-                Nominal = result[i].Nominal,
-                Status = result[i].Status,
-            });
-        }
-        return View(model);
+        return View();
     }
 
     public Guid GetCurrentUserGuid()
