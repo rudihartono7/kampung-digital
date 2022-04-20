@@ -1,0 +1,479 @@
+@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.ResidenceModel;
+
+@{
+   Layout = "_BaseTemplate";
+}
+
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
+   <!--begin::Post-->
+   <div class="content flex-row-fluid" id="kt_content">
+      <!--begin::About card-->
+      <div class="card">
+         <!--begin::Body-->
+         <div class="card-body p-lg-17">
+            <!--begin::About-->
+            <div class="mb-18">
+               <!--begin::Wrapper-->
+               <div class="mb-10">
+                  <!--begin::Top-->
+                  <div class="text-center mb-15">
+                     <!--begin::Title-->
+                     <h3 class="fs-2hx text-dark mb-5">@Model.Name</h3>
+                     <!--end::Title-->
+                     <!--begin::Text-->
+                     <div class="fs-5 text-muted fw-bold">@Model.Address</div>
+                     <!--end::Text-->
+                  </div>
+                  <!--end::Top-->
+                  <!--begin::Overlay-->
+                  <div class="overlay">
+                     <!--begin::Image-->
+                     <img class="w-100 card-rounded" src="src/Persentation/Trisatech.KampDigi.WebApp/images/@Model.ImageUrl" alt="img" />
+                     <!--end::Image-->
+                  </div>
+                  <!--end::Container-->
+               </div>
+               <!--end::Wrapper-->
+            </div>
+            <!--end::About-->
+            <!--begin::Statistics-->
+            <div class="card bg-light mb-18">
+               <!--begin::Body-->
+               <div class="card-body py-15">
+                  <!--begin::Wrapper-->
+                  <div class="d-flex flex-center">
+                     <!--begin::Items-->
+                     <div class="d-flex justify-content-between mb-10 mx-auto w-xl-900px">
+                        <!--begin::Item-->
+                        <div class="octagon d-flex flex-center h-200px w-200px bg-white mx-2">
+                           <!--begin::Content-->
+                           <div class="text-center">
+                              <!--begin::Symbol-->
+                              <!--begin::Svg Icon | path: assets/media/icons/duotone/Map/Marker2.svg-->
+                              <span class="svg-icon svg-icon-2tx svg-icon-primary"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                       <rect x="0" y="0" width="24" height="24" />
+                                       <path
+                                          d="M9.82829464,16.6565893 C7.02541569,15.7427556 5,13.1079084 5,10 C5,6.13400675 8.13400675,3 12,3 C15.8659932,3 19,6.13400675 19,10 C19,13.1079084 16.9745843,15.7427556 14.1717054,16.6565893 L12,21 L9.82829464,16.6565893 Z M12,12 C13.1045695,12 14,11.1045695 14,10 C14,8.8954305 13.1045695,8 12,8 C10.8954305,8 10,8.8954305 10,10 C10,11.1045695 10.8954305,12 12,12 Z"
+                                          fill="#000000" />
+                                    </g>
+                                 </svg></span>
+                              <!--end::Svg Icon-->
+                              <!--end::Symbol-->
+                              <!--begin::Text-->
+                              <div class="mt-1">
+                                 <!--begin::Animation-->
+                                 <div class="fs-lg-2hx fs-2x fw-bolder text-gray-800 d-flex align-items-center">
+                                    <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="700">0</div>+
+                                 </div>
+                                 <!--end::Animation-->
+                                 <!--begin::Label-->
+                                 <span class="text-gray-600 fw-bold fs-5 lh-0">Visited</span>
+                                 <!--end::Label-->
+                              </div>
+                              <!--end::Text-->
+                           </div>
+                           <!--end::Content-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="octagon d-flex flex-center h-200px w-200px bg-white mx-2">
+                           <!--begin::Content-->
+                           <a href="@Model.GMapLink" class="text-center">
+                              <!--begin::Symbol-->
+                              <!--begin::Svg Icon | path: icons/duotone/Interface/Pie-04.svg-->
+                              <!--begin::Svg Icon | path: assets/media/icons/duotone/Interface/Map-Marker.svg-->
+                              <span class="svg-icon svg-icon-2tx svg-icon-success mb-2"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25"
+                                    fill="none">
+                                    <path opacity="0.25"
+                                       d="M21 10C21 15.4917 16.1746 20.1791 13.5904 22.2957C12.6534 23.0631 11.3466 23.0631 10.4096 22.2957C7.82537 20.1791 3 15.4917 3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10Z"
+                                       fill="#191213" />
+                                    <path
+                                       d="M15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9Z"
+                                       fill="#121319" />
+                                 </svg></span>
+                              <!--end::Svg Icon-->
+                              <!--begin::Text-->
+                              <div class="mt-4">
+                                 <!--begin::Label-->
+                                 <span class="text-gray-600 fw-bold fs-3 lh-0">Find Us On Google</span>
+                                 <!--end::Label-->
+                              </div>
+                              <!--end::Text-->
+                           </a>
+                           <!--end::Content-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="octagon d-flex flex-center h-200px w-200px bg-white mx-2">
+                           <!--begin::Content-->
+                           <a asp-action="Index" asp-controller="House" class="text-center">
+                              <!--begin::Symbol-->
+                              <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
+                              <span class="svg-icon svg-icon-2tx svg-icon-info"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                       d="M21.4622 10.699C21.4618 10.6986 21.4613 10.6981 21.4609 10.6977L13.3016 2.53955C12.9538 2.19165 12.4914 2 11.9996 2C11.5078 2 11.0454 2.1915 10.6974 2.5394L2.54246 10.6934C2.53971 10.6961 2.53696 10.699 2.53422 10.7018C1.82003 11.42 1.82125 12.5853 2.53773 13.3017C2.86506 13.6292 3.29739 13.8188 3.75962 13.8387C3.77839 13.8405 3.79732 13.8414 3.81639 13.8414H4.14159V19.8453C4.14159 21.0334 5.10833 22 6.29681 22H9.48897C9.81249 22 10.075 21.7377 10.075 21.4141V16.707C10.075 16.1649 10.516 15.7239 11.0582 15.7239H12.941C13.4832 15.7239 13.9242 16.1649 13.9242 16.707V21.4141C13.9242 21.7377 14.1866 22 14.5102 22H17.7024C18.8909 22 19.8576 21.0334 19.8576 19.8453V13.8414H20.1592C20.6508 13.8414 21.1132 13.6499 21.4613 13.302C22.1786 12.5844 22.1789 11.4171 21.4622 10.699V10.699Z"
+                                       fill="#00B2FF" />
+                                 </svg></span>
+                              <!--end::Svg Icon-->
+                              <!--end::Symbol-->
+                              <!--begin::Text-->
+                              <div class="mt-1">
+                                 <!--begin::Animation-->
+                                 <div class="fs-lg-2hx fs-2x fw-bolder text-gray-800 d-flex justify-items-center">
+                                    <div data-kt-countup="true" data-kt-countup-value="@Model.Houses.Count" style="min-width: 100%;">0</div>
+                                 </div>
+                                 <!--end::Animation-->
+                                 <!--end::Animation-->
+                                 <!--begin::Label-->
+                                 <span class="text-gray-600 fw-bold fs-5 lh-0">House And Building</span>
+                                 <!--end::Label-->
+                              </div>
+                              <!--end::Text-->
+                           </a>
+                           <!--end::Content-->
+                        </div>
+                        <!--end::Item-->
+                     </div>
+                     <!--end::Items-->
+                  </div>
+                  <!--end::Wrapper-->
+               </div>
+               <!--end::Body-->
+            </div>
+            <!--begin::Toolbar-->
+            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+               <!--begin::Add user-->
+               <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+                  title="Klik untuk Edit">
+                  <button type="button" class="btn btn-sm btn-light-primary b-modal" data-bs-toggle="modal"
+                     data-bs-target="#modalCreate">
+                     <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
+                     <!--begin::Svg Icon | path: assets/media/icons/duotone/Design/Edit.svg-->
+                     <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                           <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>
+                           <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"/>
+                     </svg></span>
+                  </button>
+               </div>
+               <!--end::Add user-->
+            </div>
+            <!--end::Toolbar-->
+            <!--end::Statistics-->
+            <div class="page d-flex flex-row flex-column-fluid">
+               <!--begin::Wrapper-->
+               <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                  <!--begin::Container-->
+                  <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
+                     <!--begin::Post-->
+                     <div class="content flex-row-fluid" id="kt_content">
+                        <!--begin::Modal - Create-->
+                        <div class="modal fade" id="modalCreate" tabindex="-1" aria-hidden="true">
+                           <!--begin::Modal dialog-->
+                           <div class="modal-dialog modal-dialog-centered mw-650px">
+                              <!--begin::Modal content-->
+                              <div class="modal-content rounded">
+                                 <!--begin::Modal header-->
+                                 <div class="modal-header pb-0 border-0 justify-content-end">
+                                    <!--begin::Close-->
+                                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                       <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                                       <span class="svg-icon svg-icon-1">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                             width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                             <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                                fill="#000000">
+                                                <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                                <rect fill="#000000" opacity="0.5"
+                                                   transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                                   x="0" y="7" width="16" height="2" rx="1" />
+                                             </g>
+                                          </svg>
+                                       </span>
+                                       <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Close-->
+                                 </div>
+                                 <!--begin::Modal header-->
+                                 <!--begin::Modal body-->
+                                 <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                                    <!--begin:Form-->
+                                    <form id="createForm" asp-action="Edit" method="post" class="form">
+                                       <!--begin::Heading-->
+                                       <div class="mb-13 text-center">
+                                          <!--begin::Title-->
+                                          <h1 class="mb-3">Ubah Data Residence</h1>
+                                          <!--end::Title-->
+                                          <!--begin::Description-->
+                                          <div class="text-gray-400 fw-bold fs-5">Di
+                                             <a href="#" class="fw-bolder link-primary">Kampung Digital</a>.
+                                          </div>
+                                          <!--end::Description-->
+                                       </div>
+                                       <!--end::Heading-->
+                                       <!--begin::Input group-->
+                                       <div class="d-flex flex-column mb-8 fv-row">
+                                          <!--begin::Label-->
+                                          <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <span class="required">Nama Residence</span>
+                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                title="Masukan Nomer Rumah Ditinggali"></i>
+                                          </label>
+                                          <!--end::Label-->
+                                          <input type="text" class="form-control form-control-solid" placeholder="Nomer Rumah"
+                                             name="Name" />
+                                          <input type="hidden" name="Id" />
+                                       </div>
+                                       <!--end::Input group-->
+                                       <!--begin::Input group-->
+                                       <div class="d-flex flex-column mb-8 fv-row">
+                                          <!--begin::Label-->
+                                          <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <span class="required">Alamat Residence</span>
+                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                title="Alamat Residence"></i>
+                                          </label>
+                                          <!--end::Label-->
+                                          <input type="text" class="form-control form-control-solid" placeholder="Nomer Rumah"
+                                             name="Address" />
+                                       </div>
+                                       <!--end::Input group-->
+                                       <!--begin::Input group-->
+                                       <div class="d-flex flex-column mb-8 fv-row">
+                                          <!--begin::Label-->
+                                          <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                             <span class="required">No Urut Rumah</span>
+                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                title="Nomor urut rumah berdasarkan lama kependudukan, urutan dimulai dari 00"></i>
+                                          </label>
+                                          <!--end::Label-->
+                                          <input type="text" class="form-control form-control-solid" name="Order"
+                                             placeholder="001" />
+                                       </div>
+                                       <!--end::Input group-->
+                                       <!--begin::Actions-->
+                                       <div class="text-center">
+                                          <button data-bs-dismiss="modal" class="btn btn-white me-3">Cancel</button>
+                                          <button type="submit" class="btn btn-primary b-submit">
+                                             <span class="indicator-label">Submit</span>
+                                             <span class="indicator-progress">Please wait...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                          </button>
+                                       </div>
+                                       <!--end::Actions-->
+                                    </form>
+                                    <!--end:Form-->
+                                 </div>
+                                 <!--end::Modal body-->
+                              </div>
+                              <!--end::Modal content-->
+                           </div>
+                           <!--end::Modal dialog-->
+                        </div>
+                        <!--end::Modal - Create-->
+
+                     </div>
+                     <!--end::Post-->
+                  </div>
+                  <!--end::Container-->
+               </div>
+               <!--end::Wrapper-->
+            </div>
+            <!--begin::Team-->
+            <div class="mb-18">
+               <!--begin::Slider-->
+               <div class="tns tns-default mb-10">
+                  <!--begin::Wrapper-->
+                  <div data-tns="true" data-tns-loop="true" data-tns-swipe-angle="false" data-tns-speed="2000"
+                     data-tns-autoplay="true" data-tns-autoplay-timeout="18000" data-tns-controls="true"
+                     data-tns-nav="false" data-tns-items="1" data-tns-center="false" data-tns-dots="false"
+                     data-tns-prev-button="#kt_team_slider_prev" data-tns-next-button="#kt_team_slider_next"
+                     data-tns-responsive="{1200: {items: 3}, 992: {items: 2}}">
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('~/assets/media/avatars/150-2.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">Paul Miles</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Kepala Rw</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('~/assets/media/avatars/150-3.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">Melisa Marcus</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Bendahara</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('~/assets/media/avatars/150-4.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">David Nilson</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Keamanan</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('~/assets/media/avatars/150-5.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">Anne Clarc</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Sekertaris</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('~/assets/media/avatars/150-6.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">Ricky Hunt</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Humas</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('assets/media/avatars/150-7.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">Alice Wayde</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Kerohanian</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                     <!--begin::Item-->
+                     <div class="text-center">
+                        <!--begin::Photo-->
+                        <div
+                           class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-contain bgi-position-center"
+                           style="background-image:url('assets/media/avatars/150-8.jpg')"></div>
+                        <!--end::Photo-->
+                        <!--begin::Person-->
+                        <div class="mb-0">
+                           <!--begin::Name-->
+                           <a href="#" class="text-dark fw-bolder text-hover-primary fs-3">Carles Puyol</a>
+                           <!--end::Name-->
+                           <!--begin::Position-->
+                           <div class="text-muted fs-6 fw-bold mt-1">Ketua RT</div>
+                           <!--begin::Position-->
+                        </div>
+                        <!--end::Person-->
+                     </div>
+                     <!--end::Item-->
+                  </div>
+                  <!--end::Wrapper-->
+                  <!--begin::Button-->
+                  <button class="btn btn-icon btn-active-color-primary" id="kt_team_slider_prev">
+                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-left.svg-->
+                     <span class="svg-icon svg-icon-3x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                           height="24px" viewBox="0 0 24 24" version="1.1">
+                           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <polygon points="0 0 24 0 24 24 0 24" />
+                              <path
+                                 d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                                 fill="#000000" fill-rule="nonzero"
+                                 transform="translate(12.000003, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-12.000003, -11.999999)" />
+                           </g>
+                        </svg>
+                     </span>
+                     <!--end::Svg Icon-->
+                  </button>
+                  <!--end::Button-->
+                  <!--begin::Button-->
+                  <button class="btn btn-icon btn-active-color-primary" id="kt_team_slider_next">
+                     <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-right.svg-->
+                     <span class="svg-icon svg-icon-3x">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                           height="24px" viewBox="0 0 24 24" version="1.1">
+                           <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <polygon points="0 0 24 0 24 24 0 24" />
+                              <path
+                                 d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                                 fill="#000000" fill-rule="nonzero"
+                                 transform="translate(12.000003, 11.999999) rotate(-270.000000) translate(-12.000003, -11.999999)" />
+                           </g>
+                        </svg>
+                     </span>
+                     <!--end::Svg Icon-->
+                  </button>
+                  <!--end::Button-->
+               </div>
+               <!--end::Slider-->
+            </div>
+            <!--end::Team-->
+         </div>
+         <!--end::Body-->
+      </div>
+      <!--end::About card-->
+   </div>
+   <!--end::Post-->
+</div>
+

@@ -21,6 +21,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IResidentService, ResidentService>();
 builder.Services.AddScoped<IResidentFamilyService, ResidentFamilyService>();
 builder.Services.AddScoped<IHouseService, HouseService>();
+builder.Services.AddScoped<IResidenceService, ResidenceService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
@@ -28,10 +29,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(
         options =>
         {
-            options.ExpireTimeSpan = TimeSpan.FromDays(30);
-            options.SlidingExpiration = true;
-            options.AccessDeniedPath = "/Home/Denied";
-            options.LoginPath = "/Account/Login";
+           options.ExpireTimeSpan = TimeSpan.FromDays(30);
+           options.SlidingExpiration = true;
+           options.AccessDeniedPath = "/Home/Denied";
+           options.LoginPath = "/Account/Login";
         });
 
 var app = builder.Build();
@@ -39,9 +40,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+   app.UseExceptionHandler("/Home/Error");
+   // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+   app.UseHsts();
 }
 
 app.UseHttpsRedirection();

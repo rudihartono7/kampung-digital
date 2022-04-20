@@ -38,6 +38,7 @@ namespace Trisatech.KampDigi.Domain.Entities
         public string Number { get; set; }
         public HouseType Type { get; set; }
         public HouseStatus Status { get; set; }
+        public Guid ResidenceId {get;set;}
         
         public virtual ICollection<Resident> ResidentHistory { get; set; }
     }
