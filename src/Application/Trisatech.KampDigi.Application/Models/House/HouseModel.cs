@@ -1,6 +1,6 @@
 using Trisatech.KampDigi.Domain.Entities;
 
-namespace Trisatech.KampDigi.Application.Models.Rumah
+namespace Trisatech.KampDigi.Application.Models
 {
    public class HouseModel
    {
@@ -11,7 +11,6 @@ namespace Trisatech.KampDigi.Application.Models.Rumah
       public HouseType Type { get; set; }
       public HouseStatus Status { get; set; }
 
-      public virtual ICollection<Resident> ResidentHistory { get; set; }
 
       public House ConvertToDbModel()
       {

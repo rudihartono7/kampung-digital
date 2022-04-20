@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trisatech.KampDigi.Application.Interfaces;
-using Trisatech.KampDigi.Application.Models.Rumah;
+using Trisatech.KampDigi.Application.Models;
 using Trisatech.KampDigi.WebApp.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
@@ -47,78 +47,117 @@ public class HouseController : Controller
    {
       if (!ModelState.IsValid)
       {
-         return View(request);
+         return Json(new
+         {
+            success = false,
+            message = "Model invalid!"
+         });
       }
       if (request == null)
       {
-         return View(request);
+         return Json(new
+         {
+            success = false,
+            message = "request kosong!"
+         });
       }
       try
       {
 
          var house = request.ConvertToDbModel();
          await _houseService.Add(house);
-         return RedirectToAction(nameof(Index));
+         return Json(new
+         {
+            success = true,
+            message = "Data berhasil disimpan!"
+         });
       }
       catch (InvalidOperationException ex)
       {
-         ViewBag.ErrorMessage = ex.Message;
+         return Json(new
+         {
+            success = false,
+            message = ex
+         });
       }
       catch (Exception)
       {
          throw;
       }
-      return View(request);
    }
 
    public async Task<IActionResult> Edit(Guid? id)
    {
       if (id == null)
       {
-         throw new Exception("Tidak ada Id yang dikirim ke server !");
+         return Json(new
+         {
+            success = false,
+            message = "Invalid Operation"
+         });
       }
       var data = await _houseService.Get(id.Value);
       if (data == null)
       {
-         throw new Exception("Data yang diminta tidak tersedia di server !");
+         return Json(new
+         {
+            success = false,
+            message = "Rumah tidak ditemukan di database"
+         });
       }
-      return View(new HouseModel()
+      return Json(new
       {
-         Id = data.Id,
-         Number = data.Number,
-         Order = data.Order,
-         Status = data.Status,
-         Type = data.Type
+         success = true,
+         id = data.Id,
+         number = data.Number,
+         order = data.Order,
+         status = data.Status,
+         type = data.Type
       });
    }
 
    [HttpPost]
-   public async Task<IActionResult>EditRumah(HouseModel request)
+   public async Task<IActionResult> EditRumah(HouseModel request)
    {
       if (!ModelState.IsValid)
       {
-         return View(request);
+         return Json(new
+         {
+            success = false,
+            message = "Model invalid!"
+         });
       }
       if (request == null)
       {
-         return View(request);
+         return Json(new
+         {
+            success = false,
+            message = "request kosong!"
+         });
       }
       try
       {
 
          var house = request.ConvertToDbModel();
          await _houseService.Update(house);
-         return RedirectToAction(nameof(Index));
+         return Json(new
+         {
+            success = true,
+            message = "Proses Edit berhasil disimpan!"
+         });
       }
       catch (InvalidOperationException ex)
       {
-         ViewBag.ErrorMessage = ex.Message;
+         return Json(new
+         {
+            success = false,
+            message = ex
+         });
       }
       catch (Exception)
       {
          throw;
       }
-      return View(request);
    }
 
    [HttpPost]

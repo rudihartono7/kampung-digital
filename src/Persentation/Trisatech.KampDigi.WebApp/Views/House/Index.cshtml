@@ -1,24 +1,49 @@
-@model Trisatech.KampDigi.Application.Models.Rumah.HouseModel
+@model Trisatech.KampDigi.Application.Models.HouseModel
 @{
    ViewData["Title"] = "List Rumah";
    ViewData["Menu"] = "Rumah";
    Layout = "_BaseTemplate";
 }
-<div class="text-center">
-   <div class="card card-flush shadow-sm card-xl">
-      <div class="card-header">
-         <h3 class="card-title">List Rumah</h3>
+
+<div class="card card-xxl-stretch mb-5 mb-xl-8">
+   <!--begin::Header-->
+   <div class="card-header border-0 pt-5">
+      <h3 class="card-title align-items-start flex-column">
+         <span class="card-label fw-bolder fs-3 mb-1">@ViewData["Title"]</span>
+      </h3>
+      <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+         title="Klik untuk menambah keterangan rumah">
+         <button type="button" class="btn btn-sm btn-light-primary b-modal" data-bs-toggle="modal"
+            data-bs-target="#modalCreate">
+            <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
+            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                     d="M21.4622 10.699C21.4618 10.6986 21.4613 10.6981 21.4609 10.6977L13.3016 2.53955C12.9538 2.19165 12.4914 2 11.9996 2C11.5078 2 11.0454 2.1915 10.6974 2.5394L2.54246 10.6934C2.53971 10.6961 2.53696 10.699 2.53422 10.7018C1.82003 11.42 1.82125 12.5853 2.53773 13.3017C2.86506 13.6292 3.29739 13.8188 3.75962 13.8387C3.77839 13.8405 3.79732 13.8414 3.81639 13.8414H4.14159V19.8453C4.14159 21.0334 5.10833 22 6.29681 22H9.48897C9.81249 22 10.075 21.7377 10.075 21.4141V16.707C10.075 16.1649 10.516 15.7239 11.0582 15.7239H12.941C13.4832 15.7239 13.9242 16.1649 13.9242 16.707V21.4141C13.9242 21.7377 14.1866 22 14.5102 22H17.7024C18.8909 22 19.8576 21.0334 19.8576 19.8453V13.8414H20.1592C20.6508 13.8414 21.1132 13.6499 21.4613 13.302C22.1786 12.5844 22.1789 11.4171 21.4622 10.699V10.699Z"
+                     fill="#00B2FF" />
+               </svg></span>
+            <!--end::Svg Icon--> Create New
+         </button>
       </div>
-      <div class="card-body py-5">
-         <table id="table-house" class="table table-hover table-rounded table-striped border gy-7 gs-7">
+   </div>
+   <!--end::Header-->
+   <!--begin::Body-->
+   <div class="card-body py-3">
+      <!--begin::Table container-->
+      <div class="table-responsive">
+         <!--begin::Table-->
+         <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <!--begin::Table head-->
             <thead>
-               <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                  <th>No.Rumah</th>
-                  <th>Status</th>
-                  <th>Tipe</th>
-                  <th>#</th>
+               <tr class="fw-bolder text-muted">
+                  <th class="min-w-150px">No.Rumah</th>
+                  <th class="min-w-140px">Status</th>
+                  <th class="min-w-120px">Tipe</th>
+                  <th class="min-w-100px text-end">Actions</th>
                </tr>
             </thead>
+            <!--end::Table head-->
+            <!--begin::Table body-->
             <tbody>
                @foreach (var item in ViewBag.DaftarRumah)
                {
@@ -50,19 +75,223 @@
                         <td>Lahan Kosong</td>
                      }
                      <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit </a>
+                        <button type="button" data-id="@item.Id" class="btn btn-sm btn-warning b-edit">Edit</button>
                         <button type="button" data-id="@item.Id" class="btn btn-sm btn-danger b-hapus">Hapus</button>
                      </td>
                   </tr>
                }
             </tbody>
+            <!--end::Table body-->
          </table>
+         <!--end::Table-->
       </div>
+      <!--end::Table container-->
    </div>
+   <!--begin::Body-->
 </div>
+
+<div class="page d-flex flex-row flex-column-fluid">
+   <!--begin::Wrapper-->
+   <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+      <!--begin::Container-->
+      <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
+         <!--begin::Post-->
+         <div class="content flex-row-fluid" id="kt_content">
+            <!--begin::Modal - Create-->
+            <div class="modal fade" id="modalCreate" tabindex="-1" aria-hidden="true">
+               <!--begin::Modal dialog-->
+               <div class="modal-dialog modal-dialog-centered mw-650px">
+                  <!--begin::Modal content-->
+                  <div class="modal-content rounded">
+                     <!--begin::Modal header-->
+                     <div class="modal-header pb-0 border-0 justify-content-end">
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                           <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                           <span class="svg-icon svg-icon-1">
+                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                 <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                    fill="#000000">
+                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                    <rect fill="#000000" opacity="0.5"
+                                       transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                       x="0" y="7" width="16" height="2" rx="1" />
+                                 </g>
+                              </svg>
+                           </span>
+                           <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                     </div>
+                     <!--begin::Modal header-->
+                     <!--begin::Modal body-->
+                     <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                        <!--begin:Form-->
+                        <form id="createForm" asp-action="Create" method="post" class="form">
+                           <!--begin::Heading-->
+                           <div class="mb-13 text-center">
+                              <!--begin::Title-->
+                              <h1 class="mb-3">Input Data Bangunan dan Lahan</h1>
+                              <!--end::Title-->
+                              <!--begin::Description-->
+                              <div class="text-gray-400 fw-bold fs-5">Di
+                                 <a href="#" class="fw-bolder link-primary">Kampung Digital</a>.
+                              </div>
+                              <!--end::Description-->
+                           </div>
+                           <!--end::Heading-->
+                           <!--begin::Input group-->
+                           <div class="d-flex flex-column mb-8 fv-row">
+                              <!--begin::Label-->
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                 <span class="required">Nomor Rumah</span>
+                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Masukan Nomer Rumah Ditinggali"></i>
+                              </label>
+                              <!--end::Label-->
+                              <input type="text" class="form-control form-control-solid" placeholder="Nomer Rumah"
+                                 name="Number" />
+                              <input type="hidden" name="Id" />
+                           </div>
+                           <!--end::Input group-->
+                           <!--begin::Input group-->
+                           <div class="row g-9 mb-8">
+                              <!--begin::Col-->
+                              <div class="col-md-6 fv-row">
+                                 <label class="required fs-6 fw-bold mb-2">Tipe</label>
+                                 <select name="Type" class="form-select form-select-solid" data-control="select2"
+                                    data-hide-search="true" data-placeholder="Tipe Bangunan">
+                                    <option value="@Trisatech.KampDigi.Domain.Entities.HouseType.Business">Bangunan
+                                       Bisnis</option>
+                                    <option value="@Trisatech.KampDigi.Domain.Entities.HouseType.EmptyLand">Lahan Kosong
+                                    </option>
+                                    <option value="@Trisatech.KampDigi.Domain.Entities.HouseType.Residence">Rumah Hunian
+                                    </option>
+                                 </select>
+                              </div>
+                              <!--end::Col-->
+                              <!--begin::Col-->
+                              <div class="col-md-6 fv-row">
+                                 <label class="required fs-6 fw-bold mb-2">Status</label>
+                                 <select name="Status" class="form-select form-select-solid" data-control="select2"
+                                    data-hide-search="true" data-placeholder="Status Bangunan">
+                                    <option value="@Trisatech.KampDigi.Domain.Entities.HouseStatus.Empty">Masih Kosong
+                                    </option>
+                                    <option value="@Trisatech.KampDigi.Domain.Entities.HouseStatus.Occupied">Dimiliki
+                                    </option>
+                                    <option value="@Trisatech.KampDigi.Domain.Entities.HouseStatus.Rented">Disewa
+                                    </option>
+                                 </select>
+                              </div>
+                              <!--end::Col-->
+                           </div>
+                           <!--end::Input group-->
+                           <!--begin::Input group-->
+                           <div class="d-flex flex-column mb-8 fv-row">
+                              <!--begin::Label-->
+                              <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                 <span class="required">No Urut Rumah</span>
+                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                    title="Nomor urut rumah berdasarkan lama kependudukan, urutan dimulai dari 00"></i>
+                              </label>
+                              <!--end::Label-->
+                              <input type="text" class="form-control form-control-solid" name="Order"
+                                 placeholder="001" />
+                           </div>
+                           <!--end::Input group-->
+                           <!--begin::Actions-->
+                           <div class="text-center">
+                              <button data-bs-dismiss="modal" class="btn btn-white me-3">Cancel</button>
+                              <button type="submit" class="btn btn-primary b-submit">
+                                 <span class="indicator-label">Submit</span>
+                                 <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                              </button>
+                           </div>
+                           <!--end::Actions-->
+                        </form>
+                        <!--end:Form-->
+                     </div>
+                     <!--end::Modal body-->
+                  </div>
+                  <!--end::Modal content-->
+               </div>
+               <!--end::Modal dialog-->
+            </div>
+            <!--end::Modal - Create-->
+
+         </div>
+         <!--end::Post-->
+      </div>
+      <!--end::Container-->
+   </div>
+   <!--end::Wrapper-->
+</div>
+
+
 @section Scripts {
 <script type="text/javascript">
    $(document).ready(function () {
+
+      toastr.options = {
+         "closeButton": false,
+         "debug": false,
+         "newestOnTop": false,
+         "progressBar": false,
+         "positionClass": "toast-top-right",
+         "preventDuplicates": false,
+         "onclick": null,
+         "showDuration": "300",
+         "hideDuration": "1000",
+         "timeOut": "5000",
+         "extendedTimeOut": "1000",
+         "showEasing": "swing",
+         "hideEasing": "linear",
+         "showMethod": "fadeIn",
+         "hideMethod": "fadeOut"
+      };
+
+      $("#createForm").submit(function (e) {
+         event.preventDefault();
+         $.ajax({
+            url: $(this).attr("action"),
+            type: "post",
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function (response) {
+               if (response.success) {
+                  toastr.success(response.message);
+                  window.location.reload(true);
+               } else {
+                  toastr.error(response.message);
+               }
+            }
+         })
+      });
+
+      $(".b-edit").on('click', function (e) {
+         let id = $(this).attr("data-id");
+         $.ajax({
+            url: "/House/Edit",
+            type: "get",
+            data: { id: id },
+            dataType: "json",
+            success: function (response) {
+               if (response.success) {
+                  $("input[name='Id']").val(response.id);
+                  $("input[name='Number']").val(response.number);
+                  $("input[name='Order']").val(response.order);
+                  $("select[name='Type']").val(response.type).change();
+                  $("select[name='Status']").val(response.status).change();
+                  $("#createForm").attr('action', '/House/EditRumah');
+                  $(".b-modal").trigger('click');
+               } else {
+                  console.log(response.message);
+               }
+            }
+         })
+      })
 
       $(".b-hapus").on('click', function (e) {
          let id = $(this).attr("data-id");
