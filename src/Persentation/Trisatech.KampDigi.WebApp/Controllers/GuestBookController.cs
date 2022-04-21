@@ -13,14 +13,11 @@ namespace Trisatech.KampDigi.WebApp.Controllers
 {
     public class GuestBookController : BaseController
     {
-        private readonly IWebHostEnvironment _webHost;
         private readonly IGuestBookService _guestBookService;
         private readonly KampDigiContext _digiContext;
-        public GuestBookController(IWebHostEnvironment webHost,
-            IGuestBookService guestBookService,
+        public GuestBookController(IGuestBookService guestBookService,
             KampDigiContext digiContext)
         {
-            _webHost = webHost;
             _guestBookService = guestBookService;
             _digiContext = digiContext;
         }
@@ -145,25 +142,6 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             Guid userId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
             return userId;
         }
-
-        //public async Task<string> SaveFile(IFormFile dataFile)
-        //{
-        //    var fileName = String.Empty;
-        //    if (dataFile != null)
-        //    {
-        //        fileName = $"{Guid.NewGuid()}-{dataFile?.FileName}";
-        //        string filePathName = _webHost.ContentRootPath + $"/images/{fileName}";
-
-        //        using (var StreamWriter = System.IO.File.Create(filePathName))
-        //        {
-        //            //await StreamWriter.WriteAsync(Common.StreamToBytes(request.GambarFile.OpenReadStream()));
-        //            await StreamWriter.WriteAsync(dataFile.OpenReadStream().ToBytes());
-        //        }
-
-        //        return $"images/{fileName}";
-        //    }
-        //    return String.Empty;
-        //}
     }
 
 }

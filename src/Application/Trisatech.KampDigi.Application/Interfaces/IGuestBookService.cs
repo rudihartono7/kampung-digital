@@ -9,6 +9,7 @@ namespace Trisatech.KampDigi.Application.Interfaces
 {
     public interface IGuestBookService
     {
+        Task<List<GuestBookListModel>> GetDashboard();
         Task<GuestBookAddModel> GuestAdd(GuestBookAddModel model, Guid idCurrentUser);
         Task<List<GuestBookListModel>> GuestResidentList(Guid id);
         Task<List<GuestBookListModel>> GuestBookList();

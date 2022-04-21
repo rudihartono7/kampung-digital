@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trisatech.KampDigi.Application.Models.Resident;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Trisatech.KampDigi.WebApp.Helpers;
 using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Domain;
 using System.Security.Claims;
@@ -97,6 +95,7 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 TempData.Remove("message");
             }
 
+            ViewBag.Root = _webHost.ContentRootPath;
             ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
 
             var residentDetail = await _residentService.ResidentDetail(id);
@@ -187,7 +186,7 @@ namespace Trisatech.KampDigi.WebApp.Controllers
 
             await _residentService.ResidentDelete(id);
 
-            TempData["message"] = "Data warga berhasil di input";
+            TempData["message"] = "Data warga berhasil di hapus";
             return RedirectToAction("Index");
 
         }

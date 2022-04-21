@@ -8,7 +8,7 @@ namespace Trisatech.KampDigi.WebApp.Controllers;
 
 public class BaseController : Controller
 {
-    private IWebHostEnvironment _webHost;
+    public IWebHostEnvironment _webHost;
 
     public override void OnActionExecuted(ActionExecutedContext context)
     {

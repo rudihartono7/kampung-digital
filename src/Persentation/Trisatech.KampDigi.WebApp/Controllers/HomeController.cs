@@ -31,7 +31,7 @@ public class HomeController : BaseController
             ViewBag.Message = TempData["message"].ToString();
             TempData.Remove("message");
         }
-        var guestList = await _guestBookService.GuestBookList();
+        var guestList = await _guestBookService.GetDashboard();
 
 
         return View(new DashboardModel

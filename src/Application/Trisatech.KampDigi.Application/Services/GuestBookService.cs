@@ -17,6 +17,24 @@ namespace Trisatech.KampDigi.Application.Services
         {
         }
 
+        public async Task<List<GuestBookListModel>> GetDashboard()
+        {
+            var listGuest = await (from a in Db.GuestBooks
+                                          select new GuestBookListModel
+                                          {
+                                              Id = a.Id,
+                                              Name = a.Name,
+                                              ContactNumber = a.ContactNumber,
+                                              StartDate = a.StartDate,
+                                              EndDate = a.EndDate,
+                                              Necessity = a.Necessity,
+                                              ImageUrl = a.ImageUrl,
+                                              GuestToId = a.GuestToId
+                                          }).Take(5).ToListAsync();
+            return listGuest;
+
+        }
+
         public async Task<List<GuestBookListModel>> GuestBookList()
         {
             var listGuest = await (from a in Db.GuestBooks
@@ -32,7 +50,7 @@ namespace Trisatech.KampDigi.Application.Services
                                        ImageUrl = a.ImageUrl,
                                        HouseOwner = b.Name,
                                        GuestToId = a.GuestToId
-                                   }).Take(5).ToListAsync();
+                                   }).ToListAsync();
             return listGuest;
         }
 
