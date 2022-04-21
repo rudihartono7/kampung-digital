@@ -8,12 +8,18 @@ namespace Trisatech.KampDigi.Application.Models
         public string Desc { get; set; }
         public Guid PostId { get; set; }
         
-        public Comment ConvertToDbModel(){
+        public Comment ConvertToDbModelCreate(){
+            return new Comment {
+                Desc = this.Desc,
+                PostId = this.PostId
+            };
+        }
+        public Comment ConvertToDbModelEdit(){
             return new Comment {
                 Id = this.Id,
                 Desc = this.Desc,
                 PostId = this.PostId
             };
-    }
+        }
     }
 }

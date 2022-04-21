@@ -102,7 +102,10 @@ public class PostService : BaseDbService, IPostService
         post.PostSubject = obj.PostSubject;
         post.Title = obj.Title;
         post.Desc = obj.Desc;
-        post.Image = obj.Image;
+        if (!string.IsNullOrEmpty(obj.Image))
+        {
+            post.Image = obj.Image;
+        }
         post.Type = obj.Type;
         post.IsResidentProgram = obj.IsResidentProgram;
         post.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;

@@ -1,10 +1,12 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Application.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
-public class CommentController : Controller
+public class CommentController : BaseController
 {
     private readonly ILogger<CommentController> _logger;
     private readonly ICommentService _commentService;
@@ -17,9 +19,16 @@ public class CommentController : Controller
         _commentService = commentService;
     }
 
-    public async Task<IActionResult> Index()
+    // public async Task<IActionResult> Index(){
+    //     var idPost = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+    //     var result = await _commentService.Get(Guid.Parse(idPost));
+
+    //     return View(result);
+    // }
+
+    public async Task<IActionResult> Index(Guid id)
     {
-        var dbResult = await _commentService.GetAll();
+        var dbResult = await _commentService.GetComments(id);
 
         var viewModels = new List<CommentModel>();
 
@@ -34,22 +43,27 @@ public class CommentController : Controller
         }
         return View(viewModels);
     }
-    public IActionResult Create()
+    public async Task<IActionResult> Create(Guid id)
     {
-        return View(new CommentModel());
+
+        return View(new CommentModel
+        {
+            Desc = "",
+            PostId = id
+        });
     }
+
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(CommentModel request)
+    public async Task<IActionResult> Create(Guid id, CommentModel request)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(request);
-        }
+
+        
         try
         {
-            await _commentService.Add(request.ConvertToDbModel());
+            await _commentService.Add(request.ConvertToDbModelCreate());
 
             return Redirect(nameof(Index));
         }
@@ -64,7 +78,7 @@ public class CommentController : Controller
 
         return View(request);
     }
-    // [HttpGet]
+    [HttpGet]
     // public async Task<IActionResult> Delete(Guid? id)
     // {
     //     if (id == null)
@@ -83,6 +97,7 @@ public class CommentController : Controller
     //     {
     //         Id = result.Id,
     //         Desc = result.Desc,
+    //         PostId = result.PostId
 
     //     });
     // }

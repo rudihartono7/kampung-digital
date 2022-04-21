@@ -6,10 +6,11 @@ using Trisatech.KampDigi.Domain.Entities;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Trisatech.KampDigi.WebApp.Helpers;
+using Trisatech.KampDigi.Application;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
-public class PostController : Controller
+public class PostController : BaseController
 {
     private readonly ILogger<PostController> _logger;
     private readonly IPostService _postService;
@@ -25,6 +26,7 @@ public class PostController : Controller
         _iwebHost = iwebHost;
     }
 
+    [Authorize]
     public async Task<IActionResult> Index()
     {
         var dbResult = await _postService.GetAll();
@@ -50,6 +52,7 @@ public class PostController : Controller
         return View(viewModels);
     }
 
+    [Authorize]
     public async Task<IActionResult> Create()
     {
         return View(new PostModel
@@ -62,6 +65,7 @@ public class PostController : Controller
         });
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(PostModel request)
     {
@@ -102,6 +106,7 @@ public class PostController : Controller
         return View(request);
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Edit(Guid id)
     {
@@ -128,9 +133,10 @@ public class PostController : Controller
         });
     }
 
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Guid? id, PostModel request)
+    public async Task<IActionResult> Edit(Guid id, PostModel request)
     {
         if (id == null)
         {
@@ -142,6 +148,22 @@ public class PostController : Controller
         }
         try
         {
+            string fileName = string.Empty;
+            if (request.ImageFile != null)
+            {
+                fileName = $"{Guid.NewGuid()}-{request.ImageFile?.FileName}";
+                string filePathName = _iwebHost.WebRootPath + "\\images\\" + fileName;
+
+                using (var streamWriter = System.IO.File.Create(filePathName))
+                {
+                    await streamWriter.WriteAsync(request.ImageFile.OpenReadStream().ToBytes());
+                }
+            }
+            var produk = request.ConvertToDbModelEdit();
+            if (request.ImageFile != null)
+            {
+                produk.Image = $"/images/{fileName}";
+            }
             await _postService.Update(request.ConvertToDbModelEdit());
             return RedirectToAction(nameof(Index));
         }
@@ -157,6 +179,7 @@ public class PostController : Controller
         return View(request);
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Delete(Guid? id)
     {
@@ -183,6 +206,8 @@ public class PostController : Controller
             IsResidentProgram = result.IsResidentProgram
         });
     }
+
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id)

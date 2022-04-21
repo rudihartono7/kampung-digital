@@ -16,25 +16,39 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="Id" type="hidden" class="form-control">
                 <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-grup">
+                    <img src="@Model.ImageSrc" height="100px" />
+                </div>
+                <div class="form-group">
                     <label asp-for="PostSubject" for="exampleInput1"></label>
-                    <input class="form-control" id="exampleInput1" placeholder="Name" asp-for="PostSubject">
+                    <input class="form-control" id="exampleInput1" asp-for="PostSubject">
                     <span asp-validation-for="PostSubject" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Title" for="exampleInput2"></label>
-                    <input class="form-control" id="exampleInput2" placeholder="Deskripsi Produk" asp-for="Title">
+                    <input class="form-control" id="exampleInput2" asp-for="Title">
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Desc" for="exampleInput3"></label>
-                    <input class="form-control" id="exampleInput3" placeholder="Harga Produk" asp-for="Desc">
+                    <input class="form-control" id="exampleInput3" asp-for="Desc">
                     <span asp-validation-for="Desc" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Type" for="exampleInput4"></label>
-                    <input class="form-control" id="exampleInput4" placeholder="Stok Produk" asp-for="Type">
-                    <span asp-validation-for="Type" class="text-danger"></span>
-                </div>
+                <div class="form-group mb-3">
+               <label class="control-label">Type</label>
+               <input type="hidden" id="type" value="@Model.Type">
+               <select name="Type">
+                    @* <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
+                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
+                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
+                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option> *@
+                    
+               </select>
+            </div>
                 <button type="submit" class="btn btn-primary me-2">Edit</button>
             </form>
             <a asp-action="Index" class="btn btn-light">Cancel</a>
