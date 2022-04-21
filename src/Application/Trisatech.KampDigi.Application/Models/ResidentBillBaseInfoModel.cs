@@ -34,7 +34,7 @@ public class ResidentBillBaseInfoModel
         };
     }
 
-    public ResidentBillBaseInfo ConvertUpdateToDbModel()
+    public ResidentBillBaseInfo UpdateConvertToDbModel()
     {
         return new ResidentBillBaseInfo
         {
