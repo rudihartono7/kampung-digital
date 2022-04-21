@@ -10,37 +10,64 @@ public class ResidenceService : BaseDbService, IResidenceService
 {
    public ResidenceService(KampDigiContext dbContext) : base(dbContext)
    {
-      
+
+   }
+
+   public async Task<Residence> Add(Residence req)
+   {
+      req.Id = Guid.NewGuid();
+      await Db.AddAsync(req);
+      await Db.SaveChangesAsync();
+      return req;
    }
 
    public async Task<ResidenceModel> getData()
    {
-      var residence = await (from a in Db.Residences 
-                              join b in Db.Residents on a.PersonInCharge equals b.Id
-                              select new ResidenceModel
-                              {
-                                 Id = a.Id,
-                                 Address = a.Address,
-                                 GMapLink = a.GMapLink,
-                                 ImageUrl = a.ImageUrl,
-                                 Latitude = a.Latitude,
-                                 Longitude = a.Longitude,
-                                 Name = a.Name,
-                                 Houses = (from h in Db.Houses where h.ResidenceId == a.Id select new House{
-                                    Id = h.Id,
-                                    Number = h.Number,
-                                    Order = h.Order,
-                                    Status = h.Status,
-                                    Type = h.Type
-                                 }).ToArray(),
-                                 PersonInCharge = a.PersonInCharge,
-                                 PersonInChargeName = b.Name
-                              }).FirstOrDefaultAsync();
+      var residence = await (from a in Db.Residences
+                             join b in Db.Residents on a.PersonInCharge equals b.Id
+                             select new ResidenceModel
+                             {
+                                Id = a.Id,
+                                Address = a.Address,
+                                GMapLink = a.GMapLink,
+                                ImageUrl = a.ImageUrl,
+                                Latitude = a.Latitude,
+                                Longitude = a.Longitude,
+                                Name = a.Name,
+                                Houses = (from h in Db.Houses
+                                          where h.ResidenceId == a.Id
+                                          select new House
+                                          {
+                                             Id = h.Id,
+                                             Number = h.Number,
+                                             Order = h.Order,
+                                             Status = h.Status,
+                                             Type = h.Type
+                                          }).ToArray(),
+                                PersonInCharge = a.PersonInCharge,
+                                PersonInChargeName = b.Name
+                             }).FirstOrDefaultAsync();
+      return residence;
+   }
+
+   public async Task<ResidenceModel> getData(Guid Id)
+   {
+      var residence = await Db.Residences.FirstOrDefaultAsync(x => x.Id == Id);
       if (residence == null)
       {
          throw new InvalidOperationException($"Data Desa tidak ditemukan");
       }
-      return residence;
+      return new ResidenceModel()
+      {
+         Id = residence.Id,
+         Address = residence.Address,
+         GMapLink = residence.GMapLink,
+         ImageUrl = residence.ImageUrl,
+         Latitude = residence.Latitude,
+         Longitude = residence.Longitude,
+         Name = residence.Name,
+         PersonInCharge = residence.PersonInCharge,
+      };
    }
 
    public async Task<Residence> initialCreate(Residence req, Guid? userId)
@@ -63,7 +90,7 @@ public class ResidenceService : BaseDbService, IResidenceService
       return req;
    }
 
-   public async Task<Residence> modify(ResidenceModel req, Guid? userId)
+   public async Task<Residence> modify(Residence req, Guid? userId)
    {
       var residence = await Db.Residences.FirstOrDefaultAsync(x => x.Id == req.Id);
       if (residence == null)
@@ -87,5 +114,5 @@ public class ResidenceService : BaseDbService, IResidenceService
       return residence;
    }
 
-   
+
 }
