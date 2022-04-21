@@ -1,9 +1,19 @@
 @using System.Globalization
-@model Trisatech.KampDigi.Application.Models.ResidentBillModel
+@model IEnumerable<Trisatech.KampDigi.Application.Models.Bill.ResidentBillModel>
 @{
 	ViewData["Title"] = "Daftar Bill";
 	Layout = "_BaseTemplate";
 }
 
+@foreach (var item in Model)
+{
+	<div>
+		@item.Id
+		@item.ResidentTo
+		@item.Year
+		<br>
+		@item.Nominal
+	</div>
+}
 
 

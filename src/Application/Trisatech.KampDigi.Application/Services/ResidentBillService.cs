@@ -6,6 +6,7 @@ using System;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Trisatech.KampDigi.Application.Models;
+using Trisatech.KampDigi.Application.Models.Bill;
 using Trisatech.KampDigi.Domain;
 using Trisatech.KampDigi.Domain.Entities;
 

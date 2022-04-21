@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.CodeDom.Compiler;
 using Trisatech.KampDigi.Domain.Entities;
-using Trisatech.KampDigi.Application.Models;
+using Trisatech.KampDigi.Application.Models.Bill;
 
 namespace Trisatech.KampDigi.Application.Interfaces;
 public interface IResidentBillService : ICrudService<ResidentBill>

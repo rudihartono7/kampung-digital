@@ -5,7 +5,7 @@ using Trisatech.KampDigi.Application.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
-public class ResidentBillBaseInfoController : Controller
+public class ResidentBillBaseInfoController : BaseController
 {
     private readonly ILogger<ResidentBillBaseInfoController> _logger;
     private readonly IResidentBillBaseInfoService _residentBillBaseInfoService;
