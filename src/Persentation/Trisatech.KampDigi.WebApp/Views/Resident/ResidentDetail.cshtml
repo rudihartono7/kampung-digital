@@ -1,9 +1,42 @@
 ﻿@using Trisatech.KampDigi.Domain.Entities
-@model Trisatech.KampDigi.Application.Models.Resident.ResidentDetailModel;
+@model Trisatech.KampDigi.Application.Models.UserDetailModel;
 @{
     Layout = "_BaseTemplate";
     var userRole = Context.User.IsInRole("Admin");
 }
+
+<div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container d-flex flex-stack flex-wrap">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column me-3">
+            <!--begin::Title-->
+            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Profile</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">
+                    <a href="index.html" class="text-white text-hover-primary">User</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">Profile Pengguna</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Container-->
+</div>
+
+
 <!--begin::Toolbar-->
 <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
     <!--begin::Container-->
@@ -178,16 +211,16 @@
                             <div class="card-body d-flex flex-center flex-column pt-12 p-9 px-0">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-100px symbol-circle mb-7">
-                                    <img src="~/@Model.IdentityPhoto" alt="image" />
+                                    <img src="~/@Model.Residents.IdentityPhoto" alt="image" />
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Name-->
-                                <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-3">@Model.Name</a>
+                                <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-3">@Model.Residents.Name</a>
                                 <!--end::Name-->
                                 <!--begin::Position-->
                                 <div class="mb-9">
                                     <!--begin::Badge-->
-                                    <div class="badge badge-lg badge-light-primary d-inline">@Model.Role</div>
+                                    <div class="badge badge-lg badge-light-primary d-inline">@Model.Residents.Role</div>
                                     <!--begin::Badge-->
                                 </div>
                                 <!--end::Position-->
@@ -214,7 +247,7 @@
                                 </span>
                             </div>
                             <span data-bs-toggle="tooltip" data-bs-trigger="hover" title="Edit customer details">
-                                <a href="#" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_details">Edit</a>
+                                <a asp-action="ResidentEdit" asp-controller="Resident" asp-route-id="@Model.Residents.Id" class="btn btn-sm btn-light-primary" >Edit</a>
                             </span>
                         </div>
                         <!--end::Details toggle-->
@@ -224,12 +257,12 @@
                             <div class="pb-5 fs-6">
                                 <!--begin::Details item-->
                                 <div class="fw-bolder mt-5">Account ID</div>
-                                <div class="text-gray-600">@Model.IdentityNumber</div>
+                                <div class="text-gray-600">@Model.Residents.IdentityNumber</div>
                                 <!--begin::Details item-->
                                 <!--begin::Details item-->
                                 <div class="fw-bolder mt-5">Gender</div>
                                 <div class="text-gray-600">
-                                    <a href="#" class="text-gray-600 text-hover-primary">@Model.Gender</a>
+                                    <a href="#" class="text-gray-600 text-hover-primary">@Model.Residents.Gender</a>
                                 </div>
                                 <!--begin::Details item-->
                                 <!--begin::Details item-->
@@ -242,11 +275,11 @@
                                 <!--begin::Details item-->
                                 <!--begin::Details item-->
                                 <div class="fw-bolder mt-5">Phone Number</div>
-                                <div class="text-gray-600">@Model.ContactNumber</div>
+                                <div class="text-gray-600">@Model.Residents.ContactNumber</div>
                                 <!--begin::Details item-->
                                 <!--begin::Details item-->
                                 <div class="fw-bolder mt-5">Join Date</div>
-                                <div class="text-gray-600">@Model.Join</div>
+                                <div class="text-gray-600">@Model.Residents.Join</div>
                                 <!--begin::Details item-->
                             </div>
                         </div>
@@ -373,14 +406,14 @@
                             <!--begin::Menu item-->
                             @if (userRole)
                             {
-                            <div class="menu-item px-5">
-                                <form asp-action="ResidentDelete">
-                                    <input type="hidden" name="id" value="@Model.Id" />
-                                    <a onclick="this.parentElement.submit()" class="menu-link text-danger px-5">Delete customer</a>
-                                </form>
-                            </div>
+                                <div class="menu-item px-5">
+                                    <form asp-action="ResidentDelete">
+                                        <input type="hidden" name="id" value="@Model.Residents.Id" />
+                                        <a onclick="this.parentElement.submit()" class="menu-link text-danger px-5">Delete customer</a>
+                                    </form>
+                                </div>
                             }
-                            
+
                             <!--end::Menu item-->
                         </div>
                         <!--end::Menu-->
@@ -1783,6 +1816,577 @@
                             </div>
                             <!--end::Card body-->
                         </div>
+                        <!--begin::Tasks-->
+                        <div class="card card-flush mb-6 mb-xl-9">
+                            <!--begin::Card header-->
+                            <div class="card-header mt-6">
+                                <!--begin::Card title-->
+                                <div class="card-title flex-column">
+                                    <h2 class="mb-1">Daftar Tamu</h2>
+                                    <div class="fs-6 fw-bold text-gray-400">Ada @Model.Guests.Count() tamu yang sedang berkunjung</div>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_guest">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/File-Plus.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M3 4C3 2.34315 4.34315 1 6 1H15.7574C16.553 1 17.3161 1.31607 17.8787 1.87868L20.1213 4.12132C20.6839 4.68393 21 5.44699 21 6.24264V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V4Z" fill="#12131A" />
+                                                <path d="M15 1.89181C15 1.39927 15.3993 1 15.8918 1V1C16.6014 1 17.2819 1.28187 17.7836 1.78361L20.2164 4.21639C20.7181 4.71813 21 5.39863 21 6.10819V6.10819C21 6.60073 20.6007 7 20.1082 7H16C15.4477 7 15 6.55228 15 6V1.89181Z" fill="#12131A" />
+                                                <path d="M13 11C13 10.4477 12.5523 10 12 10C11.4477 10 11 10.4477 11 11V13H9C8.44771 13 8 13.4477 8 14C8 14.5523 8.44771 15 9 15H11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V15H15C15.5523 15 16 14.5523 16 14C16 13.4477 15.5523 13 15 13H13V11Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->Tambah Tamu
+                                    </button>
+                                </div>
+                                <!--end::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body d-flex flex-column">
+                                <!--begin::Item-->
+                                <div class="table-responsive">
+                                    <!--begin::Table-->
+                                    <table class="table align-middle table-row-dashed gy-5" id="kt_table_users_login_session">
+                                        <!--begin::Table head-->
+                                        <thead class="border-bottom border-gray-200 fs-7 fw-bolder">
+                                            <!--begin::Table row-->
+                                            <tr class="text-start text-gray-400 text-uppercase gs-0">
+                                                <th class="min-w-100px">Nama & Telp</th>
+                                                <th>Alasan</th>
+                                                <th class="min-w-125px">Tgl Selesai</th>
+                                                <th class="min-w-70px">Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            <!--end::Table row-->
+                                        </thead>
+                                        <!--end::Table head-->
+                                        <!--begin::Table body-->
+                                        <tbody class="fs-6 fw-bold text-gray-600">
+                                            @foreach (var guest in Model.Guests)
+                                            {
+                                                <tr>
+                                                    <!--begin::Invoice=-->
+                                                <td class="d-flex align-items-center">
+                                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                            <div class="symbol-label">
+                                                                <div class="symbol-label fs-3 bg-light-danger text-danger">@guest.Name[0]</div>
+                                                                @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Avatar-->
+                                                        <!--begin::User details-->
+                                                    <div class="d-flex flex-column">
+                                                            <div class="text-gray-800 text-hover-primary mb-1">@guest.Name</div>
+                                                            <span>@guest.ContactNumber</span>
+                                                        </div>
+                                                    </td>
+                                                    <!--end::Invoice=-->
+                                                    <!--begin::Amount=-->
+                                                <td>@guest.Necessity</td>
+                                                    <!--end::Amount=-->
+                                                    <!--begin::Date=-->
+                                                <td>@guest.EndDate?.ToString("dd/MM/yyyy")</td>
+                                                    <!--end::Date=-->
+                                                    <!--begin::Action=-->
+                                                <td>
+                                                        @if (DateTime.Compare(guest.EndDate.Value, DateTime.Now) < 0)
+                                                        {
+                                                            <div class="badge badge-light-success">Selesai</div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="badge badge-light-primary">Berkunjung</div>
+                                                        }
+
+                                                    </td>
+                                                    <td>
+                                                        @if (DateTime.Compare(guest.EndDate.Value, DateTime.Now) > 0)
+                                                        {
+                                                            <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                                                                <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
+                                                        <span class="svg-icon svg-icon-3">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                        <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
+                                                                        <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
+                                                                        <path opacity="0.25" d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z" fill="#12131A" />
+                                                                        <path d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z" fill="#12131A" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                    </button>
+                                                            <!--begin::Task menu-->
+                                                            <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" data-kt-menu-id="kt-users-tasks">
+                                                                <!--begin::Header-->
+                                                        <div class="px-7 py-5">
+                                                                    <div class="fs-5 text-dark fw-bolder">Edit Guest</div>
+                                                                </div>
+                                                                <!--end::Header-->
+                                                                <!--begin::Menu separator-->
+                                                        <div class="separator border-gray-200"></div>
+                                                                <!--end::Menu separator-->
+                                                                <!--begin::Form-->
+                                                        <form asp-action="GuestEdit" asp-controller="GuestBook" class="form px-7 py-5" data-kt-menu-id="kt-users-tasks-form">
+                                                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                                    <!--begin::Input group-->
+                                                                    <input asp-for="@guest.Id" type="hidden" name="Id">
+                                                            <div class="fv-row mb-10">
+                                                                        <label class="required fw-bold fs-6 mb-2">Keperluan</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                <input name="Necessity" class="form-control form-control-solid mb-3 mb-lg-0" value="@guest.Necessity">
+                                                                    </div>
+                                                                    <div class="fv-row mb-10">
+                                                                        <label class="fw-bold fs-6 mb-2">Tanggal Selesai</label>
+                                                                        <!--end::Label-->
+                                                                        <!--begin::Input-->
+                                                                <input asp-for="@guest.EndDate" name="EndDate" type="date" class="form-control form-control-solid mb-3 mb-lg-0" >
+                                                                    </div>
+                                                                    <!--end::Input group-->
+                                                                    <!--begin::Actions-->
+                                                            <div class="d-flex justify-content-end">
+                                                                        <button type="button" class="btn btn-sm btn-white btn-active-light-primary me-2" data-kt-users-update-task-status="reset">Reset</button>
+                                                                        <button type="submit" class="btn btn-sm btn-primary" data-kt-users-update-task-status="submit">
+                                                                            <span class="indicator-label">Apply</span>
+                                                                            <span class="indicator-progress">
+                                                                                Please wait...
+                                                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                                            </span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <!--end::Actions-->
+                                                        </form>
+                                                                <!--end::Form-->
+                                                    </div>
+                                                        }
+                                                    </td>
+                                                    <!--end::Action=-->
+                                            </tr>
+                                            }
+                                        </tbody>
+                                        <!--end::Table body-->
+                                    </table>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Item-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Tasks-->
+                        <!--begin::Tasks-->
+                        <div class="card card-flush mb-6 mb-xl-9">
+                            <!--begin::Card header-->
+                            <div class="card-header mt-6">
+                                <!--begin::Card title-->
+                                <div class="card-title flex-column">
+                                    <h2 class="mb-1">User's Tasks</h2>
+                                    <div class="fs-6 fw-bold text-gray-400">Total 25 tasks in backlog</div>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_task">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/File-Plus.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M3 4C3 2.34315 4.34315 1 6 1H15.7574C16.553 1 17.3161 1.31607 17.8787 1.87868L20.1213 4.12132C20.6839 4.68393 21 5.44699 21 6.24264V20C21 21.6569 19.6569 23 18 23H6C4.34315 23 3 21.6569 3 20V4Z" fill="#12131A" />
+                                                <path d="M15 1.89181C15 1.39927 15.3993 1 15.8918 1V1C16.6014 1 17.2819 1.28187 17.7836 1.78361L20.2164 4.21639C20.7181 4.71813 21 5.39863 21 6.10819V6.10819C21 6.60073 20.6007 7 20.1082 7H16C15.4477 7 15 6.55228 15 6V1.89181Z" fill="#12131A" />
+                                                <path d="M13 11C13 10.4477 12.5523 10 12 10C11.4477 10 11 10.4477 11 11V13H9C8.44771 13 8 13.4477 8 14C8 14.5523 8.44771 15 9 15H11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V15H15C15.5523 15 16 14.5523 16 14C16 13.4477 15.5523 13 15 13H13V11Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->Add Task
+                                    </button>
+                                </div>
+                                <!--end::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body d-flex flex-column">
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center position-relative mb-7">
+                                    <!--begin::Label-->
+                                    <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>
+                                    <!--end::Label-->
+                                    <!--begin::Details-->
+                                    <div class="fw-bold ms-5">
+                                        <a href="#" class="fs-5 fw-bolder text-dark text-hover-primary">Create FureStibe branding logo</a>
+                                        <!--begin::Info-->
+                                        <div class="fs-7 text-gray-400">
+                                            Due in 1 day
+                                            <a href="#">Karina Clark</a>
+                                        </div>
+                                        <!--end::Info-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
+                                                <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
+                                                <path opacity="0.25" d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z" fill="#12131A" />
+                                                <path d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </button>
+                                    <!--begin::Task menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" data-kt-menu-id="kt-users-tasks">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bolder">Update Status</div>
+                                        </div>
+                                        <!--end::Header-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Form-->
+                                        <form class="form px-7 py-5" data-kt-menu-id="kt-users-tasks-form">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fs-6 fw-bold">Status:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" name="task_status" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-hide-search="true">
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="3">In Process</option>
+                                                    <option value="4">Rejected</option>
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-sm btn-white btn-active-light-primary me-2" data-kt-users-update-task-status="reset">Reset</button>
+                                                <button type="submit" class="btn btn-sm btn-primary" data-kt-users-update-task-status="submit">
+                                                    <span class="indicator-label">Apply</span>
+                                                    <span class="indicator-progress">
+                                                        Please wait...
+                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Task menu-->
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center position-relative mb-7">
+                                    <!--begin::Label-->
+                                    <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>
+                                    <!--end::Label-->
+                                    <!--begin::Details-->
+                                    <div class="fw-bold ms-5">
+                                        <a href="#" class="fs-5 fw-bolder text-dark text-hover-primary">Schedule a meeting with FireBear CTO John</a>
+                                        <!--begin::Info-->
+                                        <div class="fs-7 text-gray-400">
+                                            Due in 3 days
+                                            <a href="#">Rober Doe</a>
+                                        </div>
+                                        <!--end::Info-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
+                                                <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
+                                                <path opacity="0.25" d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z" fill="#12131A" />
+                                                <path d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </button>
+                                    <!--begin::Task menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" data-kt-menu-id="kt-users-tasks">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bolder">Update Status</div>
+                                        </div>
+                                        <!--end::Header-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Form-->
+                                        <form class="form px-7 py-5" data-kt-menu-id="kt-users-tasks-form">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fs-6 fw-bold">Status:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" name="task_status" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-hide-search="true">
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="3">In Process</option>
+                                                    <option value="4">Rejected</option>
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-sm btn-white btn-active-light-primary me-2" data-kt-users-update-task-status="reset">Reset</button>
+                                                <button type="submit" class="btn btn-sm btn-primary" data-kt-users-update-task-status="submit">
+                                                    <span class="indicator-label">Apply</span>
+                                                    <span class="indicator-progress">
+                                                        Please wait...
+                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Task menu-->
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center position-relative mb-7">
+                                    <!--begin::Label-->
+                                    <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>
+                                    <!--end::Label-->
+                                    <!--begin::Details-->
+                                    <div class="fw-bold ms-5">
+                                        <a href="#" class="fs-5 fw-bolder text-dark text-hover-primary">9 Degree Project Estimation</a>
+                                        <!--begin::Info-->
+                                        <div class="fs-7 text-gray-400">
+                                            Due in 1 week
+                                            <a href="#">Neil Owen</a>
+                                        </div>
+                                        <!--end::Info-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
+                                                <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
+                                                <path opacity="0.25" d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z" fill="#12131A" />
+                                                <path d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </button>
+                                    <!--begin::Task menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" data-kt-menu-id="kt-users-tasks">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bolder">Update Status</div>
+                                        </div>
+                                        <!--end::Header-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Form-->
+                                        <form class="form px-7 py-5" data-kt-menu-id="kt-users-tasks-form">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fs-6 fw-bold">Status:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" name="task_status" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-hide-search="true">
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="3">In Process</option>
+                                                    <option value="4">Rejected</option>
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-sm btn-white btn-active-light-primary me-2" data-kt-users-update-task-status="reset">Reset</button>
+                                                <button type="submit" class="btn btn-sm btn-primary" data-kt-users-update-task-status="submit">
+                                                    <span class="indicator-label">Apply</span>
+                                                    <span class="indicator-progress">
+                                                        Please wait...
+                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Task menu-->
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center position-relative mb-7">
+                                    <!--begin::Label-->
+                                    <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>
+                                    <!--end::Label-->
+                                    <!--begin::Details-->
+                                    <div class="fw-bold ms-5">
+                                        <a href="#" class="fs-5 fw-bolder text-dark text-hover-primary">Dashboard UI &amp; UX for Leafr CRM</a>
+                                        <!--begin::Info-->
+                                        <div class="fs-7 text-gray-400">
+                                            Due in 1 week
+                                            <a href="#">Olivia Wild</a>
+                                        </div>
+                                        <!--end::Info-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
+                                                <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
+                                                <path opacity="0.25" d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z" fill="#12131A" />
+                                                <path d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </button>
+                                    <!--begin::Task menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" data-kt-menu-id="kt-users-tasks">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bolder">Update Status</div>
+                                        </div>
+                                        <!--end::Header-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Form-->
+                                        <form class="form px-7 py-5" data-kt-menu-id="kt-users-tasks-form">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fs-6 fw-bold">Status:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" name="task_status" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-hide-search="true">
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="3">In Process</option>
+                                                    <option value="4">Rejected</option>
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-sm btn-white btn-active-light-primary me-2" data-kt-users-update-task-status="reset">Reset</button>
+                                                <button type="submit" class="btn btn-sm btn-primary" data-kt-users-update-task-status="submit">
+                                                    <span class="indicator-label">Apply</span>
+                                                    <span class="indicator-progress">
+                                                        Please wait...
+                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Task menu-->
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex align-items-center position-relative">
+                                    <!--begin::Label-->
+                                    <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>
+                                    <!--end::Label-->
+                                    <!--begin::Details-->
+                                    <div class="fw-bold ms-5">
+                                        <a href="#" class="fs-5 fw-bolder text-dark text-hover-primary">Mivy App R&amp;D, Meeting with clients</a>
+                                        <!--begin::Info-->
+                                        <div class="fs-7 text-gray-400">
+                                            Due in 2 weeks
+                                            <a href="#">Sean Bean</a>
+                                        </div>
+                                        <!--end::Info-->
+                                    </div>
+                                    <!--end::Details-->
+                                    <!--begin::Menu-->
+                                    <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+                                        <!--begin::Svg Icon | path: icons/duotone/Interface/Settings-02.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path opacity="0.25" d="M2 6.5C2 4.01472 4.01472 2 6.5 2H17.5C19.9853 2 22 4.01472 22 6.5V6.5C22 8.98528 19.9853 11 17.5 11H6.5C4.01472 11 2 8.98528 2 6.5V6.5Z" fill="#12131A" />
+                                                <path d="M20 6.5C20 7.88071 18.8807 9 17.5 9C16.1193 9 15 7.88071 15 6.5C15 5.11929 16.1193 4 17.5 4C18.8807 4 20 5.11929 20 6.5Z" fill="#12131A" />
+                                                <path opacity="0.25" d="M2 17.5C2 15.0147 4.01472 13 6.5 13H17.5C19.9853 13 22 15.0147 22 17.5V17.5C22 19.9853 19.9853 22 17.5 22H6.5C4.01472 22 2 19.9853 2 17.5V17.5Z" fill="#12131A" />
+                                                <path d="M9 17.5C9 18.8807 7.88071 20 6.5 20C5.11929 20 4 18.8807 4 17.5C4 16.1193 5.11929 15 6.5 15C7.88071 15 9 16.1193 9 17.5Z" fill="#12131A" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </button>
+                                    <!--begin::Task menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" data-kt-menu-id="kt-users-tasks">
+                                        <!--begin::Header-->
+                                        <div class="px-7 py-5">
+                                            <div class="fs-5 text-dark fw-bolder">Update Status</div>
+                                        </div>
+                                        <!--end::Header-->
+                                        <!--begin::Menu separator-->
+                                        <div class="separator border-gray-200"></div>
+                                        <!--end::Menu separator-->
+                                        <!--begin::Form-->
+                                        <form class="form px-7 py-5" data-kt-menu-id="kt-users-tasks-form">
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-10">
+                                                <!--begin::Label-->
+                                                <label class="form-label fs-6 fw-bold">Status:</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select class="form-select form-select-solid" name="task_status" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-hide-search="true">
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="3">In Process</option>
+                                                    <option value="4">Rejected</option>
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Actions-->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-sm btn-white btn-active-light-primary me-2" data-kt-users-update-task-status="reset">Reset</button>
+                                                <button type="submit" class="btn btn-sm btn-primary" data-kt-users-update-task-status="submit">
+                                                    <span class="indicator-label">Apply</span>
+                                                    <span class="indicator-progress">
+                                                        Please wait...
+                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Task menu-->
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Item-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        <!--end::Tasks-->
                         <!--end::Card-->
                     </div>
                     <!--end:::Tab pane-->
@@ -1870,6 +2474,7 @@
                             </div>
                             <!--end::Card body-->
                         </div>
+
                         <!--end::Card-->
                     </div>
                     <!--end:::Tab pane-->
@@ -2118,302 +2723,6 @@
             <!--end::Content-->
         </div>
         <!--end::Layout-->
-        <!--begin::Modals-->
-        <!--begin::Modal - Update user details-->
-        <div class="modal fade" id="kt_modal_update_details" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-                <!--begin::Modal content-->
-                <div class="modal-content">
-                    <!--begin::Form-->
-                    <form asp-action="ResidentEdit" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_update_user_header">
-                            <!--begin::Modal title-->
-                            <h2 class="fw-bolder">Update User Details</h2>
-                            <!--end::Modal title-->
-                            <!--begin::Close-->
-                            <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
-                                <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
-                                <span class="svg-icon svg-icon-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                        <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-                                            <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                                            <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
-                                        </g>
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </div>
-                            <!--end::Close-->
-                        </div>
-                        <!--end::Modal header-->
-                        <!--begin::Modal body-->
-                        <div class="modal-body py-10 px-lg-17">
-                            <!--begin::Scroll-->
-                            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_update_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_update_user_header" data-kt-scroll-wrappers="#kt_modal_update_user_scroll" data-kt-scroll-offset="300px">
-                                <!--begin::User toggle-->
-                                <div class="fw-boldest fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_update_user_user_info" role="button" aria-expanded="false" aria-controls="kt_modal_update_user_user_info">
-                                    User Information
-                                    <span class="ms-2 rotate-180">
-                                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
-                                        <span class="svg-icon svg-icon-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                                    <path d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                </div>
-                                <!--end::User toggle-->
-                                <!--begin::User form-->
-                                <div id="kt_modal_update_user_user_info" class="collapse show">
-                                    <!--begin::Input group-->
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <label class="fs-6 fw-bold mb-2">
-                                                <span>KTP</span>
-                                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Allowed file types: png, jpg, jpeg." aria-label="Allowed file types: png, jpg, jpeg."></i>
-                                            </label>
-                                            <div class="mb-7">
-                                                <!--begin::Image input wrapper-->
-                                                <div class="mt-1">
-                                                    <!--begin::Image input-->
-                                                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(assets/media/avatars/blank.png)">
-                                                        <!--begin::Preview existing avatar-->
-                                                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/150-1.jpg"></div>
-                                                        <!--end::Preview existing avatar-->
-                                                        <!--begin::Edit-->
-                                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                                            <i class="bi bi-pencil-fill fs-7"></i>
-                                                            <!--begin::Inputs-->
-                                                            <input type="file" asp-for="KTP" accept=".png, .jpg, .jpeg" />
-                                                            <input type="hidden" name="avatar_remove" />
-                                                            <!--end::Inputs-->
-                                                        </label>
-                                                        <!--end::Edit-->
-                                                        <!--begin::Cancel-->
-                                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                                            <i class="bi bi-x fs-2"></i>
-                                                        </span>
-                                                        <!--end::Cancel-->
-                                                        <!--begin::Remove-->
-                                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                                            <i class="bi bi-x fs-2"></i>
-                                                        </span>
-                                                        <!--end::Remove-->
-                                                    </div>
-                                                    <!--end::Image input-->
-                                                </div>
-                                                <!--end::Image input wrapper-->
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 fv-row">
-                                            <label class="fs-6 fw-bold mb-2">
-                                                <span>KK</span>
-                                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Allowed file types: png, jpg, jpeg." aria-label="Allowed file types: png, jpg, jpeg."></i>
-                                            </label>
-                                            <div class="mb-7">
-                                                <!--begin::Image input wrapper-->
-                                                <div class="mt-1">
-                                                    <!--begin::Image input-->
-                                                    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(assets/media/avatars/blank.png)">
-                                                        <!--begin::Preview existing avatar-->
-                                                        <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/150-1.jpg"></div>
-                                                        <!--end::Preview existing avatar-->
-                                                        <!--begin::Edit-->
-                                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                                            <i class="bi bi-pencil-fill fs-7"></i>
-                                                            <!--begin::Inputs-->
-                                                            <input type="file" asp-for="KK" accept=".png, .jpg, .jpeg" />
-                                                            <input type="hidden" name="avatar_remove" />
-                                                            <!--end::Inputs-->
-                                                        </label>
-                                                        <!--end::Edit-->
-                                                        <!--begin::Cancel-->
-                                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                                            <i class="bi bi-x fs-2"></i>
-                                                        </span>
-                                                        <!--end::Cancel-->
-                                                        <!--begin::Remove-->
-                                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                                            <i class="bi bi-x fs-2"></i>
-                                                        </span>
-                                                        <!--end::Remove-->
-                                                    </div>
-                                                    <!--end::Image input-->
-                                                </div>
-                                                <!--end::Image input wrapper-->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--begin::Input group-->
-                                    <input asp-for="IdentityPhoto" type="hidden" value="@Model.IdentityPhoto" />
-                                    <input asp-for="IdentityFamilyPhoto" type="hidden" value="@Model.IdentityFamilyPhoto" />
-                                    <input asp-for="Id" type="hidden" value="@Model.Id" />
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">Name</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input asp-for="Name" type="text" class="form-control form-control-solid" value="@Model.Name" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span>Identity Number</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Harus sesuai dengan KTP"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input asp-for="IdentityNumber" type="number" class="form-control form-control-solid" value="@Model.IdentityNumber" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">Phone Number</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input asp-for="ContactNumber" type="text" class="form-control form-control-solid" value="@Model.ContactNumber" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">OccupantType</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select asp-for="OccupantType" class="form-control form-control-solid" asp-items="Html.GetEnumSelectList<OccupantType>()">
-                                        </select>
-                                        <!--end::Input-->
-                                    </div>
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">TotalOccupant</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input asp-for="TotalOccupant" type="number" class="form-control form-control-solid" value="@Model.TotalOccupant" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <div class="fv-row mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">Gender</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select asp-for="Gender" class="form-control form-control-solid" asp-items="Html.GetEnumSelectList<Gender>()">
-                                        </select>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                </div>
-                                <!--end::User form-->
-                                <!--begin::Address toggle-->
-                                <div class="fw-boldest fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_update_user_address" role="button" aria-expanded="false" aria-controls="kt_modal_update_user_address">
-                                    Address Details
-                                    <span class="ms-2 rotate-180">
-                                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
-                                        <span class="svg-icon svg-icon-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                                    <path d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                </div>
-                                <!--end::Address toggle-->
-                                <!--begin::Address form-->
-                                <div id="kt_modal_update_user_address" class="collapse show">
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">EmergencyCallName</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input asp-for="EmergencyCallName" class="form-control form-control-solid" value="@Model.EmergencyCallName" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="d-flex flex-column mb-7 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">EmergencyCallNumber</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input asp-for="EmergencyCallNumber" class="form-control form-control-solid" value="@Model.EmergencyCallNumber" />
-                                        <!--end::Input-->
-                                    </div>
-                                    <label class="fs-6 fw-bold mb-2">
-                                        <span>EmergencyCallRelation</span>
-                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Hubungan dengan pemilik No Hp darurat"></i>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select asp-for="EmergencyCallRelation" asp-items="Html.GetEnumSelectList<Relationship>()" aria-label="Select a Country" data-control="select2" data-placeholder="Select a Country..." class="form-select form-select-solid">
-                                    </select>
-                                    <div class="row g-9 mb-7">
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">No Rumah</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select asp-for="HouseId" class="form-control form-control-solid" placeholder="" asp-items="ViewBag.House">
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                        <!--begin::Col-->
-                                        <div class="col-md-6 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-6 fw-bold mb-2">Rumah milik sendiri?</label><br />
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" asp-for="IsOccupant" /> @Html.DisplayNameFor(model => model.IsOccupant)
-                                            </label>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
-                                </div>
-                                <!--end::Address form-->
-                            </div>
-                            <!--end::Scroll-->
-                        </div>
-                        <!--end::Modal body-->
-                        <!--begin::Modal footer-->
-                        <div class="modal-footer flex-center">
-                            <!--begin::Button-->
-                            <button type="reset" class="btn btn-white me-3" data-kt-users-modal-action="cancel">Discard</button>
-                            <!--end::Button-->
-                            <!--begin::Button-->
-                            <button type="submit" class="btn btn-primary">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">
-                                    Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                </span>
-                            </button>
-                            <!--end::Button-->
-                        </div>
-                        <!--end::Modal footer-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-            </div>
-        </div>
-        <!--end::Modal - Update user details-->
         <!--begin::Modal - Update password-->
         <div class="modal fade" id="kt_modal_update_password" tabindex="-1" aria-hidden="true">
             <!--begin::Modal dialog-->
@@ -2448,7 +2757,7 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <!--begin::Input group=-->
                             <div class="fv-row mb-10">
-                                <input name="id" type="hidden" value="@Model.Id" />
+                                <input name="id" type="hidden" value="@Model.Residents.Id" />
                                 <label class="required form-label fs-6 mb-2">Current Password</label>
                                 <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="OldPassword" autocomplete="off" />
                             </div>
@@ -2512,6 +2821,156 @@
             <!--end::Modal dialog-->
         </div>
         <!--end::Modal - Update password-->
+        <!--begin::Modal - Add task-->
+        <div class="modal fade" id="kt_modal_add_guest" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header">
+                        <!--begin::Modal title-->
+                        <h2 class="fw-bolder">Tambah tamu</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                            <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
+                                        <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                        <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
+                                    </g>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                        <!--begin::Form-->
+                        <form asp-action="GuestAdd" asp-controller="GuestBook" enctype="multipart/form-data" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <!--begin::Scroll-->
+                            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px" style="max-height: 188px;">
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <div class="fv-row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="d-block fw-bold fs-6 mb-5">Photo Tamu</label>
+                                            <!--end::Label-->
+                                            <!--begin::Image input-->
+                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
+                                                <!--begin::Preview existing avatar-->
+                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url(/assets/media/avatars/150-1.jpg);"></div>
+                                                <!--end::Preview existing avatar-->
+                                                <!--begin::Label-->
+                                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
+                                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                                    <!--begin::Inputs-->
+                                                    <input type="file" name="PhotoTamu" accept=".png, .jpg, .jpeg">
+                                                    <input type="hidden" name="avatar_remove">
+                                                    <!--end::Inputs-->
+                                                </label>
+                                                <!--end::Label-->
+                                                <!--begin::Cancel-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
+                                                    <i class="bi bi-x fs-2"></i>
+                                                </span>
+                                                <!--end::Cancel-->
+                                                <!--begin::Remove-->
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                                                    <i class="bi bi-x fs-2"></i>
+                                                </span>
+                                                <!--end::Remove-->
+                                            </div>
+                                            <!--end::Image input-->
+                                            <!--begin::Hint-->
+                                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                            <!--end::Hint-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-2">Name</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" name="Name" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                    <!--end::Input-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-2">No Telp</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" name="ContactNumber" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                    <!--end::Input-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-2">Tanggal Berkunjung</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="date" name="StartDate" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                    <!--end::Input-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-2">Tanggal Selesai</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="date" name="EndDate" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                    <!--end::Input-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-2">Keperluan</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" name="Necessity" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                    <!--end::Input-->
+                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                </div>
+                                <input type="hidden" name="GuestToId" value="@Model.Residents.Id">
+
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                            </div>
+                            <!--end::Scroll-->
+                            <!--begin::Actions-->
+                            <div class="text-center pt-15">
+                                <button type="reset" class="btn btn-white me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                    <span class="indicator-label">Submit</span>
+                                    <span class="indicator-progress">
+                                        Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                            <div></div>
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Modal body-->
+                </div>
+                <!--end::Modal content-->
+            </div>
+            <!--end::Modal dialog-->
+        </div>
+        <!--end::Modal - Add task-->
         <!--end::Modals-->
     </div>
     <!--end::Post-->

@@ -95,7 +95,7 @@ namespace Trisatech.KampDigi.Application.Services
                 throw new InvalidOperationException($"User dengan ID {idResident} tidak dapat ditemukan");
             }
 
-            
+
             //Db.RemoveRange(resident, account);
             Db.Remove(resident);
             Db.Remove(account);
@@ -132,6 +132,35 @@ namespace Trisatech.KampDigi.Application.Services
 
             return dataResident;
 
+        }
+
+        public async Task<ResidentEditModel> ResidentGetEditModel(Guid id)
+        {
+            var dataEdited = await Db.Residents.FirstOrDefaultAsync(x => x.Id == id);
+            if (dataEdited == null)
+            {
+                throw new InvalidOperationException($"User dengan ID {id} tidak dapat ditemukan");
+            }
+
+            var dataResident = new ResidentEditModel
+            {
+                Id = dataEdited.Id,
+                Name = dataEdited.Name,
+                IdentityNumber = dataEdited.IdentityNumber,
+                ContactNumber = dataEdited.ContactNumber,
+                OccupantType = dataEdited.OccupantType,
+                TotalOccupant = dataEdited.TotalOccupant,
+                IsOccupant = dataEdited.IsOccupant,
+                IdentityPhoto = dataEdited.IdentityPhoto,
+                IdentityFamilyPhoto = dataEdited.IdentityFamilyPhoto,
+                Gender = dataEdited.Gender,
+                EmergencyCallName = dataEdited.EmergencyCallName,
+                EmergencyCallNumber = dataEdited.EmergencyCallNumber,
+                EmergencyCallRelation = dataEdited.EmergencyCallRelation,
+                HouseId = dataEdited.HouseId,
+            };
+
+            return dataResident;
         }
 
         public async Task<ResidentEditModel> ResidentEdit(ResidentEditModel dataResident, Guid idCurrentUser)

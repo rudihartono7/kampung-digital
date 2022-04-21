@@ -24,7 +24,7 @@ namespace Trisatech.KampDigi.Application.Services
 
         public async Task<List<UserViewModel>> GetAllUser()
         {
-            var data = Db.Users.ToList();
+            var data = await Db.Users.ToListAsync();
             var listUser = new List<UserViewModel>();
             foreach (var user in data)
             {

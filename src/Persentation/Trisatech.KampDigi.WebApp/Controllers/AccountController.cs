@@ -42,7 +42,7 @@ public class AccountController : BaseController
         return View(listUser);
     }
     
-    public async Task<IActionResult> Register()
+    public IActionResult Register()
     {
         return View();
     }
@@ -185,7 +185,7 @@ public class AccountController : BaseController
     }
 
     [Authorize]
-    public async Task<IActionResult> UpdatePassword()
+    public IActionResult UpdatePassword()
     {
         
         return View(new UpdatePasswordModel
@@ -209,7 +209,7 @@ public class AccountController : BaseController
         return RedirectToAction("ResidentDetail", "Resident", new { id = dataPassword.Id });
     }
 
-    public async Task<IActionResult> ResetPassword(Guid id)
+    public IActionResult ResetPassword(Guid id)
     {
 
         return View(new ResetPasswordModel
