@@ -49,6 +49,8 @@ public class HouseService : BaseDbService, IHouseService
       }
       var houseFam = await (from h in Db.Houses
                             join r in Db.Residents on h.Id equals r.HouseId
+                            into lj
+                            from family in lj.DefaultIfEmpty()
                             where h.Id == Id
                             select new HouseDetailModel
                             {
@@ -58,9 +60,9 @@ public class HouseService : BaseDbService, IHouseService
                                Status = h.Status,
                                Type = h.Type,
                                ResidenceId = h.ResidenceId,
-                               HeadOfFamilyName = r.Name,
+                               HeadOfFamilyName = family.Name,
                                FamilyMember = (from rf in Db.ResidentFamilies
-                                               where rf.HeadOfFamilyId == r.Id
+                                               where rf.HeadOfFamilyId == family.Id
                                                select new ResidentFamily
                                                {
                                                   Name = rf.Name,

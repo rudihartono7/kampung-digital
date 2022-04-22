@@ -1,8 +1,10 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Application.Models;
+using Trisatech.KampDigi.Domain;
 using Trisatech.KampDigi.WebApp.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
@@ -12,12 +14,14 @@ public class HouseController : BaseController
    private readonly ILogger<HouseController> _logger;
    private readonly IHouseService _houseService;
    private readonly IResidenceService _residenceService;
+private readonly KampDigiContext _digiContext;
    public HouseController(ILogger<HouseController> logger,
-   IHouseService houseService, IResidenceService residenceService)
+   IHouseService houseService, IResidenceService residenceService, KampDigiContext digiContext)
    {
       _logger = logger;
       _houseService = houseService;
       _residenceService = residenceService;
+      _digiContext = digiContext;
    }
 
    public async Task<IActionResult> Index()
@@ -139,15 +143,42 @@ public class HouseController : BaseController
             message = "House Detail Not Found database"
          });
       }
-      return View(new HouseDetailModel{
+      return View(new HouseDetailModel
+      {
          Id = data.Id,
          Number = data.Number,
          Order = data.Order,
          Status = data.Status,
          Type = data.Type,
          ResidenceId = data.ResidenceId,
-         HeadOfFamilyName = data.HeadOfFamilyName,
+         HeadOfFamilyName = data.HeadOfFamilyName ?? "Belum memiliki pemilik",
          FamilyMember = data.FamilyMember
+      });
+   }
+
+   public async Task<IActionResult> MyHouse (){
+      Guid userId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+      var resident = (from u in _digiContext.Users join r in _digiContext.Residents on u.ResidentId equals r.Id
+                     where u.Id == userId
+                     select new {
+                        HouseId = r.HouseId
+                     }).FirstOrDefault();
+      var houseDet = await _houseService.DetailHouse(resident.HouseId);
+      if (houseDet == null)
+      {
+         ViewBag.Error = "Resident belum memiliki rumah";
+         return View();
+      }
+      return View(new HouseDetailModel
+      {
+         Id = houseDet.Id,
+         Number = houseDet.Number,
+         Order = houseDet.Order,
+         Status = houseDet.Status,
+         Type = houseDet.Type,
+         ResidenceId = houseDet.ResidenceId,
+         HeadOfFamilyName = houseDet.HeadOfFamilyName ?? "Belum memiliki pemilik",
+         FamilyMember = houseDet.FamilyMember
       });
    }
 
