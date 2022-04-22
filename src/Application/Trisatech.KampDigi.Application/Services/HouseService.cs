@@ -41,6 +41,37 @@ public class HouseService : BaseDbService, IHouseService
       return true;
    }
 
+   public async Task<HouseDetailModel> DetailHouse(Guid Id)
+   {
+      if (Id == null)
+      {
+         throw new InvalidOperationException("No Data send!");
+      }
+      var houseFam = await (from h in Db.Houses
+                            join r in Db.Residents on h.Id equals r.HouseId
+                            where h.Id == Id
+                            select new HouseDetailModel
+                            {
+                               Id = h.Id,
+                               Number = h.Number,
+                               Order = h.Order,
+                               Status = h.Status,
+                               Type = h.Type,
+                               ResidenceId = h.ResidenceId,
+                               HeadOfFamilyName = r.Name,
+                               FamilyMember = (from rf in Db.ResidentFamilies
+                                               where rf.HeadOfFamilyId == r.Id
+                                               select new ResidentFamily
+                                               {
+                                                  Name = rf.Name,
+                                                  Gender = rf.Gender,
+                                                  Age = rf.Age,
+                                                  Relationship = rf.Relationship
+                                               }).ToArray()
+                            }).FirstOrDefaultAsync();
+      return houseFam;
+   }
+
    public Task<List<House>> Get(int limit, int offset, string keyword)
    {
       throw new NotImplementedException();

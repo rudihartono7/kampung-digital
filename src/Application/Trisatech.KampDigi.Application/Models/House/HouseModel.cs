@@ -10,6 +10,7 @@ namespace Trisatech.KampDigi.Application.Models
       public string Number { get; set; }
       public HouseType Type { get; set; }
       public HouseStatus Status { get; set; }
+      public Guid? ResidenceId { get; set; }
 
 
       public House ConvertToDbModel()
@@ -20,7 +21,8 @@ namespace Trisatech.KampDigi.Application.Models
             Order = this.Order,
             Number = this.Number,
             Type = this.Type,
-            Status = this.Status
+            Status = this.Status,
+            ResidenceId = this.ResidenceId
          };
       }
 

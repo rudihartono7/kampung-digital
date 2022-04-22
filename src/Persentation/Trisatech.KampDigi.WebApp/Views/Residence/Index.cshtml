@@ -25,7 +25,7 @@
                         <!--begin::Add user-->
                         <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top"
                            data-bs-trigger="hover" title="Klik untuk Edit">
-                           <a asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-sm btn-warning">
+                           <a asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-icon btn-warning">
                               <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
                               <!--begin::Svg Icon | path: assets/media/icons/duotone/Design/Edit.svg-->
                               <span class="svg-icon-muted"><svg xmlns="http://www.w3.org/2000/svg"
@@ -67,16 +67,15 @@
                         <div class="col-6 ">
                            <div class="row">
                               <div class="col-4">
-                                 <p class="card-text">Google Map Link</p>
-                                 <p class="card-text">Longitude</p>
-                                 <p class="card-text">Latitude</p>
+                                 <h5 class="card-text">Google Map Link</h5>
+                                 <h5 class="card-text">Longitude</h5>
+                                 <h5 class="card-text">Latitude</h5>
                               </div>
                               <div class="col-8">
-                                 <p class="card-text">: <a href="@Model.GMapLink" class="btn btn-sm btn-primary">Click
-                                       ME!</a>
+                                 <p class="card-text d-flex justify-content-end"> <a href="@Model.GMapLink" class="btn btn-sm btn-primary">Click ME!</a>
                                  </p>
-                                 <p class="card-text">: @Model.Longitude</p>
-                                 <p class="card-text">: @Model.Latitude</p>
+                                 <p class="card-text d-flex justify-content-end"> @Model.Longitude</p>
+                                 <p class="card-text d-flex justify-content-end"> @Model.Latitude</p>
                               </div>
                            </div>
                         </div>
@@ -84,10 +83,10 @@
                            <div class="col-4">
                               <div class="row">
                                  <div class="col-6">
-                                    <h5 class="card-text">Ketua Residence</h5>
+                                    <h5 class="card-text d-flex justify-content-end">Ketua Residence</h5>
                                  </div>
                                  <div class="col-6">
-                                    <h5 class="card-text">: @Model.PersonInChargeName</h5>
+                                    <h5 class="card-text d-flex justify-content-end">: @Model.PersonInChargeName</h5>
                                  </div>
                               </div>
                            </div>

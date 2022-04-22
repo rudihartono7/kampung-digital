@@ -11,17 +11,20 @@ public class HouseController : BaseController
 {
    private readonly ILogger<HouseController> _logger;
    private readonly IHouseService _houseService;
+   private readonly IResidenceService _residenceService;
    public HouseController(ILogger<HouseController> logger,
-   IHouseService houseService)
+   IHouseService houseService, IResidenceService residenceService)
    {
       _logger = logger;
       _houseService = houseService;
+      _residenceService = residenceService;
    }
 
    public async Task<IActionResult> Index()
    {
       var result = await _houseService.GetAll();
       var house = new List<HouseModel>();
+      var residence = await _residenceService.getData();
       foreach (var item in result)
       {
          house.Add(new HouseModel
@@ -34,6 +37,7 @@ public class HouseController : BaseController
          });
       }
       ViewBag.DaftarRumah = house;
+      ViewBag.ResidenceId = residence.Id;
       return View();
    }
 
@@ -63,7 +67,6 @@ public class HouseController : BaseController
       }
       try
       {
-
          var house = request.ConvertToDbModel();
          await _houseService.Add(house);
          return Json(new
@@ -112,7 +115,39 @@ public class HouseController : BaseController
          number = data.Number,
          order = data.Order,
          status = data.Status,
-         type = data.Type
+         type = data.Type,
+         residenceId = data.ResidenceId
+      });
+   }
+
+   public async Task<IActionResult> Detail(Guid? Id)
+   {
+      if (Id == null)
+      {
+         return Json(new
+         {
+            success = false,
+            message = "Invalid Operation"
+         });
+      }
+      var data = await _houseService.DetailHouse(Id.Value);
+      if (data == null)
+      {
+         return Json(new
+         {
+            success = false,
+            message = "House Detail Not Found database"
+         });
+      }
+      return View(new HouseDetailModel{
+         Id = data.Id,
+         Number = data.Number,
+         Order = data.Order,
+         Status = data.Status,
+         Type = data.Type,
+         ResidenceId = data.ResidenceId,
+         HeadOfFamilyName = data.HeadOfFamilyName,
+         FamilyMember = data.FamilyMember
       });
    }
 
