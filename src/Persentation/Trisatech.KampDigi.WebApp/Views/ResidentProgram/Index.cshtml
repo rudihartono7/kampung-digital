@@ -9,9 +9,9 @@
       <div class="card-header">
          <h3 class="card-title">@ViewData["Title"]</h3>
          <div class="card-toolbar">
-            <button type="button" class="btn btn-sm btn-light">
-               Action
-            </button>
+            <a asp-action="Create" class="btn btn-sm btn-primary">
+               Create New
+            </a>
          </div>
       </div>
       <div class="card-body py-5">
@@ -25,7 +25,7 @@
    document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('kt_docs_fullcalendar_basic');
       var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
+         initialView: 'dayGridMonth'
       });
       calendar.render();
    });

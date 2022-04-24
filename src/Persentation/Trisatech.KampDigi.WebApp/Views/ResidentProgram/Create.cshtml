@@ -3,12 +3,11 @@
 @model Trisatech.KampDigi.Application.Models.ResidentProgramModel
 
 @{
-   ViewData["Title"] = "Create";
-   Layout = "_Layout";
+   ViewData["Title"] = "Agenda Kegiatan Kampung";
+   ViewData["Menu"] = "Create Kegiatan";
+   Layout = "_BaseTemplate";
 }
 <div class="container">
-   <h4 class="my-3">Agenda Baru</h4>
-
    <div class="row">
       <div class="col-md-12">
          <form asp-action="Create" method="post">
@@ -30,7 +29,8 @@
             </div>
             <div class="form-group mb-3">
                <label class="control-label">Periode Program</label>
-               <select name="ProgramPeriod" id="ProgramPeriod">
+               <select name="ProgramPeriod" id="ProgramPeriod" class="form-select form-select-solid"
+                  data-control="select2" data-placeholder="Select an option">
                   <option value="@ProgramPeriod.None">None</option>
                   <option value="@ProgramPeriod.Daily">Daily</option>
                   <option value="@ProgramPeriod.Weekly">Weekly</option>
@@ -40,25 +40,27 @@
             </div>
             <div class="form-group mb-3">
                <label class="control-label">Deskripsi</label>
-               <textarea name="Desc" id="Desc" cols="15" rows="5">
+               <textarea name="Desc" id="Desc" class="form-control" col="5" rows="10">
                </textarea>
             </div>
             <div class="form-group mb-3">
                <label class="control-label">Pennggung Jawab</label>
-               <select name="ProgramPeriod" id="ProgramPeriod">
+               <select name="PersonInChargeId" id="PersonInChargeId" class="form-select form-select-solid"
+                  data-control="select2" data-placeholder="Select an option">
+                  
                </select>
             </div>
             <div class="form-group mb-3">
                <label class="control-label">Mulai Kegiatan</label>
-               <input type="date" name="StartDate">
+               <input type="text" class="form-control form-control-solid date" placeholder="Pick a date" name="StartDate">
             </div>
             <div class="form-group mb-3">
-               <label class="control-label">Mulai Kegiatan</label>
-               <input type="date" name="EndDate">
+               <label class="control-label">Selesai Kegiatan</label>
+               <input type="text" class="form-control form-control-solid date" placeholder="Pick a date" name="EndDate">
             </div>
             <div class="form-group mb-3">
                <label class="control-label">Estimasi Biaya</label>
-               <input type="text" name="Cost">
+               <input type="text" name="Cost" class="form-control">
             </div>
 
             <div class="form-group mb-3">
@@ -70,5 +72,14 @@
    <div>
       <a asp-action="Index">Back to List</a>
    </div>
-
 </div>
+@section Scripts {
+<script>
+   $(".date").daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      minYear: 1901,
+      maxYear: parseInt(moment().format("YYYY"), 10)
+   });
+</script>
+}

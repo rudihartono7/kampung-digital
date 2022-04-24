@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Trisatech.KampDigi.Application;
 using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Application.Models;
@@ -25,32 +27,65 @@ public class ResidentProgramController : BaseController
 
    public async Task<IActionResult> Index()
    {
-      var result = await _residentProgramService.GetAll();
-      var data = new List<ResidentProgramModel>();
-      foreach (var item in result)
-      {
-         data.Add(new ResidentProgramModel{
-            Id = item.Id,
-            Year = item.Year,
-            Cost = item.Cost,
-            Desc = item.Desc,
-            EndDate = item.EndDate,
-            PersonInChargeId = item.PersonInChargeId,
-            ProgramPeriod = item.ProgramPeriod,
-            ProgramSubject = item.ProgramSubject,
-            StartDate = item.StartDate,
-            Title = item.Title
-         });
-      }
-      return View(data);
+      // var result = await _residentProgramService.GetAll();
+      // var data = new List<ResidentProgramModel>();
+      // foreach (var item in result)
+      // {
+      //    data.Add(new ResidentProgramModel{
+      //       Id = item.Id,
+      //       Year = item.Year,
+      //       Cost = item.Cost,
+      //       Desc = item.Desc,
+      //       EndDate = item.EndDate,
+      //       PersonInChargeId = item.PersonInChargeId,
+      //       ProgramPeriod = item.ProgramPeriod,
+      //       ProgramSubject = item.ProgramSubject,
+      //       StartDate = item.StartDate,
+      //       Title = item.Title
+      //    });
+      // }
+      return View();
    }
 
-   public async Task<IActionResult> Create(){
+   private async Task SetKategoriDataSource()
+   {
+      var residents = await _digiContext.Residents.ToListAsync();
+
+      ViewBag.ResidentDataSource = residents.Select(x => new SelectListItem
+      {
+         Value = x.Id.ToString(),
+         Text = x.Name,
+         Selected = false
+      }).ToList();
+   }
+
+   private async Task SetKategoriDataSource(Guid PersonInChargeId)
+   {
+
+      if (PersonInChargeId == null)
+      {
+         await SetKategoriDataSource();
+         return;
+      }
+      var residents = await _digiContext.Residents.ToListAsync();
+      ViewBag.ResidentDataSource = residents.Select(x =>
+      new SelectListItem
+      {
+         Value = x.Id.ToString(),
+         Text = x.Name,
+         Selected = residents.FirstOrDefault(y => y.Id == x.Id) == null ? false : true
+      }).ToList();
+   }
+
+
+   public async Task<IActionResult> Create()
+   {
       return View(new ResidentProgramModel());
    }
 
    [HttpPost]
-   public async Task<IActionResult> Create(ResidentProgramModel request){
+   public async Task<IActionResult> Create(ResidentProgramModel request)
+   {
       if (!ModelState.IsValid)
       {
          return View(request);
