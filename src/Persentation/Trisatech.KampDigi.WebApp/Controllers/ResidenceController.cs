@@ -1,15 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Trisatech.KampDigi.Application.Interfaces;
-using Trisatech.KampDigi.WebApp.Models;
-using Trisatech.KampDigi.Application.Models.Account;
-using Trisatech.KampDigi.Domain.Entities;
 using Trisatech.KampDigi.Application;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Trisatech.KampDigi.Domain;
-using Microsoft.EntityFrameworkCore;
 using Trisatech.KampDigi.Application.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trisatech.KampDigi.WebApp.Helpers;
@@ -34,7 +28,7 @@ public class ResidenceController : BaseController
       _iWebHost = iwebHost;
    }
 
-   [Authorize(Roles = AppConstant.ADMIN)]
+   [Authorize]
 
    public async Task<IActionResult> Index()
    {
@@ -103,6 +97,7 @@ public class ResidenceController : BaseController
       return View();
    }
 
+   [Authorize(Roles = AppConstant.ADMIN)]
    [HttpPost]
    public async Task<IActionResult> Create(ResidenceModel req)
    {
@@ -143,6 +138,7 @@ public class ResidenceController : BaseController
       }
    }
 
+   [Authorize(Roles = AppConstant.ADMIN)]
    // POST
    [HttpPost]
    public async Task<IActionResult> Edit(Guid? Id, ResidenceModel quest)
@@ -203,7 +199,8 @@ public class ResidenceController : BaseController
       return View(quest);
    }
 
-   public bool DeleteFile(string path){
+   public bool DeleteFile(string path)
+   {
       // Delete a file by using File class static method...
       if (System.IO.File.Exists(path))
       {
@@ -212,8 +209,8 @@ public class ResidenceController : BaseController
          // opened by another process.
          try
          {
-           System.IO.File.Delete(path);
-           return true;
+            System.IO.File.Delete(path);
+            return true;
          }
          catch (System.IO.IOException e)
          {

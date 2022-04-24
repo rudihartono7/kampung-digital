@@ -3,6 +3,7 @@
 
 @{
    Layout = "_BaseTemplate";
+   var userRole = Context.User.IsInRole("Admin");
 }
 
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
@@ -20,27 +21,34 @@
                   <div class="text-center mb-15">
                      <!--begin::Title-->
                      <h3 class="fs-2hx text-dark mb-5">@Model.Name</h3>
-                     <!--begin::Toolbar-->
-                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                        <!--begin::Add user-->
+                     @if (userRole)
+                     {
+                        <!--begin::Toolbar-->
+                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                           <!--begin::Add user-->
                         <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top"
                            data-bs-trigger="hover" title="Klik untuk Edit">
-                           <a asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-icon btn-warning">
-                              <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
-                              <!--begin::Svg Icon | path: assets/media/icons/duotone/Design/Edit.svg-->
-                              <span class="svg-icon-muted"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
-                                    <path
+                              <a asp-action="Edit" asp-route-Id="@Model.Id" class="btn btn-icon btn-warning">
+                                 <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
+                                 <!--begin::Svg Icon | path: assets/media/icons/duotone/Design/Edit.svg-->
+                              <span class="svg-icon-muted"><svg xmlns="http://www.w3.org/2000/svg" width="20px"
+                                    height="20px" viewBox="0 0 20 20" version="1.1">
+                                       <path
                                        d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z"
                                        fill="#000000" fill-rule="nonzero"
                                        transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) " />
-                                    <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1" />
-                                 </svg></span>
-                           </a>
-                        </div>
-                        <!--end::Add user-->
+                                       <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1" />
+                                    </svg></span>
+                              </a>
+                           </div>
+                           <!--end::Add user-->
                      </div>
-                     <!--end::Toolbar-->
+                        <!--end::Toolbar-->
+                     }
+                     else
+                     {
+
+                     }
                      <!--end::Title-->
                      <!--begin::Text-->
                      <div class="fs-5 text-muted fw-bold">@Model.Address</div>
@@ -72,7 +80,8 @@
                                  <h5 class="card-text">Latitude</h5>
                               </div>
                               <div class="col-8">
-                                 <p class="card-text d-flex justify-content-end"> <a href="@Model.GMapLink" class="btn btn-sm btn-primary">Click ME!</a>
+                                 <p class="card-text d-flex justify-content-end"> <a href="@Model.GMapLink"
+                                       class="btn btn-sm btn-primary">Click ME!</a>
                                  </p>
                                  <p class="card-text d-flex justify-content-end"> @Model.Longitude</p>
                                  <p class="card-text d-flex justify-content-end"> @Model.Latitude</p>
