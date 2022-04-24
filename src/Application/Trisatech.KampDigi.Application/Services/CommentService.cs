@@ -19,6 +19,9 @@ public class CommentService : BaseDbService, ICommentService
             throw new InvalidOperationException($"Comment with ID {obj.Id} is already exist");
         }
 
+        obj.CreatedBy = Guid.NewGuid();
+        obj.UpdatedBy = obj.CreatedBy;
+        obj.CreatedDate = DateTime.Now;
         await Db.AddAsync(obj);
         await Db.SaveChangesAsync();
 
@@ -99,24 +102,12 @@ public class CommentService : BaseDbService, ICommentService
         result.Id = obj.Id;
         result.Desc = obj.Desc;
         result.PostId = obj.PostId;
+        result.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;
+        result.UpdatedDate = DateTime.Now;
 
         Db.Update(result);
         await Db.SaveChangesAsync();
 
-        return result;
-    }
-
-
-    async Task<List<CommentModel>> GetComm(Guid PostId)
-    {
-        var result = await (from a in Db.Comments
-                            where a.PostId == PostId
-                            select new CommentModel
-                            {
-                                Id = a.Id,
-                                Desc = a.Desc,
-                                PostId = a.PostId
-                            }).ToListAsync();
         return result;
     }
 
@@ -142,7 +133,12 @@ public class CommentService : BaseDbService, ICommentService
 
     async Task<Comment> ICrudService<Comment>.Get(Guid id)
     {
-        throw new NotImplementedException();
+        var result = await Db.Comments.FirstOrDefaultAsync(x => x.Id == id);
+        if (result == null)
+        {
+            throw new InvalidOperationException($"Comment with ID {id} doesn't exist");
+        }
+        return result;
     }
 
 

@@ -54,6 +54,22 @@ public class PostService : BaseDbService, IPostService
 
     public async Task<Post> Get(Guid id)
     {
+        // var result = await (from a in Db.Posts
+        //                     join b in Db.Users on a.username equals b.username
+        //                     select new Post
+        //                     {
+        //                         Id = a.Id,
+        //                         PostSubject = a.PostSubject,
+        //                         Title = a.Title,
+        //                         Desc = a.Desc,
+        //                         Image = a.Image,
+        //                         Type = a.Type,
+        //                         IsResidentProgram = a.IsResidentProgram,
+        //                         CreatedDate = a.CreatedDate,
+        //                         UpdatedDate = a.UpdatedDate,
+        //                         Username = b.username,
+        //                     }).FirstOrDefaultAsync(x => x.Id == id);
+            
         var result = await Db.Posts.FirstOrDefaultAsync(x => x.Id == id);
 
         if (result == null)
@@ -83,6 +99,8 @@ public class PostService : BaseDbService, IPostService
     {
         throw new NotImplementedException();
     }
+
+
 
     public async Task<Post> Update(Post obj)
     {

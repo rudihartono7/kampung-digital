@@ -16,7 +16,17 @@
                     @Html.DisplayFor(model => model.Desc)
                 </div>
                 <div class="col-sm-9">
-                    
+                    <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.PostId)
+                </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+                </div>
+                <div class="col-sm-9">
+                
                 </div>
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="Id" />

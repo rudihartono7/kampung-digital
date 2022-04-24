@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trisatech.KampDigi.Application.Interfaces;
@@ -59,13 +60,16 @@ public class CommentController : BaseController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Guid id, CommentModel request)
     {
-
+        if (!ModelState.IsValid)
+        {
+            return View(request);
+        }
         
         try
         {
             await _commentService.Add(request.ConvertToDbModelCreate());
 
-            return Redirect(nameof(Index));
+            return RedirectToAction("Index", new { id = request.PostId });
         }
         catch (InvalidOperationException ex)
         {
@@ -78,32 +82,34 @@ public class CommentController : BaseController
 
         return View(request);
     }
+
     [HttpGet]
-    // public async Task<IActionResult> Delete(Guid? id)
-    // {
-    //     if (id == null)
-    //     {
-    //         return BadRequest();
-    //     }
+    public async Task<IActionResult> Delete(Guid? id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
 
-    //     var result = await _commentService.Get(id.Value);
+        var dbResult = await _commentService.Get(id.Value);
 
-    //     if (result == null)
-    //     {
-    //         return NotFound();
-    //     }
+        if (dbResult == null)
+        {
+            return NotFound();
+        }
 
-    //     return View(new CommentModel()
-    //     {
-    //         Id = result.Id,
-    //         Desc = result.Desc,
-    //         PostId = result.PostId
+        return View(new CommentModel()
+        {
+            Id = dbResult.PostId,
+            Desc = dbResult.Desc,
+            PostId = dbResult.PostId
 
-    //     });
-    // }
+        });
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id, CommentModel request)
     {
         if (id == null)
         {
@@ -114,7 +120,7 @@ public class CommentController : BaseController
         {
             await _commentService.Delete(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", new { id = request.PostId });
         }
         catch (InvalidOperationException ex)
         {
@@ -126,5 +132,58 @@ public class CommentController : BaseController
         }
 
         return View(id);
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
+
+        var comment = await _commentService.Get(id);
+
+        if (comment == null)
+        {
+            return NotFound();
+        }
+        return View(new CommentModel()
+        {
+            Id = id,
+            Desc = comment.Desc,
+            PostId = comment.PostId
+        });
+    }
+
+    [Authorize]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(Guid id, CommentModel request)
+    {
+        if (id == null)
+        {
+            return BadRequest();
+        }
+        if (!ModelState.IsValid)
+        {
+            return View(request);
+        }
+        try
+        {
+            await _commentService.Update(request.ConvertToDbModelEdit());
+            return RedirectToAction("Index", new { id = request.PostId });
+        }
+        catch (InvalidOperationException ex)
+        {
+
+            ViewBag.ErrorMessage = ex.Message;
+        }
+        catch
+        {
+            throw;
+        }
+        return View(request);
     }
 }

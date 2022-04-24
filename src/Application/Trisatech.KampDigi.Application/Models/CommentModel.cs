@@ -7,6 +7,8 @@ namespace Trisatech.KampDigi.Application.Models
         public Guid Id { get; set; }
         public string Desc { get; set; }
         public Guid PostId { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         
         public Comment ConvertToDbModelCreate(){
             return new Comment {
