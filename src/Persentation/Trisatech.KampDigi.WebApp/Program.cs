@@ -23,6 +23,7 @@ builder.Services.AddScoped<IResidentFamilyService, ResidentFamilyService>();
 builder.Services.AddScoped<IResidentProgramService, ResidentProgramService>();
 builder.Services.AddScoped<IHouseService, HouseService>();
 builder.Services.AddScoped<IResidentBillBaseInfoService, ResidentBillBaseInfoService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();

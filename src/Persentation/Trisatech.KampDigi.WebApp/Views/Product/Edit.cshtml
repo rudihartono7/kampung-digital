@@ -1,0 +1,86 @@
+@model Trisatech.KampDigi.Application.Models.ProductModel
+@{
+   ViewData["Title"] = "List Product";
+   ViewData["Menu"] = "Product";
+   Layout = "_BaseTemplate";
+}
+
+<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">
+										<a href="/Home/Index" class="text-white text-hover-primary">Home</a>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">
+                              <a href="/Product/Index" class="text-white text-hover-primary">Product</a>
+                           </li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">Edit</li>
+									<!--end::Item-->
+								</ul>
+<div>
+   <div class="card card-flush shadow-sm card-xl">
+      <div class="card-header">
+         <h3 class="card-title">Edit Produk </h3>
+      </div>
+      <div class="card-body py-5">
+         <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Nama</label><br>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Price</label><br>
+                <input asp-for="Price" type="number" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="PublicLink" class="control-label">Link</label><br>
+                <input asp-for="PublicLink" class="form-control" />
+                <span asp-validation-for="PublicLink" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="SellerName" class="control-label">Seller Name</label><br>
+                <input asp-for="SellerName" class="form-control" />
+                <span asp-validation-for="SellerName" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="WhatsappNumber" class="control-label">WhatsApp</label><br>
+                <input asp-for="WhatsappNumber" class="form-control" />
+                <span asp-validation-for="WhatsappNumber" class="text-danger"></span>
+            </div><br>
+             <div class="form-group">
+                <div class="custom-file">
+                <label asp-for="ImageFile" class="custom-file-label">Image</label><br>
+                <input asp-for="ImageFile" type="file" class="custom-file-input" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span><br><br>
+                 <img src="~/@Model.Imagesrc" height="100"></img>
+                </div>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="Desc" class="control-label">Deskripsi</label><br>
+                <input asp-for="Desc" class="form-control" />
+                <span asp-validation-for="Desc" class="text-danger"></span>
+            </div><br>
+            <div class="form-group mb-3">
+               <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
