@@ -68,14 +68,9 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                TempData["message"] = ex.Message;
+                return RedirectToAction("ErrorAction", "Home");
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return View(dataTamu);
         }
 
         [Authorize]
@@ -83,12 +78,10 @@ namespace Trisatech.KampDigi.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GuestEdit(GuestBookEditModel dataGuest)
         {
-            var dataResident = _digiContext.Users.FirstOrDefault(x => x.Id == GetCurrentUserGuid());
-
             if (!ModelState.IsValid)
             {
                 TempData["message"] = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
-                return RedirectToAction("ResidentDetail", "Resident", new { id = dataResident.ResidentId });
+                return RedirectToAction("ResidentDetail", "Resident", new { id = GetCurrentUserGuid() });
             }
             try
             {
@@ -102,40 +95,16 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 else
                 {
                     TempData["message"] = "Data tamu berhasil diedit";
-                    return RedirectToAction("ResidentDetail", "Resident", new { id = dataResident.ResidentId });
+                    return RedirectToAction("ResidentDetail", "Resident", new { id = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.UserData).Value) });
                 }
 
             }
             catch (InvalidOperationException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                TempData["message"] = ex.Message;
+                return RedirectToAction("ErrorAction", "Home");
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return View(dataGuest);
         }
-
-        //[Authorize]
-        //public async Task<IActionResult> GuestDetail(Guid id)
-        //{
-        //    if (_digiContext.GuestBooks.Find(id) == null)
-        //    {
-        //        TempData["message"] = "Data tamu tidak ditemukan. Apakah data tamu sudah di input?";
-        //        return RedirectToAction("ErrorAction", "Home");
-        //    }
-
-
-        //    if (TempData["message"] != null)
-        //    {
-        //        ViewBag.Message = TempData["message"].ToString();
-        //        TempData.Remove("message");
-        //    }
-        //    return View(await _guestBookService.GuestDetail(id));
-        //}
-
 
         public Guid GetCurrentUserGuid()
         {

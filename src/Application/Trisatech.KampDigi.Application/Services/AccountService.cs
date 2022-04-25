@@ -159,6 +159,10 @@ namespace Trisatech.KampDigi.Application.Services
         public async Task<EditRoleModel> EditRole(EditRoleModel dataRole, Guid currentUserId)
         {
             var userData = await Db.Users.FirstOrDefaultAsync(x => x.Id == dataRole.Id);
+            if (userData == null)
+            {
+                throw new InvalidOperationException($"User dengan id {dataRole.Id} tidak dapat ditemukan"); 
+            }
             userData.Role = dataRole.Role;
             userData.UpdatedDate = DateTime.Now;
             userData.UpdatedBy = currentUserId;

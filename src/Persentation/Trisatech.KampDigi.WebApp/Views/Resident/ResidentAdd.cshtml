@@ -36,6 +36,12 @@
     <!--end::Container-->
 </div>
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        @ViewBag.Message
+    </div>
+}
 
 <!--begin::Basic info-->
 <div class="card mb-5 mb-xl-10">
@@ -63,6 +69,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4">
+                        <label class="d-block fw-bold fs-6 mb-5">KTP</label>
                         <!--begin::Image input-->
                         <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
                             <!--begin::Image preview wrapper-->
@@ -107,8 +114,7 @@
                         <!--end::Hint-->
                     </div>
                     <div class="col-lg-4">
-
-
+                        <label class="d-block fw-bold fs-6 mb-5">KK</label>
                         <!--begin::Image input-->
                         <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
                             <!--begin::Image preview wrapper-->
@@ -368,7 +374,7 @@
             <!--begin::Actions-->
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <button type="reset" class="btn btn-white btn-active-light-primary me-2">Discard</button>
-                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Add Resident</button>
             </div>
             <!--end::Actions-->
         </form>

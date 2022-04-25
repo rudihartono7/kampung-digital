@@ -36,6 +36,12 @@
     <!--end::Container-->
 </div>
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        @ViewBag.Message
+    </div>
+}
 
 <!--begin::Basic info-->
 <div class="card mb-5 mb-xl-10">
@@ -43,7 +49,7 @@
     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
         <!--begin::Card title-->
         <div class="card-title m-0">
-            <h3 class="fw-bolder m-0">Edit Resident</h3>
+            <h3 class="fw-bolder m-0">Edit Profile</h3>
         </div>
         <!--end::Card title-->
     </div>

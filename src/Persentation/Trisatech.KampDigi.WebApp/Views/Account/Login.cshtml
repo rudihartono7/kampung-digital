@@ -34,6 +34,12 @@
     <!--end::Container-->
 </div>
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success text-center" role="alert">
+        @ViewBag.Message
+    </div>
+}
 
 <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->

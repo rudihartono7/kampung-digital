@@ -14,6 +14,5 @@ namespace Trisatech.KampDigi.Application.Interfaces
         Task<List<GuestBookListModel>> GuestResidentList(Guid id);
         Task<List<GuestBookListModel>> GuestBookList();
         Task<GuestBookEditModel> GuestBookEdit(GuestBookEditModel model, Guid idCurrentUser);
-        Task<bool> DeleteUser(Guid id);
     }
 }

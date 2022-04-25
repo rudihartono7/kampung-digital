@@ -87,4 +87,13 @@ public class HouseService : BaseDbService, IHouseService
 
       return house;
    }
+
+    public async Task<List<House>> GetEmptyHouse()
+    {
+        var listEmptyHouse = await (from a in Db.Houses
+                                    join b in Db.Residents
+                                    on a.Id equals b.HouseId
+                                    select a).ToListAsync();
+        return listEmptyHouse;
+    }
 }

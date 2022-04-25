@@ -41,7 +41,7 @@ namespace Trisatech.KampDigi.Application.Services
         {
             if (await Db.Residents.AnyAsync(x => x.IdentityNumber == model.IdentityNumber))
             {
-                throw new InvalidOperationException($"Username {model.IdentityNumber} sudah terdaftar");
+                throw new InvalidOperationException($"Warga dengan NIK {model.IdentityNumber} sudah terdaftar");
             }
 
             var newResident = new Resident
@@ -92,7 +92,7 @@ namespace Trisatech.KampDigi.Application.Services
             var account = Db.Users.FirstOrDefault(x => x.ResidentId == idResident);
             if (resident == null || account == null)
             {
-                throw new InvalidOperationException($"User dengan ID {idResident} tidak dapat ditemukan");
+                throw new InvalidOperationException($"User/Resident dengan ID {idResident} tidak dapat ditemukan");
             }
 
 

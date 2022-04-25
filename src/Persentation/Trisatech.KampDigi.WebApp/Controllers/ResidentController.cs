@@ -52,15 +52,15 @@ namespace Trisatech.KampDigi.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["message"] = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
-                return RedirectToAction("ErrorAction", "Home");
+                ViewBag.Message = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
+                ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+                return View(dataResident);
             }
             try
             {
 
                 dataResident.IdentityPhoto = await SaveFile(dataResident.KTP);
                 dataResident.IdentityFamilyPhoto = await SaveFile(dataResident.KK);
-
 
                 await _residentService.ResidentAdd(dataResident, GetCurrentUserGuid());
 
@@ -69,14 +69,14 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                ViewBag.Message = ex.Message;
+                ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+                return View(dataResident);
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return View(dataResident);
         }
 
         [Authorize]
@@ -88,6 +88,8 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 return RedirectToAction("ErrorAction", "Home");
             }
 
+            var residentDetail = await _residentService.ResidentDetail(id);
+            var guestList = await _guestBookService.GuestResidentList(id);
 
             if (TempData["message"] != null)
             {
@@ -95,12 +97,7 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 TempData.Remove("message");
             }
 
-            ViewBag.Root = _webHost.ContentRootPath;
             ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
-
-            var residentDetail = await _residentService.ResidentDetail(id);
-            var guestList = await _guestBookService.GuestResidentList(id);
-
 
             return View(new UserDetailModel
             {
@@ -138,8 +135,9 @@ namespace Trisatech.KampDigi.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["message"] = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
-                return RedirectToAction("ErrorAction", "Home");
+                ViewBag.Message = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
+                ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+                return View(dataResident);
             }
             try
             {
@@ -160,14 +158,13 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                TempData["message"] = ex.Message;
+                return RedirectToAction("ErrorAction", "Home");
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return View(dataResident);
         }
 
 
@@ -184,10 +181,18 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 return RedirectToAction("ErrorAction", "Home");
             }
 
-            await _residentService.ResidentDelete(id);
+            try
+            {
+                await _residentService.ResidentDelete(id);
 
-            TempData["message"] = "Data warga berhasil di hapus";
-            return RedirectToAction("Index");
+                TempData["message"] = "Data warga berhasil di hapus";
+                return RedirectToAction("Index");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(dataResident);
+            }
 
         }
 

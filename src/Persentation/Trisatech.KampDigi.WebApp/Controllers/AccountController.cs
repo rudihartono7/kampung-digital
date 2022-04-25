@@ -44,6 +44,11 @@ public class AccountController : BaseController
     
     public IActionResult Register()
     {
+        if (TempData["message"] != null)
+        {
+            ViewBag.Message = TempData["message"].ToString();
+            TempData.Remove("message");
+        }
         return View();
     }
 
@@ -63,26 +68,40 @@ public class AccountController : BaseController
         }
         catch (InvalidOperationException ex)
         {
-            ViewBag.ErrorMessage = ex.Message;
+            ViewBag.Message = ex.Message;
+            return View(dataUser);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            ViewBag.Message = ex.Message;
+            return View(dataUser);
         }
-
-        return View(dataUser);
     }
 
     public IActionResult Login()
     {
-        
+        if (TempData["message"] != null)
+        {
+            ViewBag.Message = TempData["message"].ToString();
+            TempData.Remove("message");
+        }
         return View(new LoginModel());
     }
 
     [HttpPost]
     public async Task<IActionResult> Login(LoginModel dataInput)
     {
-        var result = await _accountService.Login(dataInput.Username, dataInput.Password);
+        User result;
+        try
+        {
+            result = await _accountService.Login(dataInput.Username, dataInput.Password);
+        }
+        catch (InvalidOperationException ex)
+        {
+            ViewBag.Message = ex.Message;
+            return View();
+        }
+        
         string roleUser = string.Empty;
 
         if (result.Role == (Role)0)
@@ -130,8 +149,9 @@ public class AccountController : BaseController
             }
             return RedirectToActionPermanent("Index", "Home");
         }
-        catch (System.Exception)
+        catch (System.Exception ex)
         {
+            ViewBag.Message = ex.Message;
             return View(dataInput);
         }
     }
@@ -145,17 +165,18 @@ public class AccountController : BaseController
     [Authorize(Roles = AppConstant.ADMIN)]
     public async Task<IActionResult> EditRole(Guid id)
     {
+        
+        var dataUser = await _digiContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+        if (dataUser == null)
+        {
+            ViewBag.Message = "User tidak dapat ditemukan";
+            return View();
+        }
+
         if (TempData["message"] != null)
         {
             ViewBag.Message = TempData["message"].ToString();
             TempData.Remove("message");
-        }
-
-        var dataUser = await _digiContext.Users.FirstOrDefaultAsync(x => x.Id == id);
-        if (dataUser == null)
-        {
-            TempData["message"] = "User tidak dapat ditemukan";
-            return View();
         }
 
         return View(new EditRoleModel
@@ -177,11 +198,18 @@ public class AccountController : BaseController
             return View(dataRole);
         }
 
-        await _accountService.EditRole(dataRole, GetCurrentUserGuid());
+        try
+        {
+            await _accountService.EditRole(dataRole, GetCurrentUserGuid());
 
-        TempData["message"] = "Role berhasil diupdate";
-        return RedirectToAction("Index");
-
+            TempData["message"] = "Role berhasil diupdate";
+            return RedirectToAction("Index");
+        }
+        catch (InvalidOperationException ex)
+        {
+            ViewBag.Message = ex.Message;
+            return View();
+        }
     }
 
     [Authorize]
@@ -204,9 +232,18 @@ public class AccountController : BaseController
             return View(dataPassword);
         }
 
-        var updatePassword = await _accountService.UpdatePassword(dataPassword);
-        TempData["message"] = "Password berhasil diupdate";
-        return RedirectToAction("ResidentDetail", "Resident", new { id = dataPassword.Id });
+        try
+        {
+            var updatePassword = await _accountService.UpdatePassword(dataPassword);
+            TempData["message"] = "Password berhasil diupdate";
+            return RedirectToAction("ResidentDetail", "Resident", new { id = dataPassword.Id });
+        }
+        catch (InvalidOperationException ex)
+        {
+            ViewBag.Message = ex.Message;
+            return View();
+        }
+        
     }
 
     public IActionResult ResetPassword(Guid id)
@@ -228,27 +265,25 @@ public class AccountController : BaseController
             return View(dataPassword);
         }
 
-        var updatePassword = await _accountService.ResetPassword(dataPassword, GetCurrentUserGuid());
+        try
+        {
+            var updatePassword = await _accountService.ResetPassword(dataPassword, GetCurrentUserGuid());
+
+            TempData["message"] = "Password berhasil direset";
+            return RedirectToAction("Index", "Account");
+        }
+        catch (InvalidOperationException ex)
+        {
+            ViewBag.Message = ex.Message;
+            return View();
+        }
+        catch (Exception ex)
+        {
+            ViewBag.Message = ex.Message;
+            return View();
+        }
         
-
-        TempData["message"] = "Password berhasil direset";
-        return RedirectToAction("Index", "Account");
     }
-
-    //public async Task<IActionResult> DeleteUser (Guid id)
-    //{
-    //    var dataUser = await _digiContext.Users.FindAsync(id);
-
-    //    if ( dataUser == null)
-    //    {
-    //        TempData["message"] = "Data users/akun tidak ditemukan";
-    //        return RedirectToAction("ErrorAction", "Home");
-    //    }
-
-    //    await _accountService.DeleteUser(dataUser);
-    //    TempData["message"] = "Akun berhasil dihapus";
-    //    return RedirectToAction("Index", "Account");
-    //}
 
     public Guid GetCurrentUserGuid()
     {

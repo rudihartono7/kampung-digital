@@ -6,13 +6,6 @@
     Layout = "_BaseTemplate";
 }
 
-@if (ViewBag.Message != null)
-{
-    <div class="alert alert-success text-center" role="alert">
-        @ViewBag.Message
-    </div>
-}
-
 
 <!--begin::Toolbar-->
 <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
@@ -46,11 +39,16 @@
     <!--end::Container-->
 </div>
 <!--end::Toolbar-->
-
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success text-center" role="alert">
+        @ViewBag.Message
+    </div>
+}
 
 <div class="row gy-5 g-xl-8">
     <!--begin::Col-->
-    <div class="col-xl-4">
+    <div class="col-xl-6">
         <!--begin::List Widget 4-->
         <div class="card card-xl-stretch mb-5 mb-xl-8">
             <!--begin::Header-->
@@ -64,35 +62,48 @@
             <!--begin::Body-->
             <div class="card-body pt-5">
                 <!--begin::Item-->
-                @foreach (var item in Model.Guests)
+                @if (Model.Guests.Count() != 0)
                 {
-                    <div class="d-flex align-items-sm-center mb-7">
-                        <!--begin::Symbol-->
+
+                    @foreach (var item in Model.Guests)
+                    {
+                        <div class="d-flex align-items-sm-center mb-7">
+                            <!--begin::Symbol-->
                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                            <div class="symbol-label">
-                                <div class="symbol-label fs-3 bg-light-danger text-danger">@item.Name[0]</div>
-                                @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
+                                <div class="symbol-label">
+                                    <div class="symbol-label fs-3 bg-light-danger text-danger">
+                                        @item.Name[0]
+                                    </div>
+                                    @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
+                                </div>
                             </div>
-                        </div>
-                        <!--end::Symbol-->
-                        <!--begin::Section-->
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
 
                     <div class="d-flex align-items-center flex-row-fluid flex-wrap">
-                            <div class="flex-grow-1 me-2">
-                                <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name</a>
-                                <span class="text-muted fw-bold d-block fs-7">@item.EndDate?.ToString("dd/MM/yyyy")</span>
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name</a>
+                                    <span class="text-muted fw-bold d-block fs-7">@item.EndDate?.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.HouseOwner</a>
+                                </div>
+                                @if (DateTime.Compare(@item.EndDate.Value, DateTime.Now) < 0)
+                                {
+                                    <div class="badge badge-light-success">Selesai</div>
+                                }
+                                else
+                                {
+                                    <div class="badge badge-light-primary">Berkunjung</div>
+                                }
                             </div>
-                            @if (DateTime.Compare(@item.EndDate.Value, DateTime.Now) < 0)
-                            {
-                                <div class="badge badge-light-success">Selesai</div>
-                            }
-                            else
-                            {
-                                <div class="badge badge-light-primary">Berkunjung</div>
-                            }
-                        </div>
-                        <!--end::Section-->
+                            <!--end::Section-->
                 </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center"><strong>Tidak ada tamu yang berkunjung</strong></div>
                 }
                 <!--end::Item-->
             </div>

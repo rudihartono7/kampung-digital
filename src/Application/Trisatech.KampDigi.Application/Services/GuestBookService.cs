@@ -20,7 +20,8 @@ namespace Trisatech.KampDigi.Application.Services
         public async Task<List<GuestBookListModel>> GetDashboard()
         {
             var listGuest = await (from a in Db.GuestBooks
-                                          select new GuestBookListModel
+                                   join b in Db.Residents on a.GuestToId equals b.Id
+                                   select new GuestBookListModel
                                           {
                                               Id = a.Id,
                                               Name = a.Name,
@@ -29,7 +30,8 @@ namespace Trisatech.KampDigi.Application.Services
                                               EndDate = a.EndDate,
                                               Necessity = a.Necessity,
                                               ImageUrl = a.ImageUrl,
-                                              GuestToId = a.GuestToId
+                                              GuestToId = a.GuestToId,
+                                              HouseOwner = b.Name
                                           }).Take(5).ToListAsync();
             return listGuest;
 
@@ -56,10 +58,6 @@ namespace Trisatech.KampDigi.Application.Services
 
         public async Task<GuestBookAddModel> GuestAdd(GuestBookAddModel model, Guid idCurrentUser)
         {
-            if (await Db.GuestBooks.AnyAsync(x => x.ContactNumber == model.ContactNumber))
-            {
-                throw new InvalidOperationException($"Tamu dengan nomor telephone {model.ContactNumber} sedang bertamu di kampung ini");
-            }
 
             var newGuest = new GuestBook
             {
@@ -117,17 +115,17 @@ namespace Trisatech.KampDigi.Application.Services
             return detailGuest;
         }
 
-        public async Task<bool> DeleteUser(Guid id)
-        {
-            var dataGuest = Db.GuestBooks.Find(id);
-            if (dataGuest == null)
-            {
-                throw new InvalidOperationException($"Tamu dengan ID {id} tidak dapat ditemukan");
-            }
+        //public async Task<bool> DeleteUser(Guid id)
+        //{
+        //    var dataGuest = Db.GuestBooks.Find(id);
+        //    if (dataGuest == null)
+        //    {
+        //        throw new InvalidOperationException($"Tamu dengan ID {id} tidak dapat ditemukan");
+        //    }
 
-            Db.Remove(dataGuest);
-            await Db.SaveChangesAsync();
-            return true;
-        }
+        //    Db.Remove(dataGuest);
+        //    await Db.SaveChangesAsync();
+        //    return true;
+        //}
     }
 }
