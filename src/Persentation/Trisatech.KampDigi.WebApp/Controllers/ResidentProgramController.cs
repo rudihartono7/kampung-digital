@@ -80,6 +80,7 @@ public class ResidentProgramController : BaseController
 
    public async Task<IActionResult> Create()
    {
+      await SetKategoriDataSource();
       return View(new ResidentProgramModel());
    }
 
@@ -96,7 +97,6 @@ public class ResidentProgramController : BaseController
       }
       try
       {
-         request.Id = new Guid();
          var data = request.ConvertToDbModel();
          await _residentProgramService.Add(data);
          return RedirectToAction(nameof(Index));
