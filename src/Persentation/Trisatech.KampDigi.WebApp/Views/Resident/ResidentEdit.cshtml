@@ -1,5 +1,5 @@
 ﻿@using Trisatech.KampDigi.Domain.Entities
-@model Trisatech.KampDigi.Application.Models.Resident.ResidentAddModel
+@model Trisatech.KampDigi.Application.Models.Resident.ResidentEditModel
 
 @{
     Layout = "_BaseTemplate";
@@ -11,13 +11,13 @@
         <!--begin::Page title-->
         <div class="page-title d-flex flex-column me-3">
             <!--begin::Title-->
-            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Tambah Data Warga</h1>
+            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Edit Profile</h1>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-white opacity-75">
-                    <a href="index.html" class="text-white text-hover-primary">Admin</a>
+                    <a href="index.html" class="text-white text-hover-primary">User</a>
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
@@ -26,7 +26,7 @@
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-white opacity-75">Tambah Data Warga</li>
+                <li class="breadcrumb-item text-white opacity-75">Edit Profile</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
@@ -49,7 +49,7 @@
     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
         <!--begin::Card title-->
         <div class="card-title m-0">
-            <h3 class="fw-bolder m-0">Add Resident</h3>
+            <h3 class="fw-bolder m-0">Edit Profile</h3>
         </div>
         <!--end::Card title-->
     </div>
@@ -57,7 +57,7 @@
     <!--begin::Content-->
     <div id="kt_account_profile_details" class="collapse show">
         <!--begin::Form-->
-        <form asp-action="ResidentAdd" id="kt_account_profile_details_form" enctype="multipart/form-data">
+        <form asp-action="ResidentEdit" id="kt_account_profile_details_form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <!--begin::Card body-->
@@ -69,7 +69,6 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-4">
-                        <label class="d-block fw-bold fs-6 mb-5">KTP</label>
                         <!--begin::Image input-->
                         <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
                             <!--begin::Image preview wrapper-->
@@ -114,7 +113,8 @@
                         <!--end::Hint-->
                     </div>
                     <div class="col-lg-4">
-                        <label class="d-block fw-bold fs-6 mb-5">KK</label>
+
+
                         <!--begin::Image input-->
                         <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
                             <!--begin::Image preview wrapper-->
@@ -162,13 +162,17 @@
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
+                <input asp-for="IdentityPhoto" type="hidden" value="@Model.IdentityPhoto" />
+                <input asp-for="IdentityFamilyPhoto" type="hidden" value="@Model.IdentityFamilyPhoto" />
+                <input asp-for="Id" type="hidden" value="@Model.Id" />
+
                 <div class="row mb-6">
                     <!--begin::Label-->
                     <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Lengkap</label>
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="Name" class="form-control form-control-lg form-control-solid" placeholder="Nama Lengkap" value="" />
+                        <input type="text" name="Name" class="form-control form-control-lg form-control-solid" placeholder="Nama Lengkap" value="@Model.Name" />
                     </div>
                     <!--end::Col-->
                 </div>
@@ -180,7 +184,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <input type="number" name="IdentityNumber" class="form-control form-control-lg form-control-solid" placeholder="Nomor KTP" value="" />
+                        <input type="number" name="IdentityNumber" class="form-control form-control-lg form-control-solid" placeholder="Nomor KTP" value="@Model.IdentityNumber" />
                     </div>
                     <!--end::Col-->
                 </div>
@@ -195,7 +199,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="ContactNumber" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="" />
+                        <input type="text" name="ContactNumber" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="@Model.ContactNumber" />
                     </div>
                     <!--end::Col-->
                 </div>
@@ -211,7 +215,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <select name="Gender" aria-label="Select a Language" data-control="select2" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select form-select-solid form-select-lg">
+                        <select asp-for="Gender" aria-label="Select a Language" data-control="select2" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select form-select-solid form-select-lg">
                         </select>
                     </div>
                     <!--end::Col-->
@@ -223,7 +227,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <input type="number" name="TotalOccupant" class="form-control form-control-lg form-control-solid" placeholder="Jumlah Anggota Keluarga" value="" />
+                        <input type="number" name="TotalOccupant" class="form-control form-control-lg form-control-solid" placeholder="Jumlah Anggota Keluarga" value="@Model.TotalOccupant" />
                     </div>
                     <!--end::Col-->
                 </div>
@@ -241,7 +245,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="EmergencyCallName" class="form-control form-control-lg form-control-solid" placeholder="Nama" value="" />
+                        <input type="text" name="EmergencyCallName" class="form-control form-control-lg form-control-solid" placeholder="Nama" value="@Model.EmergencyCallName" />
                     </div>
                     <!--end::Col-->
                 </div>
@@ -255,7 +259,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <input type="text" name="EmergencyCallNumber" class="form-control form-control-lg form-control-solid" placeholder="No Telepon" value="" />
+                        <input type="text" name="EmergencyCallNumber" class="form-control form-control-lg form-control-solid" placeholder="No Telepon" value="@Model.EmergencyCallNumber" />
                     </div>
                     <!--end::Col-->
                 </div>
@@ -270,7 +274,7 @@
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
                         <!--begin::Input-->
-                        <select name="EmergencyCallRelation" asp-items="Html.GetEnumSelectList<Relationship>()" aria-label="Pilih relasi" data-control="select2" data-placeholder="Pilih relasi" class="form-select form-select-solid form-select-lg">
+                        <select asp-for="EmergencyCallRelation" name="EmergencyCallRelation" asp-items="Html.GetEnumSelectList<Relationship>()" aria-label="Pilih relasi" data-control="select2" data-placeholder="Pilih relasi" class="form-select form-select-solid form-select-lg">
                         </select>
                         <!--end::Input-->
                         <!--begin::Hint-->
@@ -295,7 +299,7 @@
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
                         <!--begin::Input-->
-                        <select name="HouseId" asp-items="ViewBag.House" aria-label="Pilih nomor rumah" data-control="select2" data-placeholder="Pilih nomor rumah" class="form-select form-select-solid form-select-lg">
+                        <select asp-for="HouseId" name="HouseId" asp-items="ViewBag.House" aria-label="Pilih nomor rumah" data-control="select2" data-placeholder="Pilih nomor rumah" class="form-select form-select-solid form-select-lg">
                         </select>
                         <!--end::Input-->
                         <!--begin::Hint-->
@@ -313,7 +317,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <select name="OccupantType" aria-label="Tipe Kepemilikan" data-control="select2" asp-items="Html.GetEnumSelectList<OccupantType>()" class="form-select form-select-solid form-select-lg">
+                        <select asp-for="OccupantType" name="OccupantType" aria-label="Tipe Kepemilikan" data-control="select2" asp-items="Html.GetEnumSelectList<OccupantType>()" class="form-select form-select-solid form-select-lg">
                         </select>
                     </div>
                     <!--end::Col-->
@@ -325,56 +329,18 @@
                     <!--begin::Label-->
                     <div class="col-lg-8 d-flex align-items-center">
                         <div class="form-check form-check-solid form-switch fv-row">
-                            <input class="form-check-input w-45px h-30px" type="checkbox" id="IsOccupant" checked="checked" />
+                            <input asp-for="IsOccupant" class="form-check-input w-45px h-30px" type="checkbox" id="IsOccupant"/>
                             <label class="form-check-label" for="IsOccupant"></label>
                         </div>
                     </div>
                     <!--begin::Label-->
-                </div>
-                <div class="card-title pt-2">
-                    <h3 class="m-0 text-gray-800">Data Akun</h3>
-                </div>
-                <div class="separator border-2 my-5"></div>
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">Username</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 fv-row">
-                        <input type="text" name="Username" class="form-control form-control-lg form-control-solid" placeholder="Username Akun" value="" />
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">Password</label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 fv-row">
-                        <input type="text" name="Password" class="form-control form-control-lg form-control-solid" placeholder="Password Akun" value="" />
-                    </div>
-                    <!--end::Col-->
-                </div>
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">
-                        <span>Kedudukan</span>
-                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Posisi dan kedudukan warga ini"></i>
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="col-lg-8 fv-row">
-                        <select name="Role" aria-label="Kedudukan warga ini" data-control="select2" asp-items="Html.GetEnumSelectList<Role>()" class="form-select form-select-solid form-select-lg">
-                        </select>
-                    </div>
-                    <!--end::Col-->
                 </div>
             </div>
             <!--end::Card body-->
             <!--begin::Actions-->
             <div class="card-footer d-flex justify-content-end py-6 px-9">
                 <button type="reset" class="btn btn-white btn-active-light-primary me-2">Discard</button>
-                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Add Resident</button>
+                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
             </div>
             <!--end::Actions-->
         </form>
