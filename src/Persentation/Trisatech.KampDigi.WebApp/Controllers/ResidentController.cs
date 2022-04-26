@@ -103,7 +103,7 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             {
                 Residents = residentDetail,
                 Guests = guestList,
-                GuestEdit = new Application.Models.GuestBook.GuestBookListModel()
+                GuestEdit = new Application.Models.GuestBook.GuestBookListModel(),
             });
         }
 

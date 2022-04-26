@@ -108,6 +108,11 @@ namespace Trisatech.KampDigi.Application.Services
                 throw new InvalidOperationException($"Data dengan id: {dataPassword.Id}, tidak ditemukan");
             }
 
+            if (dataPassword.NewPassword != dataPassword.ConfirmNewPassword)
+            {
+                throw new InvalidOperationException("Password dan konfirmasi password tidak sesuai");
+            }
+
             var isPasswordMatch = VerifyPassword(dataPassword.OldPassword, userData.Salt, userData.Password);
 
             if (!isPasswordMatch)
