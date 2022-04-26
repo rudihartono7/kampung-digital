@@ -1,30 +1,117 @@
-﻿@{
+﻿@model Trisatech.KampDigi.Application.Models.DashboardModel;
+
+@{
     ViewData["Title"] = "Home Page";
     ViewData["Menu"] = "Welcome";
     Layout = "_BaseTemplate";
 }
 
+
+<!--begin::Toolbar-->
+<div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container d-flex flex-stack flex-wrap">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column me-3">
+            <!--begin::Title-->
+            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Dashboard</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">
+                    <a href="index.html" class="text-white text-hover-primary">Home</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">Dashboard</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::Toolbar-->
 @if (ViewBag.Message != null)
 {
     <div class="alert alert-success text-center" role="alert">
         @ViewBag.Message
     </div>
 }
-<div class="text-center">
-    <div class="card card-flush shadow-sm">
-        <div class="card-header">
-            <h3 class="card-title">Title</h3>
-            <div class="card-toolbar">
-                <button type="button" class="btn btn-sm btn-light">
-                    Action
-                </button>
+
+<div class="row gy-5 g-xl-8">
+    <!--begin::Col-->
+    <div class="col-xl-6">
+        <!--begin::List Widget 4-->
+        <div class="card card-xl-stretch mb-5 mb-xl-8">
+            <!--begin::Header-->
+            <div class="card-header border-0 pt-5">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bolder text-dark">Buku Tamu</span>
+                    <span class="text-muted mt-1 fw-bold fs-7">Daftar tamu terbaru</span>
+                </h3>
             </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body pt-5">
+                <!--begin::Item-->
+                @if (Model.Guests.Count() != 0)
+                {
+
+                    @foreach (var item in Model.Guests)
+                    {
+                        <div class="d-flex align-items-sm-center mb-7">
+                            <!--begin::Symbol-->
+                    <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                <div class="symbol-label">
+                                    <div class="symbol-label fs-3 bg-light-danger text-danger">
+                                        @item.Name[0]
+                                    </div>
+                                    @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
+                                </div>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+
+                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name</a>
+                                    <span class="text-muted fw-bold d-block fs-7">@item.EndDate?.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.HouseOwner</a>
+                                </div>
+                                @if (DateTime.Compare(@item.EndDate.Value, DateTime.Now) < 0)
+                                {
+                                    <div class="badge badge-light-success">Selesai</div>
+                                }
+                                else
+                                {
+                                    <div class="badge badge-light-primary">Berkunjung</div>
+                                }
+                            </div>
+                            <!--end::Section-->
+                </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center"><strong>Tidak ada tamu yang berkunjung</strong></div>
+                }
+                <!--end::Item-->
+            </div>
+
+            <!--end::Body-->
         </div>
-        <div class="card-body py-5">
-            Lorem Ipsum is simply dummy text...
-        </div>
-        <div class="card-footer">
-            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-        </div>
+        <!--end::List Widget 4-->
     </div>
+    <!--end::Col-->
 </div>
+
