@@ -1,6 +1,5 @@
-@using System.Globalization
 @using Trisatech.KampDigi.Domain.Entities
-@model IEnumerable<Trisatech.KampDigi.Application.Models.ProductModel>;
+@model IEnumerable<Trisatech.KampDigi.Application.Models.ResidentFamilies.ResidentFamilyModel>;
 
 @{
     Layout = "_BaseTemplate";
@@ -118,7 +117,7 @@
                         </button>
                         <!--end::Export-->
                         <!--begin::Add user-->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                        <button type="button" class="btn btn-primary">
                             <!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -126,7 +125,8 @@
                                     <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1"></rect>
                                 </svg>
                             </span>
-                            <!--end::Svg Icon-->Add Product
+                            <a href="/ResidentFamily/Create" style="color: white">Add Family </a>
+                            <!--end::Svg Icon-->
                         </button>
                         <!--end::Add user-->
                     </div>
@@ -236,7 +236,7 @@
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_add_user_header">
                                     <!--begin::Modal title-->
-                                    <h2 class="fw-bolder">Add Product</h2>
+                                    <h2 class="fw-bolder">Add Family</h2>
                                     <!--end::Modal title-->
                                     <!--begin::Close-->
                                     <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
@@ -264,57 +264,9 @@
                                         <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px" style="max-height: 188px;">
                                             <!--begin::Input group-->
 
-                                            <div class="row g-9 mb-7">
-                                                <!--begin::Col-->
-                                                <div class="col-md-6 fv-row">
-                                                    <div class="fv-row mb-7">
-                                                        <!--begin::Label-->
-                                                        <label class="d-block fw-bold fs-6 mb-5">Foto Produk</label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Image input-->
-                                                        <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
-                                                            <!--begin::Preview existing avatar-->
-                                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url(/assets/media/avatars/150-1.jpg);"></div>
-                                                            <!--end::Preview existing avatar-->
-                                                            <!--begin::Label-->
-                                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
-                                                                <i class="bi bi-pencil-fill fs-7"></i>
-                                                                <!--begin::Inputs-->
-                                                                <input type="file" name="ImageFile" accept=".png, .jpg, .jpeg">
-                                                                <input type="hidden" name="avatar_remove">
-                                                                <!--end::Inputs-->
-                                                            </label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Cancel-->
-                                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
-                                                                <i class="bi bi-x fs-2"></i>
-                                                            </span>
-                                                            <!--end::Cancel-->
-                                                            <!--begin::Remove-->
-                                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
-                                                                <i class="bi bi-x fs-2"></i>
-                                                            </span>
-                                                            <!--end::Remove-->
-
-                                                        </div>
-                                                        <!--end::Image input-->
-                                                        <!--begin::Hint-->
-                                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                                        <!--end::Hint-->
-                                                    </div>
-                                                </div>
-                                                <!--end::Col-->
-                                                <!--begin::Col-->
-                                
-                                                <!--end::Col-->
-                                            </div>
-
-                                            <!--begin::Input group-->
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
                                                 <label class="required fw-bold fs-6 mb-2">Name</label>
-                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                    title="Nama Produk Anda"></i>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input type="text" name="Name" class="form-control form-control-solid mb-3 mb-lg-0" value="">
@@ -322,48 +274,38 @@
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">Price</label>
+                                               <label class="required fw-bold fs-6 mb-2">Gender</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="Price" class="form-control 
-                                                form-control-solid mb-3 mb-lg-0" value="">
+                                                <select name="Gender" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<Gender>()">
+                                                </select>
                                                 <!--end::Input-->
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">Link</label>
+                                                <label class="required fw-bold fs-6 mb-2">Age</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="PublicLink" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                                <input type="text" name="Age" class="form-control form-control-solid mb-3 mb-lg-0" value="">
                                                 <!--end::Input-->
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">Seller Name</label>
+                                                <label class="required fw-bold fs-6 mb-2">Relationship</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                 <input type="text" name="SellerName" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                               <select name="Relationship" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<Relationship>()"></select>
                                                 <!--end::Input-->
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">WhatsApp</label>
+                                                <label class="required fw-bold fs-6 mb-2">Head Of Family Id</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="WhatsappNumber" class="form-control form-control-solid mb-3 mb-lg-0" value="">
-                                                <!--end::Input-->
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
-                                            </div>
-                                            <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">Deskripsi</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" name="Deskripsi" class="form-control form-control-solid mb-3 mb-lg-0" value="">
+                                                <select name="HeadOfFamilyId" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="ViewBag.HeadOfFamilyId"></select>
                                                 <!--end::Input-->
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
@@ -408,13 +350,19 @@
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+                              
                                     <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" 
-                                    colspan="1" style="width: 145.317px;" aria-label="User: activate to sort column ascending">Nama</th>
-                                    <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" 
-                                    colspan="1" style="width: 145.317px;" aria-label="Telephone: activate to sort column ascending">Price</th>
+                                    colspan="1" style="width: 257.783px;" aria-label="User: activate to sort column ascending">Name</th>
                                     <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"  
-                                    colspan="1" style="width: 145.317px;" aria-label="Two-step: activate to sort column ascending">Seller Name</th>
-                                    <th class="text-center min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 113.533px;" 
+                                    colspan="1" style="width: 145.317px;" aria-label="Two-step: activate to sort column ascending"></th>
+                                    <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" 
+                                    colspan="1" style="width: 145.317px;" aria-label="Telephone: activate to sort column ascending">Gender</th>
+                                    <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"  
+                                    colspan="1" style="width: 145.317px;" aria-label="Two-step: activate to sort column ascending">Age</th>
+                                    <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"  
+                                    colspan="1" style="width: 145.317px;" aria-label="Two-step: activate to sort column ascending">Relationship</th>
+                
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 113.533px;" 
                                     aria-label="Actions">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -425,16 +373,20 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd">
-                                    <td>
-                                       @item.Name
-                                        </td>
-                                    <td>
-                                       @item.Price.ToString("C", new CultureInfo("id-ID"))
-                                        </td>
-                                    <td data-order="2022-04-13T11:22:22+07:00">
-                                            <div class="badge badge-light fw-bolder">@item.SellerName</div>
-                                        </td>
-                                    <td class="text-center">
+                                    <td class="d-flex align-items-center">
+                                            <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                    <div class="symbol-label">
+                                                        <div class="symbol-label fs-3 bg-light-danger text-danger">@item.Name[0]</div>
+                                                    </div>
+                                            </div>
+                                    </td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Gender</td>
+                                    <td>@item.Age</td>
+                                    <td>@item.Relationship</td>
+        
+                                    <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
                                                 Actions
                                                 <!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-down.svg-->
@@ -454,14 +406,14 @@
                                             <div class="menu-item px-3">
                                                     <a asp-action="Edit" asp-route-id="@item.Id" class="menu-link px-3">Edit</a>
                                                 </div>
-                                                <div class="menu-item px-3">
+                                                 <div class="menu-item px-3">
                                                     <a asp-action="Details" asp-route-id="@item.Id" class="menu-link px-3">Detail</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                             <div class="menu-item px-3">
                                                     @*<a asp-action="ResidentDelete" data-kt-users-table-filter="delete_row">Delete</a>*@
-                                                    <form asp-action="Delete" data-kt-users-table-filter="delete_row">
+                                                    <form asp-action="Delete">
                                                         <input type="hidden" name="id" value="@item.Id" />
                                                         <a onclick="this.parentElement.submit()" class="menu-link text-danger px-3">Delete</a>
                                                     </form>
@@ -486,3 +438,5 @@
     </div>
     <!--end::Post-->
 </div>
+
+

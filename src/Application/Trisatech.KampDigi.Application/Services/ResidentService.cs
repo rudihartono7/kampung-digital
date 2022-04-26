@@ -6,6 +6,7 @@ using Trisatech.KampDigi.Domain;
 using Trisatech.KampDigi.Domain.Entities;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Trisatech.KampDigi.Application.Models.ResidentFamilies;
 
 namespace Trisatech.KampDigi.Application.Services
 {
@@ -127,7 +128,7 @@ namespace Trisatech.KampDigi.Application.Services
                                           HouseNumber = c.Number,
                                           IsOccupant = b.IsOccupant,
                                           Role = a.Role,
-                                          Join = b.CreatedDate
+                                          Join = b.CreatedDate,
                                       }).FirstOrDefaultAsync();
 
             return dataResident;

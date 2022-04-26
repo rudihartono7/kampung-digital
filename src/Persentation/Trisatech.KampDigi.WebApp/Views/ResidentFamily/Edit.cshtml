@@ -1,0 +1,72 @@
+@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.ResidentFamilies.ResidentFamilyModel
+@{
+   ViewData["Title"] = "Resident Family";
+   ViewData["Menu"] = "Family";
+   Layout = "_BaseTemplate";
+}
+<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">
+										<a href="index.html" class="text-white text-hover-primary">Profile</a>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">Family</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">Edit</li>
+									<!--end::Item-->
+								</ul>
+<div>
+   <div class="card card-flush shadow-sm card-xl">
+      <div class="card-header">
+         <h3 class="card-title">Edit Family </h3>
+      </div>
+      <div class="card-body py-5">
+         <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id">
+           <div class="form-group">
+                <label asp-for="Name" class="control-label">Nama</label><br>
+                <input asp-for="Name" class="form-control form-control-solid mb-3 mb-lg-0" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label">Gender</label><br>
+                <select asp-for="Gender" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label">Age</label><br>
+                <input asp-for="Age" class="form-control form-control-solid mb-3 mb-lg-0" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="Relationship" class="control-label">Relationship</label><br>
+                <select asp-for="Relationship"  class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<Relationship>()"></select>
+                <span asp-validation-for="Relationship" class="text-danger"></span>
+            </div><br>
+            <div class="form-group">
+                <label asp-for="HeadOfFamilyId" class="control-label">Head Of Family Id</label><br>
+                <select asp-for="HeadOfFamilyId"class="form-control form-control-solid mb-3 mb-lg-0" asp-items="ViewBag.HeadOfFamilyId"></select>
+                <span asp-validation-for="HeadOfFamilyId" class="text-danger"></span>
+            </div><br>
+            <div class="form-group mb-3">
+               <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+

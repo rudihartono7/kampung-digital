@@ -1,100 +1,123 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Trisatech.KampDigi.Application.Models;
+using Trisatech.KampDigi.Application.Models.Resident;
+using Trisatech.KampDigi.Application.Models.ResidentFamilies;
 using Trisatech.KampDigi.Domain;
 using Trisatech.KampDigi.Domain.Entities;
 
 namespace Trisatech.KampDigi.Application.Interfaces;
-public class ResidentFamilyService : BaseDbService, IResidentFamilyService {
+public class ResidentFamilyService : BaseDbService, IResidentFamilyService
+{
     public ResidentFamilyService(KampDigiContext dbContext) : base(dbContext)
     {
     }
 
-    public async Task<ResidentFamily> Add(ResidentFamily obj)
+    async Task<ResidentFamilyModel> IResidentFamilyService.FamilyAdd(ResidentFamilyModel model, Guid idCurrentUser)
     {
-        if(await Db.ResidentFamilies.AnyAsync(x=>x.Id == obj.Id)){
-            throw new InvalidOperationException($"Resident Family with ID {obj.Id} is already exist");
-        }
+        if (await Db.ResidentFamilies.AnyAsync(x => x.Id == model.Id))
+            {
+                throw new InvalidOperationException($"Id {model.Id} sudah terdaftar");
+            }
 
-        await Db.AddAsync(obj);
-        await Db.SaveChangesAsync();
+            var newFamily = new ResidentFamily
+            {
+                Name = model.Name,
+                Gender = model.Gender,
+                Age = model.Age,
+                Relationship = model.Relationship,
+                HeadOfFamilyId = model.HeadOfFamilyId,
+                CreatedBy = idCurrentUser,
+                CreatedDate = DateTime.Now,
+                AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT,
+            };
+            await Db.ResidentFamilies.AddAsync(newFamily);
+            await Db.SaveChangesAsync();
 
-        return obj;
+
+            return model;
     }
 
-    public async Task<bool> Delete(Guid id)
+    public async Task<bool> FamilyDelete(Guid id)
     {
-        var family = await Db.ResidentFamilies.FirstOrDefaultAsync(x=>x.Id == id);
+            var family = Db.ResidentFamilies.FirstOrDefault(x => x.Id == id);
+            if (family == null)
+            {
+                throw new InvalidOperationException($"Family User dengan ID {id} tidak dapat ditemukan");
+            }
 
-        if(family == null) {
-            throw new InvalidOperationException($"Resident Family with ID {id} doesn't exist");
-        }
-
-        Db.Remove(family);
-        await Db.SaveChangesAsync();
-
-        return true;
+            Db.Remove(family);
+            await Db.SaveChangesAsync();
+            return true;
     }
 
-    public Task<List<ResidentFamily>> Get(int limit, int offset, string keyword)
+    public async Task<ResidentFamilyModel> FamilyDetail(Guid idHead)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<ResidentFamily> Get(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ResidentFamily> Get(Expression<Func<ResidentFamily, bool>> func)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<ResidentFamily>> GetAll()
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<ResidentFamily> Update(ResidentFamily obj)
-    {
-        if(obj == null)
+        var result = await (from a in Db.ResidentFamilies 
+                            join b in Db.Residents on a.HeadOfFamilyId equals b.Id
+                            where a.Id == idHead
+        select new ResidentFamilyModel
         {
-            throw new ArgumentNullException("Id cannot be null");
-        }
-
-        var family= await Db.ResidentFamilies.FirstOrDefaultAsync(x=>x.Id == obj.Id);
-
-        if(family == null) {
-            throw new InvalidOperationException($"Family with ID {obj.Id} doesn't exist in database");
-        }
-
-        family.Name = obj.Name;
-        family.Gender = obj.Gender;
-        family.Age = obj.Age;
-        family.Relationship = obj.Relationship;
-
-
-        Db.Update(family);
-        await Db.SaveChangesAsync();
-
-        return family;
-    }
-
-    async Task<List<ResidentFamilyModel>> IResidentFamilyService.GetId(Guid IdHead)
-    {
-        var result = await (from a in Db.ResidentFamilies where a.HeadOfFamilyId == IdHead
-        select new ResidentFamilyModel 
-        {
+            Id = a.Id, 
             Name = a.Name,
             Gender = a.Gender,
             Age = a.Age,
             Relationship = a.Relationship,
-            HeadOfFamilyId = a.HeadOfFamilyId       
+            HeadOfFamilyId = a.HeadOfFamilyId,
+            HeadOfFamilyName = b.Name
+        }).FirstOrDefaultAsync();
+        
+        return result; 
+    }
+
+    public async Task<ResidentFamilyModel> FamilyEdit(ResidentFamilyModel model, Guid idCurrentUser)
+    {
+        var dataEdited = await Db.ResidentFamilies.FirstOrDefaultAsync(x => x.Id == model.Id);
+        if (model == null)
+        {
+            throw new InvalidOperationException($"User dengan ID {model.Id} tidak dapat ditemukan");
+        }
+
+        dataEdited.Name = model.Name;
+        dataEdited.Gender = model.Gender;
+        dataEdited.Age = model.Age;
+        dataEdited.Relationship = model.Relationship;
+        dataEdited.UpdatedBy = idCurrentUser;
+        dataEdited.UpdatedDate = DateTime.Now;
+        dataEdited.AuditActivty = AuditActivtyType.UPDATE;
+
+        Db.Update(dataEdited);
+        await Db.SaveChangesAsync();
+
+
+        return model;
+    }
+
+    public async Task<ResidentFamily> Get(Guid id)
+    {
+        var family = await Db.ResidentFamilies.FirstOrDefaultAsync(x => x.Id == id);
+        return family;
+    }
+
+    public async Task<List<ResidentFamilyModel>> GetId(Guid idHead)
+    {
+        var result = await 
+        (from a in Db.ResidentFamilies
+        join b in Db.Residents on a.HeadOfFamilyId equals b.Id 
+        where a.HeadOfFamilyId == idHead
+        select new ResidentFamilyModel
+        {
+            Id = a.Id, 
+            Name = a.Name,
+            Gender = a.Gender,
+            Age  = a.Age,
+            Relationship = a.Relationship,
+            HeadOfFamilyId = a.HeadOfFamilyId,
+            HeadOfFamilyName = b.Name
         }).ToListAsync();
 
         return result;
     }
 
-
+    
 }
