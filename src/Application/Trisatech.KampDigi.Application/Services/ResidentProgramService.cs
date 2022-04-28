@@ -37,7 +37,7 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
 
    public async Task<List<ResidentProgram>> GetByProgram(ProgramPeriod? period)
    {
-      var data = await Db.ResidentPrograms.Where(x=> x.ProgramPeriod == period).ToListAsync();
+      var data = await Db.ResidentPrograms.Where(x => x.ProgramPeriod == period).ToListAsync();
       return data;
    }
 
@@ -47,9 +47,26 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
       return datas;
    }
 
-   public Task<ResidentProgramModel> GetDetail(Guid Id)
+   public async Task<ResidentProgramModel> GetDetail(Guid Id)
    {
-      throw new NotImplementedException();
+      var data = await (from rProg in Db.ResidentPrograms
+                        join resident in Db.Residents
+                  on rProg.PersonInChargeId equals resident.Id
+                        where rProg.Id == Id
+                        select new ResidentProgramModel
+                        {
+                           Year = rProg.Year,
+                           Title = rProg.Title,
+                           Id = rProg.Id,
+                           StartDate = rProg.StartDate,
+                           EndDate = rProg.EndDate,
+                           PersonInChargeName = resident.Name,
+                           Cost = rProg.Cost,
+                           ProgramPeriod = rProg.ProgramPeriod,
+                           Desc = rProg.Desc,
+                           ProgramSubject = rProg.ProgramSubject
+                        }).FirstOrDefaultAsync();
+      return data;
    }
 
    public async Task<ResidentProgram> Update(ResidentProgram req)
@@ -67,7 +84,17 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
       }
 
       residentProgram.UpdatedDate = DateTime.Now;
+      residentProgram.UpdatedBy = req.UpdatedBy;
       residentProgram.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.UPDATE;
+      residentProgram.PersonInChargeId = req.PersonInChargeId;
+      residentProgram.Cost = req.Cost;
+      residentProgram.Desc = req.Desc;
+      residentProgram.EndDate = req.EndDate;
+      residentProgram.ProgramPeriod = req.ProgramPeriod;
+      residentProgram.ProgramSubject = req.ProgramSubject;
+      residentProgram.StartDate = req.StartDate;
+      residentProgram.Title = req.Title;
+      residentProgram.Year = req.Year;
 
       Db.Update(residentProgram);
       await Db.SaveChangesAsync();
