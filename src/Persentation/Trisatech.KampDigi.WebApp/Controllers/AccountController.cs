@@ -229,7 +229,8 @@ public class AccountController : BaseController
     {
         if (!ModelState.IsValid)
         {
-            return View(dataPassword);
+            TempData["message"] = "Data input tidak valid";
+            return RedirectToAction("ResidentDetail", "Resident", new { id = dataPassword.Id });
         }
 
         try
@@ -240,8 +241,8 @@ public class AccountController : BaseController
         }
         catch (InvalidOperationException ex)
         {
-            ViewBag.Message = ex.Message;
-            return View();
+            TempData["message"] = ex.Message;
+            return RedirectToAction("ResidentDetail", "Resident", new { id = dataPassword.Id });
         }
         
     }
@@ -262,7 +263,8 @@ public class AccountController : BaseController
     {
         if (!ModelState.IsValid)
         {
-            return View(dataPassword);
+            ViewBag.Message = "Data input tidak valid";
+            return View();
         }
 
         try
@@ -279,8 +281,7 @@ public class AccountController : BaseController
         }
         catch (Exception ex)
         {
-            ViewBag.Message = ex.Message;
-            return View();
+            throw;
         }
         
     }
