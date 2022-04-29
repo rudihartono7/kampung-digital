@@ -15,13 +15,16 @@ namespace Trisatech.KampDigi.WebApp.Controllers
         private readonly IResidentService _residentService;
         private readonly KampDigiContext _digiContext;
         private readonly IGuestBookService _guestBookService;
+        private readonly IResidentFamilyService _residentFamilyService;
         public ResidentController(IResidentService residentService,
             KampDigiContext digiContext,
-            IGuestBookService guestBookService)
+            IGuestBookService guestBookService,
+            IResidentFamilyService residentFamilyService)
         {
             _residentService = residentService;
             _digiContext = digiContext;
             _guestBookService = guestBookService;
+            _residentFamilyService = residentFamilyService;
         }
 
         [Authorize(Roles = AppConstant.ADMIN)]
@@ -90,6 +93,7 @@ namespace Trisatech.KampDigi.WebApp.Controllers
 
             var residentDetail = await _residentService.ResidentDetail(id);
             var guestList = await _guestBookService.GuestResidentList(id);
+            var familyList = await _residentFamilyService.GetId(id);
 
             if (TempData["message"] != null)
             {
@@ -98,11 +102,12 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             }
 
             ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
-
+            ViewBag.HeadOfFamilyId = new SelectList(_digiContext.Residents,"Id","Name");
             return View(new UserDetailModel
             {
                 Residents = residentDetail,
                 Guests = guestList,
+                Family = familyList,
                 GuestEdit = new Application.Models.GuestBook.GuestBookListModel(),
             });
         }

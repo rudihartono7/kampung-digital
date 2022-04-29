@@ -26,6 +26,7 @@ namespace Trisatech.KampDigi.Application.Models.ResidentFamilies
         public Relationship Relationship { get; set; }
         public Guid HeadOfFamilyId { get; set; }
         public string HeadOfFamilyName { get; set; }
+         public Guid FamilyToId { get; set; }
 
     }
 }

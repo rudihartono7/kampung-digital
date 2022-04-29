@@ -181,7 +181,6 @@ public class ProductController : BaseController
        
         await _productService.Delete(id);
 
-        TempData["message"] = "Produk berhasil di hapus";
         return RedirectToAction("Index");
 
     }

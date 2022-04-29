@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Trisatech.KampDigi.Application;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
+ [Authorize(Roles = AppConstant.RESIDENT)]
 
-[Authorize(Roles = AppConstant.RESIDENT)]
 public class ResidentFamilyController : BaseController
 {
     private readonly ILogger<ResidentFamilyController> _logger;
@@ -45,29 +45,13 @@ public class ResidentFamilyController : BaseController
         return userId;
     }
 
-    public async Task<IActionResult> Details(Guid? id)
-    {
-        if (id == null){
-            return BadRequest();
-        }
-
-        var produk = await _residentFamilyService.FamilyDetail(id.Value);
-
-        if (produk == null)
-        {
-            return NotFound();
-        }
-
-        return View(produk);
-    }
-
-
 
      public IActionResult Create()
     {
         ViewBag.HeadOfFamilyId = new SelectList(_digiContext.Residents,"Id","Name");
         return View(new ResidentFamilyModel());
     }
+
 
     [HttpPost]
     public async Task<IActionResult> Create(ResidentFamilyModel request)
@@ -83,8 +67,8 @@ public class ResidentFamilyController : BaseController
         try
         {  
             await _residentFamilyService.FamilyAdd(request, GetCurrentUserGuid());
-
-            return RedirectToAction(nameof(Index));
+            TempData["message"] = "Data keluarga warga berhasil ditambahkan";
+            return RedirectToAction("ResidentDetail", "Resident", new { id = request.FamilyToId });
         }
         catch (InvalidOperationException ex)
         {
@@ -97,6 +81,7 @@ public class ResidentFamilyController : BaseController
 
         return View(request);
     }
+
 
      public async Task<IActionResult> Edit(Guid? id)
     {
@@ -121,7 +106,7 @@ public class ResidentFamilyController : BaseController
 
     }
 
-    
+   
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Guid? id, ResidentFamilyModel request)
@@ -140,7 +125,8 @@ public class ResidentFamilyController : BaseController
         try
         {
             await _residentFamilyService.FamilyEdit(request,GetCurrentUserGuid());
-            return RedirectToAction(nameof(Index));
+            TempData["message"] = "Data keluarga warga berhasil diedit";
+            return RedirectToAction("ResidentDetail", "Resident", new { id = GetCurrentUserGuid() });
         }
         catch (InvalidOperationException ex)
         {
@@ -153,6 +139,7 @@ public class ResidentFamilyController : BaseController
 
         return View(request);
     }
+
 
      public async Task<IActionResult> Delete(Guid? id)
     {
@@ -179,8 +166,8 @@ public class ResidentFamilyController : BaseController
         try
         {
             await _residentFamilyService.FamilyDelete(id.Value);
-
-            return RedirectToAction(nameof(Index));
+            TempData["message"] = "Data keluarga warga berhasil dihapus";
+            return RedirectToAction("ResidentDetail", "Resident", new { id = GetCurrentUserGuid() });
         }
         catch (InvalidOperationException ex)
         {
