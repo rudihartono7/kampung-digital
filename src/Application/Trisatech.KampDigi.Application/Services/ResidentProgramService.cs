@@ -60,6 +60,7 @@ public class ResidentProgramService : BaseDbService, IResidentProgramService
                            Id = rProg.Id,
                            StartDate = rProg.StartDate,
                            EndDate = rProg.EndDate,
+                           PersonInChargeId = rProg.PersonInChargeId,
                            PersonInChargeName = resident.Name,
                            Cost = rProg.Cost,
                            ProgramPeriod = rProg.ProgramPeriod,
