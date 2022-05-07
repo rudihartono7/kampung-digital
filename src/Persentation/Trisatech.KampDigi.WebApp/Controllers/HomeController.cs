@@ -4,6 +4,7 @@ using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.WebApp.Models;
 using System.Security.Claims;
 using Trisatech.KampDigi.Domain;
+using Trisatech.KampDigi.Application.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
 
@@ -11,15 +12,18 @@ public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
     private readonly KampDigiContext _digiContext;
+    private readonly IGuestBookService _guestBookService;
 
     public HomeController(ILogger<HomeController> logger,
-        KampDigiContext kampDigiContext)
+        KampDigiContext kampDigiContext,
+        IGuestBookService guestBookService)
     {
         _logger = logger;
         _digiContext = kampDigiContext;
+        _guestBookService = guestBookService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
 
         if (TempData["message"] != null)
@@ -27,7 +31,13 @@ public class HomeController : BaseController
             ViewBag.Message = TempData["message"].ToString();
             TempData.Remove("message");
         }
-        return View();
+        var guestList = await _guestBookService.GetDashboard();
+
+
+        return View(new DashboardModel
+        {
+            Guests = guestList,
+        });
     }
     
     public IActionResult ErrorAction()
