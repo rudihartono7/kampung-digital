@@ -1,27 +1,73 @@
 @model IEnumerable<Trisatech.KampDigi.Application.Models.CommentModel>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+         $("#btnComment").click(function () {
+            var komentar = $("#IdComment").val();
+            var idPost = $("#IdPost").val();
+
+            console.log(komentar);
+            console.log(idPost)
+            
+            var request = {
+                PostId : idPost,
+                Desc : komentar
+            }
+            
+            var requestComment = $.ajax({
+                url: "../create/" + idPost,
+                method: "POST",
+                data: request,
+            }).done(function (response){
+                $("#viewComment").append(
+                           ' <div class="d-flex mb-5" id="viewComment">' +
+                                '<div class="symbol symbol-45px me-5">' +
+                                    '<img src="../../images/aang.jpg" alt="" />' +
+                                '</div>' +
+                                '<div class="d-flex flex-column flex-row-fluid">' +
+                                    '<div class="d-flex align-items-center flex-wrap mb-1">' +
+                                                '<a href="#" class="text-gray-800 text-hover-primary fw-bolder me-2">Alice Danchik</a>' +
+                                                
+                                                '<div class="ms-auto text-gray-400">' +
+                                                '</div>' +
+                                            '</div>' +
+                                    '<span class="text-gray-800 fs-7 fw-normal pt-1">' + komentar + '</span>' +
+                                '</div>' +
+                            '</div>'                    
+                );
+            }).fail(function( jqXHR, textStatus ) {
+                alert("Maaf terdapat kesalahan, silakan anda masukkan kembali komentar anda");
+            });
+         });
+    });
+</script>
+
 @{
     ViewData["Title"] = "Comment";
     int i = 0;
     Layout = "_BaseTemplate";
+    
 }
 
 <!--begin::Feeds Widget 3-->
 <div class="card mb-5 mb-xl-8">
     <!--begin::Body-->
     <div class="card-body pb-0">
+        
         <!--begin::Header-->
         <div class="d-flex align-items-center mb-3">
             <!--begin::User-->
             <div class="d-flex align-items-center flex-grow-1">
                 <!--begin::Avatar-->
                 <div class="symbol symbol-45px me-5">
-                    <img src="assets/media/avatars/150-10.jpg" alt="" />
+                    <img src="~/images/avatar.jpg" alt="" />
                 </div>
                 <!--end::Avatar-->
                 <!--begin::Info-->
+                
                 <div class="d-flex flex-column">
-                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Carles
-                        Nilson</a>
+                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Carles Nilson</a>
                     <span class="text-gray-400 fw-bold">Yestarday at 5:06 PM</span>
                 </div>
                 <!--end::Info-->
@@ -128,6 +174,7 @@
         <!--end::Post-->
         <!--begin::Replies-->
         <div class="mb-7 ps-10">
+            <div id="viewComment"></div>
             @if (Model != null && Model.Any())
             {
                 foreach (var item in Model)
@@ -135,73 +182,67 @@
                     <!--begin::Reply-->
                     <div class="d-flex mb-5">
                         <!--begin::Avatar-->
-                <div class="symbol symbol-45px me-5">
-                            <img src="assets/media/avatars/150-11.jpg" alt="" />
+                        <div class="symbol symbol-45px me-5">
+                                    <img src="~/images/aang.jpg" alt="" />
                         </div>
-                        <!--end::Avatar-->
-                        <!--begin::Info-->
-                <div class="d-flex flex-column flex-row-fluid">
-                            <!--begin::Info-->
-                    <div class="d-flex align-items-center flex-wrap mb-1">
-                                <a href="#" class="text-gray-800 text-hover-primary fw-bolder me-2">Alice
-                                    Danchik</a>
-                                <span class="text-gray-400 fw-bold fs-7">
-                                    @if (item.UpdatedDate != null)
-									{
-										<p>Update : @item.UpdatedDate</p>
-									}
-									else
-									{
-										<p>Create : @item.CreatedDate</p>
-									}
-                                </span>
-                                <div class="ms-auto text-gray-400">
-                                    @* <a asp-action="Edit" asp-route-id="@item.Id" class="text-hover-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" > *@
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="text-hover-primary" >
-                                        <!--begin::Svg Icon | path: assets/media/icons/duotone/Interface/Edit.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="5px" height="5px" viewBox="0 0 24 24"
-                                        fill="none">
-                                                <rect opacity="0.25" x="3" y="21" width="18" height="2" rx="1" fill="#191213" />
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M4.08576 11.5L3.58579 12C3.21071 12.375 3 12.8838 3 13.4142V17C3 18.1045 3.89543 19 5 19H8.58579C9.11622 19 9.62493 18.7893 10 18.4142L10.5 17.9142L4.08576 11.5Z"
-                                            fill="#121319" />
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M5.5 10.0858L11.5858 4L18 10.4142L11.9142 16.5L5.5 10.0858Z"
-                                            fill="#121319" />
-                                                <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M18.1214 1.70705C16.9498 0.535476 15.0503 0.535476 13.8787 1.70705L13 2.58576L19.4142 8.99997L20.2929 8.12126C21.4645 6.94969 21.4645 5.0502 20.2929 3.87862L18.1214 1.70705Z"
-                                            fill="#191213" />
-                                            </svg></span>
-                                        <!--end::Svg Icon-->
-                            </a>
+                                <!--end::Avatar-->
+                                <!--begin::Info-->
+                        <div class="d-flex flex-column flex-row-fluid">
+                                    <!--begin::Info-->
+                            <div class="d-flex align-items-center flex-wrap mb-1">
+                                        <a href="#" class="text-gray-800 text-hover-primary fw-bolder me-2">Alice
+                                            Danchik</a>
+                                        <span class="text-gray-400 fw-bold fs-7">
+                                            @if (item.UpdatedDate != null)
+                                            {
+                                                <p>Update : @item.UpdatedDate</p>
+                                            }
+                                            else
+                                            {
+                                                <p>Create : @item.CreatedDate</p>
+                                            }
+                                        </span>
+                                        <div class="ms-auto text-gray-400">
+                                            @* <a asp-action="Edit" asp-route-id="@item.Id" class="text-hover-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" > *@
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="text-hover-primary" >
+                                                <!--begin::Svg Icon | path: assets/media/icons/duotone/Interface/Edit.svg-->
+                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="5px" height="5px" viewBox="0 0 24 24"
+                                                fill="none">
+                                                        <rect opacity="0.25" x="3" y="21" width="18" height="2" rx="1" fill="#191213" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M4.08576 11.5L3.58579 12C3.21071 12.375 3 12.8838 3 13.4142V17C3 18.1045 3.89543 19 5 19H8.58579C9.11622 19 9.62493 18.7893 10 18.4142L10.5 17.9142L4.08576 11.5Z"
+                                                    fill="#121319" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.5 10.0858L11.5858 4L18 10.4142L11.9142 16.5L5.5 10.0858Z"
+                                                    fill="#121319" />
+                                                        <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M18.1214 1.70705C16.9498 0.535476 15.0503 0.535476 13.8787 1.70705L13 2.58576L19.4142 8.99997L20.2929 8.12126C21.4645 6.94969 21.4645 5.0502 20.2929 3.87862L18.1214 1.70705Z"
+                                                    fill="#191213" />
+                                                    </svg></span>
+                                                <!--end::Svg Icon-->
+                                    </a>
 
-                                    <a href="/Comment/delete/@item.Id" class="text-hover-primary">
-                                        <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="5px" height="5px" viewBox="0 0 12 12" version="1.1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                                    <path
-                                                d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
-                                                fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                                    <path
-                                                d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z"
-                                                fill="#000000" />
-                                                </g>
-                                            </svg></span>
-                                        <!--end::Svg Icon-->
-                            </a>
-                                </div>
-                            </div>
-                            <!--end::Info-->
-                            <!--begin::Post-->
-                    <span class="text-gray-800 fs-7 fw-normal pt-1">@item.Desc</span>
-                            <!--end::Post-->
-                </div>
-                        <!--end::Info-->
-            </div>
+                                            <a href="/Comment/delete/@item.Id" class="text-hover-primary">
+                                                <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
+                                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <polygon points="0 0 24 0 24 24 0 24"/>
+                                                        <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                                        <path d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z" fill="#000000"/>
+                                                    </g>
+                                                </svg></span>
+                                                <!--end::Svg Icon-->
+                                    </a>
+                                        </div>
+                                    </div>
+                                    <!--end::Info-->
+                                    <!--begin::Post-->
+                            <span class="text-gray-800 fs-7 fw-normal pt-1">@item.Desc</span>
+                                    <!--end::Post-->
+                        </div>
+                                <!--end::Info-->
+                    </div>
                     <!--end::Reply-->
 
                 <!--begin::Modal - Edit Comment-->
@@ -279,7 +320,7 @@
 									<!--end::Modal dialog-->
 						</div>
 								<!--end::Modal - Edit Comment-->
-                
+            
                 }
             }
         </div>
@@ -288,49 +329,38 @@
         <div class="separator mb-4"></div>
         <!--end::Separator-->
         <!--begin::Reply input-->
-        
-        @* <form class="position-relative mb-6" asp-action="Create" method="post">
+
+
+        <form class="position-relative mb-6" asp-action="Create" asp-controller="Comment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="text" name="PostId" value="PostId" hidden>
-            <textarea class="form-control border-0 p-0 pe-10 resize-none min-h-25px" data-kt-autosize="true" rows="1"
-                placeholder="Reply.." name="Desc"></textarea>
+            <input type="text" id="IdPost" name="PostId" value="@ViewBag.Thread" hidden>
+            <input class="form-control border-0 p-0 pe-10 resize-none min-h-25px" data-kt-autosize="true" rows="1"
+                placeholder="Your Comment.." id="IdComment" name="Id">
             <div class="position-absolute top-0 end-0 me-n5">
-                <span class="btn btn-icon btn-sm btn-active-color-primary pe-0 me-2">
-                    <!--begin::Svg Icon | path: icons/duotone/General/Clip.svg-->
-                    <span class="svg-icon svg-icon-3 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                            height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
+                <button id="btnComment" type="button">
+                    <span class="btn btn-icon btn-sm btn-active-color-primary ps-0">
+                        <!--begin::Svg Icon | path: assets/media/icons/duotone/Communication/Sending.svg-->
+                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <path
-                                    d="M14,16 L12,16 L12,12.5 C12,11.6715729 11.3284271,11 10.5,11 C9.67157288,11 9,11.6715729 9,12.5 L9,17.5 C9,19.4329966 10.5670034,21 12.5,21 C14.4329966,21 16,19.4329966 16,17.5 L16,7.5 C16,5.56700338 14.4329966,4 12.5,4 L12,4 C10.3431458,4 9,5.34314575 9,7 L7,7 C7,4.23857625 9.23857625,2 12,2 L12.5,2 C15.5375661,2 18,4.46243388 18,7.5 L18,17.5 C18,20.5375661 15.5375661,23 12.5,23 C9.46243388,23 7,20.5375661 7,17.5 L7,12.5 C7,10.5670034 8.56700338,9 10.5,9 C12.4329966,9 14,10.5670034 14,12.5 L14,16 Z"
-                                    fill="#000000" fill-rule="nonzero"
-                                    transform="translate(12.500000, 12.500000) rotate(-315.000000) translate(-12.500000, -12.500000)" />
-                            </g>
-                        </svg>
+                                    d="M8,13.1668961 L20.4470385,11.9999863 L8,10.8330764 L8,5.77181995 C8,5.70108058 8.01501031,5.63114635 8.04403925,5.56663761 C8.15735832,5.31481744 8.45336217,5.20254012 8.70518234,5.31585919 L22.545552,11.5440255 C22.6569791,11.5941677 22.7461882,11.6833768 22.7963304,11.794804 C22.9096495,12.0466241 22.7973722,12.342628 22.545552,12.455947 L8.70518234,18.6841134 C8.64067359,18.7131423 8.57073936,18.7281526 8.5,18.7281526 C8.22385763,18.7281526 8,18.504295 8,18.2281526 L8,13.1668961 Z"
+                                    fill="#000000" />
+                                <path
+                                    d="M4,16 L5,16 C5.55228475,16 6,16.4477153 6,17 C6,17.5522847 5.55228475,18 5,18 L4,18 C3.44771525,18 3,17.5522847 3,17 C3,16.4477153 3.44771525,16 4,16 Z M1,11 L5,11 C5.55228475,11 6,11.4477153 6,12 C6,12.5522847 5.55228475,13 5,13 L1,13 C0.44771525,13 6.76353751e-17,12.5522847 0,12 C-6.76353751e-17,11.4477153 0.44771525,11 1,11 Z M4,6 L5,6 C5.55228475,6 6,6.44771525 6,7 C6,7.55228475 5.55228475,8 5,8 L4,8 C3.44771525,8 3,7.55228475 3,7 C3,6.44771525 3.44771525,6 4,6 Z"
+                                    fill="#000000" opacity="0.3" />
+                            </svg></span>
+                        <!--end::Svg Icon-->
                     </span>
-                    <!--end::Svg Icon-->
-                </span>
-                <button type="submit">
-                <span class="btn btn-icon btn-sm btn-active-color-primary ps-0">
-                    <!--begin::Svg Icon | path: assets/media/icons/duotone/Communication/Sending.svg-->
-                    <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg"
-                            width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <path
-                                d="M8,13.1668961 L20.4470385,11.9999863 L8,10.8330764 L8,5.77181995 C8,5.70108058 8.01501031,5.63114635 8.04403925,5.56663761 C8.15735832,5.31481744 8.45336217,5.20254012 8.70518234,5.31585919 L22.545552,11.5440255 C22.6569791,11.5941677 22.7461882,11.6833768 22.7963304,11.794804 C22.9096495,12.0466241 22.7973722,12.342628 22.545552,12.455947 L8.70518234,18.6841134 C8.64067359,18.7131423 8.57073936,18.7281526 8.5,18.7281526 C8.22385763,18.7281526 8,18.504295 8,18.2281526 L8,13.1668961 Z"
-                                fill="#000000" />
-                            <path
-                                d="M4,16 L5,16 C5.55228475,16 6,16.4477153 6,17 C6,17.5522847 5.55228475,18 5,18 L4,18 C3.44771525,18 3,17.5522847 3,17 C3,16.4477153 3.44771525,16 4,16 Z M1,11 L5,11 C5.55228475,11 6,11.4477153 6,12 C6,12.5522847 5.55228475,13 5,13 L1,13 C0.44771525,13 6.76353751e-17,12.5522847 0,12 C-6.76353751e-17,11.4477153 0.44771525,11 1,11 Z M4,6 L5,6 C5.55228475,6 6,6.44771525 6,7 C6,7.55228475 5.55228475,8 5,8 L4,8 C3.44771525,8 3,7.55228475 3,7 C3,6.44771525 3.44771525,6 4,6 Z"
-                                fill="#000000" opacity="0.3" />
-                        </svg></span>
-                    <!--end::Svg Icon-->
-                </span>
                 </button>
             </div>
-        </form> *@
+        </form>
+
+        @* <a href="/Comment/create/@item.PostId" class="btn btn-primary">+ Add Comment</a> *@
+            
         <!--edit::Reply input-->
     </div>
     <!--end::Body-->
 </div>
 
 <!--end::Feeds Widget 3-->
+

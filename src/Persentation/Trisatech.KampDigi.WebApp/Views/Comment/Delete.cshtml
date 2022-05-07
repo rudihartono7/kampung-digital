@@ -7,31 +7,15 @@
 <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Delete Form</h4>
+            <h4 class="card-title">Delete Comment</h4>
             <div class="form-group row">
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.Desc)
-                </div>
-                <div class="col-sm-9">
+                <div class="col-sm-12 mb-5 mt-2">
                     @Html.DisplayFor(model => model.Desc)
                 </div>
-                <div class="col-sm-9">
-                    <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.PostId)
-                </div>
-                </div>
-                <div class="col-sm-9">
-                    <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Id)
-                </div>
-                </div>
-                <div class="col-sm-9">
-                
                 </div>
                 <form asp-action="Delete">
-                    <input type="hidden" asp-for="Id" />
+                    <input type="text" asp-for="Id" hidden/>
                     <input type="submit" value="Delete" class="btn btn-danger me-2" /> |
-                    <a asp-action="Index" class="btn btn-light">Back to List</a>
                 </form>
             </div>
         </div>

@@ -4,56 +4,49 @@
     int i = 0;
     Layout = "_BaseTemplate";
 }
-<div class="col-md-6 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Delete Form</h4>
-            <div class="form-group row">
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.PostSubject)
+
+<!--begin::Container-->
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
+    <!--begin::Post-->
+    <div class="content flex-row-fluid" id="kt_content">
+        <!--begin::Card-->
+        <div class="card">
+            <!--begin::Card body-->
+            <div class="card-body p-0">
+                <h1>Delete Form</h1>
+                <!--begin::Wrapper-->
+                <div class="card-px text-center py-20 my-10">
+                    <!--begin::Title-->
+                    <h2 class="fs-2x fw-bolder mb-10">@Html.DisplayFor(model => model.Title)</h2>
+                    <!--end::Title-->
+                    <div class="pb-0 badge badge-light fw-bolder">
+                        @Html.DisplayFor(model => model.Type)
+                    </div>
+                    <!--begin::Illustration-->
+                    <div class="text-center px-4">
+                        <img src='@Html.DisplayFor(model => model.ImageSrc)' class="mw-100 mh-300px" alt="" />
+                    </div>
+                    <!--end::Illustration-->
+                    <!--begin::Description-->
+                    <p class="text-gray-400 fs-4 fw-bold mb-10">@Html.DisplayFor(model => model.Desc)</p>
+                    <!--end::Description-->
+                    <!--begin::Action-->
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger me-2" /> |
+                        <a asp-action="Index" class="btn btn-light">Back to List</a>
+                    </form>
+                    <!--end::Action-->
                 </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.PostSubject)
-                </div>
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.Title)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Title)
-                </div>
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.Desc)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Desc)
-                </div>
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.Type)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Type)
-                </div>
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.IsResidentProgram)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.IsResidentProgram)
-                </div>
-                <div class="col-sm-3 col-form-label">
-                    @Html.DisplayNameFor(model => model.Image)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.ImageSrc)
-                </div>
-                <div class="col-sm-9">
-                    
-                </div>
-                <form asp-action="Delete">
-                    <input type="hidden" asp-for="Id" />
-                    <input type="submit" value="Delete" class="btn btn-danger me-2" /> |
-                    <a asp-action="Index" class="btn btn-light">Back to List</a>
-                </form>
+                <!--end::Wrapper-->
+
             </div>
+            <!--end::Card body-->
         </div>
+        <!--end::Card-->
+        <!--begin::Modals-->
+        <!--end::Modals-->
     </div>
+    <!--end::Post-->
 </div>
+<!--end::Container-->

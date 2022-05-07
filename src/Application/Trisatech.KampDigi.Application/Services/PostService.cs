@@ -14,7 +14,10 @@ public class PostService : BaseDbService, IPostService
 
     public async Task<Post> Add(Post obj)
     {
-
+        obj.Title = obj.Title;
+        obj.Desc = obj.Desc;
+        obj.Image = obj.Image;
+        obj.Type = obj.Type;
         obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
         obj.CreatedBy = Guid.NewGuid();
         obj.UpdatedBy = obj.CreatedBy;

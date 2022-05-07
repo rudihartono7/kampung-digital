@@ -18,7 +18,7 @@ public class CommentService : BaseDbService, ICommentService
         {
             throw new InvalidOperationException($"Comment with ID {obj.Id} is already exist");
         }
-
+        obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
         obj.CreatedBy = Guid.NewGuid();
         obj.UpdatedBy = obj.CreatedBy;
         obj.CreatedDate = DateTime.Now;

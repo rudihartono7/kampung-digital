@@ -10,6 +10,7 @@ namespace Trisatech.KampDigi.Application.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         
+        
         public Comment ConvertToDbModelCreate(){
             return new Comment {
                 Desc = this.Desc,

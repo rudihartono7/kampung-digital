@@ -27,14 +27,17 @@ public class CommentController : BaseController
     //     return View(result);
     // }
 
+    [Authorize]
     public async Task<IActionResult> Index(Guid id)
     {
         var dbResult = await _commentService.GetComments(id);
 
+        var thread = Guid.NewGuid();
         var viewModels = new List<CommentModel>();
 
         for (int i = 0; i < dbResult.Count; i++)
         {
+            thread = dbResult[i].PostId;
             viewModels.Add(new CommentModel
             {
                 Id = dbResult[i].Id,
@@ -42,23 +45,25 @@ public class CommentController : BaseController
                 Desc = dbResult[i].Desc
             });
         }
+        ViewBag.Thread = thread;
         return View(viewModels);
     }
-    public async Task<IActionResult> Create(Guid id)
-    {
+    // [Authorize]
+    // public async Task<IActionResult> Create(Guid id)
+    // {
 
-        return View(new CommentModel
-        {
-            Desc = "",
-            PostId = id
-        });
-    }
+    //     return View(new CommentModel
+    //     {
+    //         Desc = "",
+    //         PostId = id
+    //     });
+    // }
 
 
-
+    [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Guid id, CommentModel request)
+    // [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("PostId, Desc")] Guid PostId, string Desc, CommentModel request)
     {
         if (!ModelState.IsValid)
         {
@@ -69,7 +74,7 @@ public class CommentController : BaseController
         {
             await _commentService.Add(request.ConvertToDbModelCreate());
 
-            return RedirectToAction("Index", new { id = request.PostId });
+            return RedirectToAction("Index", new { Id = request.PostId });
         }
         catch (InvalidOperationException ex)
         {
@@ -83,6 +88,7 @@ public class CommentController : BaseController
         return View(request);
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> Delete(Guid? id)
     {
@@ -107,6 +113,7 @@ public class CommentController : BaseController
         });
     }
 
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id, CommentModel request)

@@ -19,13 +19,18 @@
 				<div class="card mb-5 mb-xl-8">
 					<!--begin::Body-->
 					<div class="card-body pb-0">
-						<!--begin::Header-->
+						
+						<!--begin::Form-->
+						<form id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3" asp-action="Create"
+							method="post" enctype="multipart/form-data">
+							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+							<!--begin::Header-->
 						<div class="d-flex align-items-center">
 							<!--begin::User-->
 							<div class="d-flex align-items-center flex-grow-1">
 								<!--begin::Avatar-->
 								<div class="symbol symbol-45px me-5">
-									<img src="assets/media/avatars/150-1.jpg" alt="" />
+									<img src="~/images/avatar.jpg" alt="" />
 								</div>
 								<!--end::Avatar-->
 								<!--begin::Info-->
@@ -37,17 +42,18 @@
 							</div>
 							<!--end::User-->
 							<div class="my-0">
-								<select name="PostType" class="form-control form-control-solid mb-3 mb-lg-0"
-									asp-items="Html.GetEnumSelectList<PostType>()">
+								<select name="type" id="">
+									<option
+									value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option>
 								</select>
 
 							</div>
 						</div>
 						<!--end::Header-->
-						<!--begin::Form-->
-						<form id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3" asp-action="Create"
-							method="post" enctype="multipart/form-data">
-							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+							
 							<div class="form-group">
 								<label name="PostSubject" for="exampleInput1"></label>
 								<input class="form-control" id="exampleInput1" placeholder="PostSubject"
@@ -129,7 +135,7 @@
 							<div class="d-flex align-items-center flex-grow-1">
 										<!--begin::Avatar-->
 								<div class="symbol symbol-45px me-5">
-											<img src="assets/media/avatars/150-15.jpg" alt="" />
+											<img src="~/images/avatar.jpg" alt="" />
 										</div>
 										<!--end::Avatar-->
 										<!--begin::Info-->
@@ -152,7 +158,27 @@
 									<!--end::User-->
 									<!--begin::Menu-->
 							<div class="my-0">
-										<div class="badge badge-light fw-bolder">@item.Type</div>
+								@* @if (Model != null && Model.Any())
+								{
+												@foreach (var item in Model.Post)
+									{
+												@switch (item.PostType){
+													case PostType.Report:
+														<div class="badge badge-light fw-bolder">Report</div>
+													break;
+													case PostType.Forum:
+														<div class="badge badge-light fw-bolder">Forum</div>
+													break;
+													case PostType.Announcement:
+														<div class="badge badge-light fw-bolder">Announcement</div>
+													break;
+													case PostType.Public:
+														<div class="badge badge-light fw-bolder">Public</div>
+													break;
+												}
+									}
+								} *@
+								<div class="badge badge-light fw-bolder">@item.Type</div>
 										<button type="button"
 									class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
 									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -178,69 +204,22 @@
 										<!--begin::Menu 2-->
 								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-200px"
 									data-kt-menu="true">
-											<!--begin::Menu item-->
-									<div class="menu-item px-3">
-												<div class="menu-content fs-6 text-dark fw-bolder px-3 py-4">Quick Actions</div>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu separator-->
-									<div class="separator mb-3 opacity-75"></div>
-											<!--end::Menu separator-->
-											<!--begin::Menu item-->
-									<div class="menu-item px-3">
-												<a asp-action="Edit" asp-route-id="@item.Id" class="menu-link px-3"
-											data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">Edit</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-									<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">New Customer</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-									<div class="menu-item px-3" data-kt-menu-trigger="hover"
-										data-kt-menu-placement="right-start" data-kt-menu-flip="left-start, top">
-												<!--begin::Menu item-->
-										<a href="#" class="menu-link px-3">
-													<span class="menu-title">New Group</span>
-													<span class="menu-arrow"></span>
-												</a>
-												<!--end::Menu item-->
-												<!--begin::Menu sub-->
-										<div class="menu-sub menu-sub-dropdown w-175px py-4">
-													<!--begin::Menu item-->
-											<div class="menu-item px-3">
-														<a href="#" class="menu-link px-3">Admin Group</a>
-													</div>
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-											<div class="menu-item px-3">
-														<a href="#" class="menu-link px-3">Staff Group</a>
-													</div>
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-											<div class="menu-item px-3">
-														<a href="#" class="menu-link px-3">Member Group</a>
-													</div>
-													<!--end::Menu item-->
-										</div>
-												<!--end::Menu sub-->
-									</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-									<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">New Contact</a>
-											</div>
-											<!--end::Menu item-->
 											<!--begin::Menu separator-->
 									<div class="separator mt-3 opacity-75"></div>
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
 									<div class="menu-item px-3">
 												<div class="menu-content px-3 py-3">
-													<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
+													@* <a class="btn btn-success btn-sm px-4" asp-action="Edit"
+												asp-route-id="@item.Id" class="menu-link px-3" data-bs-toggle="modal"
+												data-bs-target="#kt_modal_add_user">Edit</a> *@
+												<a class="btn btn-success btn-sm px-4" asp-action="Edit"
+												asp-route-id="@item.Id" class="menu-link px-3">Edit</a>
 												</div>
-												<div class="menu-content px-3 py-3">
+												<!--begin::Menu separator-->
+										<div class="separator mt-3 opacity-75"></div>
+												<!--end::Menu separator-->
+										<div class="menu-content px-3 py-3">
 													<a asp-action="Delete" asp-route-id="@item.Id"
 												class="btn btn-danger btn-sm px-4">Delete Thread</a>
 												</div>
@@ -318,8 +297,7 @@
 																<img src="@item.ImageSrc" alt="" class="w-33 h-33">
 																<!--end::Preview existing avatar-->
 																<!--begin::Label-->
-														<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white
-								shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+														<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
 																	<i class="bi bi-pencil-fill fs-7"></i>
 																	<!--begin::Inputs-->
 															<input type="file" name="avatar"
@@ -410,6 +388,11 @@
 									<!--begin::Text-->
 							<div class="text-gray-800 mb-5">@item.Desc</div>
 									<!--end::Text-->
+
+
+								<!--begin::Separator-->
+									<div class="separator mb-4"></div>
+								<!--end::Separator-->
 									<!--begin::Toolbar-->
 							<div class="d-flex align-items-center mb-5">
 										<a asp-controller="Comment" asp-action="Index" asp-route-id="@item.Id">
@@ -430,7 +413,7 @@
 												<!--end::Svg Icon-->
 												Comment
 									</button>
-									</a>
+										</a>
 
 										<a href="#"
 									class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
@@ -457,47 +440,6 @@
 								<!--begin::Separator-->
 						<div class="separator mb-4"></div>
 								<!--end::Separator-->
-								<!--begin::Reply input-->
-						<form class="position-relative mb-6">
-									<textarea class="form-control border-0 p-0 pe-10 resize-none min-h-25px"
-								data-kt-autosize="true" rows="1" placeholder="Reply.."></textarea>
-									<div class="position-absolute top-0 end-0 me-n5">
-										<span class="btn btn-icon btn-sm btn-active-color-primary pe-0 me-2">
-											<!--begin::Svg Icon | path: icons/duotone/General/Clip.svg-->
-									<span class="svg-icon svg-icon-3 mb-3">
-												<svg xmlns="http://www.w3.org/2000/svg"
-											xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-											viewBox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24" />
-														<path
-													d="M14,16 L12,16 L12,12.5 C12,11.6715729 11.3284271,11 10.5,11 C9.67157288,11 9,11.6715729 9,12.5 L9,17.5 C9,19.4329966 10.5670034,21 12.5,21 C14.4329966,21 16,19.4329966 16,17.5 L16,7.5 C16,5.56700338 14.4329966,4 12.5,4 L12,4 C10.3431458,4 9,5.34314575 9,7 L7,7 C7,4.23857625 9.23857625,2 12,2 L12.5,2 C15.5375661,2 18,4.46243388 18,7.5 L18,17.5 C18,20.5375661 15.5375661,23 12.5,23 C9.46243388,23 7,20.5375661 7,17.5 L7,12.5 C7,10.5670034 8.56700338,9 10.5,9 C12.4329966,9 14,10.5670034 14,12.5 L14,16 Z"
-													fill="#000000" fill-rule="nonzero"
-													transform="translate(12.500000, 12.500000) rotate(-315.000000) translate(-12.500000, -12.500000)" />
-													</g>
-												</svg>
-											</span>
-											<!--end::Svg Icon-->
-								</span>
-										<span class="btn btn-icon btn-sm btn-active-color-primary ps-0">
-											<!--begin::Svg Icon | path: icons/duotone/Map/Marker1.svg-->
-									<span class="svg-icon svg-icon-2 mb-3">
-												<svg xmlns="http://www.w3.org/2000/svg"
-											xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-											viewBox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<rect x="0" y="0" width="24" height="24" />
-														<path
-													d="M5,10.5 C5,6 8,3 12.5,3 C17,3 20,6.75 20,10.5 C20,12.8325623 17.8236613,16.03566 13.470984,20.1092932 C12.9154018,20.6292577 12.0585054,20.6508331 11.4774555,20.1594925 C7.15915182,16.5078313 5,13.2880005 5,10.5 Z M12.5,12 C13.8807119,12 15,10.8807119 15,9.5 C15,8.11928813 13.8807119,7 12.5,7 C11.1192881,7 10,8.11928813 10,9.5 C10,10.8807119 11.1192881,12 12.5,12 Z"
-													fill="#000000" fill-rule="nonzero" />
-													</g>
-												</svg>
-											</span>
-											<!--end::Svg Icon-->
-								</span>
-									</div>
-								</form>
-								<!--edit::Reply input-->
 					</div>
 							<!--end::Body-->
 				</div>
