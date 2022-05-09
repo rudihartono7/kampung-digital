@@ -26,7 +26,7 @@ public class ResidentFamilyService : BaseDbService, IResidentFamilyService
                 Gender = model.Gender,
                 Age = model.Age,
                 Relationship = model.Relationship,
-                HeadOfFamilyId = model.HeadOfFamilyId,
+                HeadOfFamilyId = idCurrentUser,
                 CreatedBy = idCurrentUser,
                 CreatedDate = DateTime.Now,
                 AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT,

@@ -48,7 +48,6 @@ public class ResidentFamilyController : BaseController
 
      public IActionResult Create()
     {
-        ViewBag.HeadOfFamilyId = new SelectList(_digiContext.Residents,"Id","Name");
         return View(new ResidentFamilyModel());
     }
 
