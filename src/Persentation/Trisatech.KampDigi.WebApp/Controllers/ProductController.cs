@@ -89,6 +89,7 @@ public class ProductController : BaseController
            
             request.ImageUrl = $"images/{fileName}";
             await _productService.AddProduk(request,  GetCurrentUserGuid());
+            TempData["message"] = "Data produk berhasil ditambahkan";
             return RedirectToAction(nameof(Index));
 
         }
@@ -163,6 +164,7 @@ public class ProductController : BaseController
             }
 
             await _productService.EditProduk(request, GetCurrentUserGuid());
+            TempData["message"] = "Data produk berhasil diedit";
             return RedirectToAction(nameof(Index));
         }
         catch (InvalidOperationException ex)
@@ -180,8 +182,7 @@ public class ProductController : BaseController
     {
        
         await _productService.Delete(id);
-
-        TempData["message"] = "Produk berhasil di hapus";
+        TempData["message"] = "Data produk berhasil dihapus";
         return RedirectToAction("Index");
 
     }
