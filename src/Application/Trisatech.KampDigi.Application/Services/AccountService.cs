@@ -24,7 +24,7 @@ namespace Trisatech.KampDigi.Application.Services
 
         public async Task<List<UserViewModel>> GetAllUser()
         {
-            var data = Db.Users.ToList();
+            var data = await Db.Users.ToListAsync();
             var listUser = new List<UserViewModel>();
             foreach (var user in data)
             {
@@ -108,6 +108,11 @@ namespace Trisatech.KampDigi.Application.Services
                 throw new InvalidOperationException($"Data dengan id: {dataPassword.Id}, tidak ditemukan");
             }
 
+            if (dataPassword.NewPassword != dataPassword.ConfirmNewPassword)
+            {
+                throw new InvalidOperationException("Password dan konfirmasi password tidak sesuai");
+            }
+
             var isPasswordMatch = VerifyPassword(dataPassword.OldPassword, userData.Salt, userData.Password);
 
             if (!isPasswordMatch)
@@ -159,6 +164,10 @@ namespace Trisatech.KampDigi.Application.Services
         public async Task<EditRoleModel> EditRole(EditRoleModel dataRole, Guid currentUserId)
         {
             var userData = await Db.Users.FirstOrDefaultAsync(x => x.Id == dataRole.Id);
+            if (userData == null)
+            {
+                throw new InvalidOperationException($"User dengan id {dataRole.Id} tidak dapat ditemukan"); 
+            }
             userData.Role = dataRole.Role;
             userData.UpdatedDate = DateTime.Now;
             userData.UpdatedBy = currentUserId;
