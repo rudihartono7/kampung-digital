@@ -57,6 +57,16 @@ public class PostService : BaseDbService, IPostService
 
     public async Task<Post> Get(Guid id)
     {
+        // var post = await (from p in Db.Posts
+        //                     join name in Db.Users on p.Id equals name.Id into tempName
+        //                     from name in tempName.DefaultIfEmpty()
+
+        //                     where p.Id == id
+        //                     select new PostModel
+        //                     {
+        //                         Id = p.Id,
+        //                         Name = name.Name,
+        //                     }).FirstOrDefaultAsync();
         // var result = await (from a in Db.Posts
         //                     join b in Db.Users on a.username equals b.username
         //                     select new Post

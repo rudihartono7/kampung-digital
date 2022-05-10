@@ -1,3 +1,4 @@
+@using Trisatech.KampDigi.Domain.Entities
 @model Trisatech.KampDigi.Application.Models.PostModel
 @{
     ViewData["Title"] = "Edit Thread";
@@ -5,172 +6,149 @@
     Layout = "_BaseTemplate";
 }
 
-
-
-@* <div class="modal-content">
-    <!--begin::Modal header-->
-    <div class="modal-header" id="kt_modal_add_user_header">
-        @if (ViewBag.Message != null)
-        {
-            <div class="alert alert-success text-center" role="alert">
-                @ViewBag.Message
-            </div>
-        }
-        <!--begin::Modal title-->
-        <h2 class="fw-bolder">Edit User</h2
-        <!--end::Modal title-->
-        <!--begin::Close-->
-        
-        <!--end::Close-->
+<!--begin::Basic info-->
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+        <!--begin::Card title-->
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">Edit Thread</h3>
+        </div>
+        <!--end::Card title-->
     </div>
-    <!--end::Modal header-->
-    <!--begin::Modal body-->
-    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+    <!--begin::Card header-->
+    <!--begin::Content-->
+    <div id="kt_account_profile_details" class="collapse show">
         <!--begin::Form-->
-        <form asp-action="Edit" class="form fv-plugins-bootstrap5 fv-plugins-framework">
-             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!--begin::Scroll-->
-            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px" style="max-height: 108px;">
+        <form asp-controller="Post" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
                 <!--begin::Input group-->
-                <div class="fv-row mb-7 fv-plugins-icon-container">
-                    <!--begin::Image input-->
-                    <div class="fv-row mb-7">
-													<div class="image-input image-input-outline"
-														data-kt-image-input="true"
-														style="background-image: url(~/assets/media/avatars/blank.png)">
-																
-																<img src="@Model.ImageSrc" alt="" class="w-12 h-12">
-																<!--end::Preview existing avatar-->
-																<!--begin::Label-->
-														<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-																	<i class="bi bi-pencil-fill fs-7"></i>
-																	<!--begin::Inputs-->
-															<input type="file" name="avatar"
-																accept=".png, .jpg, .jpeg" />
-																	<input type="hidden" name="avatar_remove" />
-																	<!--end::Inputs-->
-														</label>
-																<!--end::Label-->
-																<!--begin::Cancel-->
-														<span
-															class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-															data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-															title="Cancel avatar">
-																	<i class="bi bi-x fs-2"></i>
-																</span>
-																<!--end::Cancel-->
-																<!--begin::Remove-->
-														<span
-															class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-															data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-															title="Remove avatar">
-																	<i class="bi bi-x fs-2"></i>
-																</span>
-																<!--end::Remove-->
-													</div>
-															<!--end::Image input-->
-															<!--begin::Hint-->
-													<div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-															<!--end::Hint-->
-												</div>
-														<!--end::Input group-->
+                <div class="row mb-6">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Title</label>
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Gambar Thread</label>
                     <!--end::Label-->
-                    <!--begin::Input-->
-                    <input asp-for="Title" type="text" disabled class="form-control form-control-solid mb-3 mb-lg-0" value="@Model.Title">
-                    <!--end::Input-->
-                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <!--begin::Col-->
+                    <div class="col-lg-4">
+                        <label class="d-block fw-bold fs-6 mb-5">Gambar Thread</label>
+                        <!--begin::Image input-->
+                        <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
+                            <!--begin::Image preview wrapper-->
+                            <div class="image-input-wrapper w-125px h-125px"></div>
+                            <!--end::Image preview wrapper-->
+                            <!--begin::Edit button-->
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                   data-kt-image-input-action="change"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-dismiss="click"
+                                   title="Change avatar">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+
+                                <!--begin::Inputs-->
+                                <input asp-for="ImageFile" type="file" class="form-control" accept=".png, .jpg, .jpeg" />
+                                <input type="hidden" name="avatar_remove" />
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                
+                                <!--end::Inputs-->
+                            </label>
+                            <!--end::Edit button-->
+                            <!--begin::Cancel button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="cancel"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Cancel avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Cancel button-->
+                            <!--begin::Remove button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="remove"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Remove avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Remove button-->
+                        </div>
+                        <!--end::Image input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                        <!--end::Hint-->
+                    </div>
                 </div>
                 <!--end::Input group-->
                 <!--begin::Input group-->
-                <div class="fv-row mb-7 fv-plugins-icon-container">
+                <div class="row mb-6">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Post Subject</label>
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Judul Thread</label>
                     <!--end::Label-->
-                    <!--begin::Input-->
-                    <input asp-for="PostSubject" type="text" disabled class="form-control form-control-solid mb-3 mb-lg-0" value="@Model.PostSubject">
-                    <!--end::Input-->
-                    <!--begin::Input group-->
-                <div class="fv-row mb-7 fv-plugins-icon-container">
-                    <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Description</label>
-                    <!--end::Label-->
-                    <!--begin::Input-->
-                    <input asp-for="Desc" type="text" disabled class="form-control form-control-solid mb-3 mb-lg-0" value="@Model.Desc">
-                    <!--end::Input-->
-                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Title" class="form-control form-control-lg form-control-solid" placeholder="Judul Thread" value="@Model.Title" />
+                    </div>
+                    <!--end::Col-->
                 </div>
                 <!--end::Input group-->
-                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                 <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Subject</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="PostSubject" class="form-control form-control-lg form-control-solid" placeholder="Subject" value="@Model.PostSubject" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Tipe Thread</span>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        @* <select asp-for="PostType" aria-label="Select a Language" data-control="select2" asp-items="Html.GetEnumSelectList<PostType>()" class="form-select form-select-solid form-select-lg">
+                        </select> *@
+                        <input type="hidden" id="type" value="@Model.Type">
+                        <select name="Type">
+                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
+                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
+                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
+                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option>
+                        </select>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->   
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Description Thread</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Desc" class="form-control form-control-lg form-control-solid" placeholder="Description Thread" value="@Model.Desc" />
+                    </div>
+                    <!--end::Col-->
                 </div>
                 <!--end::Input group-->
             </div>
-            <!--end::Scroll-->
+            <!--end::Card body-->
             <!--begin::Actions-->
-            <div class="text-center pt-15">
-                <a asp-action="Index" class="btn btn-light">Cancel</a>
-                <button type="submit" class="btn btn-primary">
-                    <span class="indicator-label">Submit</span>
-                </button>
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <a type="reset" asp-action="Index" class="btn btn-white btn-active-light-primary me-2">Discard</a>
+                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Edit Thread</button>
             </div>
             <!--end::Actions-->
-            <div></div>
-            <div></div>
         </form>
         <!--end::Form-->
     </div>
-    <!--end::Modal body-->
-</div> *@
-
-<div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Edit</h4>
-            <form asp-controller="Post" asp-action="Edit" method="post">
-                @Html.AntiForgeryToken()
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="Id" type="hidden" class="form-control">
-                <div class="form-group">
-                    <label asp-for="ImageFile" class="control-label"></label>
-                    <input asp-for="ImageFile" type="file" class="form-control" />
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
-                </div>
-                <div class="form-grup">
-                    <img src="@Model.ImageSrc" height="100px" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Title" for="exampleInput2"></label>
-                    <input class="form-control" id="exampleInput2" asp-for="Title">
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PostSubject" for="exampleInput1"></label>
-                    <input class="form-control" id="exampleInput1" asp-for="PostSubject">
-                    <span asp-validation-for="PostSubject" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Desc" for="exampleInput3"></label>
-                    <input class="form-control" id="exampleInput3" asp-for="Desc">
-                    <span asp-validation-for="Desc" class="text-danger"></span>
-                </div>
-                <div class="form-group mb-3">
-               <label class="control-label">Type</label>
-               <input type="hidden" id="type" value="@Model.Type">
-               <select name="Type">
-                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
-                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
-                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
-                    <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option>
-                    
-               </select>
-            </div>
-                <button type="submit" class="btn btn-primary me-2">Edit</button>
-            </form>
-            <a asp-action="Index" class="btn btn-light">Cancel</a>
-        </div>
-    </div>
+    <!--end::Content-->
 </div>
+<!--end::Basic info-->

@@ -11,13 +11,16 @@ public class CommentController : BaseController
 {
     private readonly ILogger<CommentController> _logger;
     private readonly ICommentService _commentService;
+    private readonly IPostService _postService; 
     public CommentController(
-        ILogger<CommentController> logger,    
-        ICommentService commentService
+        ILogger<CommentController> logger,
+        ICommentService commentService,
+        IPostService postService
     )
     {
         _logger = logger;
         _commentService = commentService;
+        _postService = postService;
     }
 
     // public async Task<IActionResult> Index(){
@@ -32,12 +35,14 @@ public class CommentController : BaseController
     {
         var dbResult = await _commentService.GetComments(id);
 
-        var thread = Guid.NewGuid();
+        var Desc = await _postService.Get(id);
+        var PostSubject = await _postService.Get(id);
+        var CreatedDate = await _postService.Get(id);
+        var UpdatedDate = await _postService.Get(id);
         var viewModels = new List<CommentModel>();
 
         for (int i = 0; i < dbResult.Count; i++)
         {
-            thread = dbResult[i].PostId;
             viewModels.Add(new CommentModel
             {
                 Id = dbResult[i].Id,
@@ -45,19 +50,24 @@ public class CommentController : BaseController
                 Desc = dbResult[i].Desc
             });
         }
-        ViewBag.Thread = thread;
+
+        ViewBag.Desc = Desc.Desc;
+        ViewBag.PostSubject = PostSubject.PostSubject;
+        ViewBag.CreatedDate = CreatedDate.CreatedDate;
+        ViewBag.UpdatedDate = UpdatedDate.UpdatedDate;
+        ViewBag.Thread = id;
         return View(viewModels);
     }
-    // [Authorize]
-    // public async Task<IActionResult> Create(Guid id)
-    // {
+    [Authorize]
+    public async Task<IActionResult> Create(Guid id)
+    {
 
-    //     return View(new CommentModel
-    //     {
-    //         Desc = "",
-    //         PostId = id
-    //     });
-    // }
+        return View(new CommentModel
+        {
+            Desc = "",
+            PostId = id
+        });
+    }
 
 
     [Authorize]
@@ -69,7 +79,7 @@ public class CommentController : BaseController
         {
             return View(request);
         }
-        
+
         try
         {
             await _commentService.Add(request.ConvertToDbModelCreate());
@@ -115,7 +125,6 @@ public class CommentController : BaseController
 
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(Guid id, CommentModel request)
     {
         if (id == null)

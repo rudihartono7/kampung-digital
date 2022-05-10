@@ -21,8 +21,7 @@ namespace Trisatech.KampDigi.Application.Models
         public bool IsResidentProgram { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-
-        public string username { get; set; }
+        public string Name { get; set; }
     public Post ConvertToDbModelAdd(){
             return new Post {
                 PostSubject = this.PostSubject,

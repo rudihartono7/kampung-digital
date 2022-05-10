@@ -35,8 +35,7 @@
 								<!--end::Avatar-->
 								<!--begin::Info-->
 								<div class="d-flex flex-column">
-									<a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Grace Green</a>
-									<span class="text-gray-400 fw-bold">PHP, SQLite, Artisan CLI</span>
+									<a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@ViewBag.Name</a>
 								</div>
 								<!--end::Info-->
 							</div>
@@ -44,12 +43,11 @@
 							<div class="my-0">
 								<select name="type" id="">
 									<option
-									value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
+									value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Announcement</option>
 									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
-									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
-									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Public</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Report</option>
 								</select>
-
 							</div>
 						</div>
 						<!--end::Header-->
@@ -69,8 +67,12 @@
 								<input name="ImageFile" type="file" class="form-control" />
 							</div>
 							<!--begin::Editor-->
-							<textarea id="kt_forms_widget_1_editor" name="Desc"></textarea>
-							@* <div id="kt_forms_widget_1_editor" class="py-6" name="Desc"></div> *@
+							@* <textarea id="kt_forms_widget_1_editor" name="Desc" width="100px" height="30px">Write your description in here ...</textarea> *@
+							<div class="form-floating" style="margin-top: 20px;">
+								<textarea class="form-control" name="Desc" placeholder="Write your description in here ..." id="floatingTextarea"></textarea>
+								<label for="floatingTextarea">Your description</label>
+							</div>
+							<div id="kt_forms_widget_1_editor" class="py-6" name="Desc" hidden></div>
 							<!--end::Editor-->
 							<div class="separator"></div>
 							<!--begin::Toolbar-->
@@ -209,180 +211,59 @@
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
 									<div class="menu-item px-3">
-												<div class="menu-content px-3 py-3">
-													@* <a class="btn btn-success btn-sm px-4" asp-action="Edit"
-												asp-route-id="@item.Id" class="menu-link px-3" data-bs-toggle="modal"
-												data-bs-target="#kt_modal_add_user">Edit</a> *@
-												<a class="btn btn-success btn-sm px-4" asp-action="Edit"
-												asp-route-id="@item.Id" class="menu-link px-3">Edit</a>
-												</div>
 												<!--begin::Menu separator-->
-										<div class="separator mt-3 opacity-75"></div>
+													<div class="separator mt-3 opacity-75"></div>
 												<!--end::Menu separator-->
-										<div class="menu-content px-3 py-3">
-													<a asp-action="Delete" asp-route-id="@item.Id"
-												class="btn btn-danger btn-sm px-4">Delete Thread</a>
-												</div>
+												
+												<a asp-action="Edit" asp-route-id="@item.Id" class="menu-link px-3">
+													<!--begin::Svg Icon | path: assets/media/icons/duotone/Interface/Edit.svg-->
+													<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect opacity="0.25" x="3" y="21" width="18" height="2" rx="1" fill="#191213"/>
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.08576 11.5L3.58579 12C3.21071 12.375 3 12.8838 3 13.4142V17C3 18.1045 3.89543 19 5 19H8.58579C9.11622 19 9.62493 18.7893 10 18.4142L10.5 17.9142L4.08576 11.5Z" fill="#121319"/>
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 10.0858L11.5858 4L18 10.4142L11.9142 16.5L5.5 10.0858Z" fill="#121319"/>
+													<path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M18.1214 1.70705C16.9498 0.535476 15.0503 0.535476 13.8787 1.70705L13 2.58576L19.4142 8.99997L20.2929 8.12126C21.4645 6.94969 21.4645 5.0502 20.2929 3.87862L18.1214 1.70705Z" fill="#191213"/>
+													</svg></span>
+													<!--end::Svg Icon-->
+													Edit Thread
+												</a>
+												
+												
+										
+													@* <a asp-action="Delete" asp-route-id="@item.Id" class="menu-link px-3"> *@
+												<a type="button" id="btnDelete" class="text-hover-primary" data-id="@item.Id" >
+													<!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
+													<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<polygon points="0 0 24 0 24 24 0 24"/>
+															<path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+															<path d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z" fill="#000000"/>
+														</g>
+													</svg></span>
+													<!--end::Svg Icon-->
+													Delete Thread
+												</a>
+												
 											</div>
 											<!--end::Menu item-->
+											<!--begin::Menu separator-->
+												<div class="separator mt-3 opacity-75"></div>
+											<!--end::Menu separator-->
 								</div>
 										<!--end::Menu 2-->
 							</div>
 									<!--end::Menu-->
 						</div>
 								<!--end::Header-->
-								<!--begin::Modal - Edit Thread-->
-						<div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
-									<!--begin::Modal dialog-->
-							<div class="modal-dialog modal-dialog-centered mw-650px">
-										<!--begin::Modal content-->
-								<div class="modal-content">
-											<!--begin::Modal header-->
-									<div class="modal-header" id="kt_modal_add_user_header">
-												<!--begin::Modal title-->
-										<h2 class="fw-bolder">Edit Thread</h2>
-												<!--end::Modal title-->
-												<!--begin::Close-->
-										<div class="btn btn-icon btn-sm btn-active-icon-primary"
-											data-kt-users-modal-action="close">
-													<!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
-											<span class="svg-icon svg-icon-1">
-														<svg xmlns="http://www.w3.org/2000/svg"
-													xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-													height="24px" viewBox="0 0 24 24" version="1.1">
-															<g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-														fill="#000000">
-																<rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-																<rect fill="#000000" opacity="0.5"
-															transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
-															x="0" y="7" width="16" height="2" rx="1" />
-															</g>
-														</svg>
-													</span>
-													<!--end::Svg Icon-->
-										</div>
-												<!--end::Close-->
-									</div>
-											<!--end::Modal header-->
-											<!--begin::Modal body-->
-									<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-												<!--begin::Form-->
-
-										<form class="form" asp-action="Edit" method="post" asp-route-id="@item.Id"
-											enctype="multipart/form-data">
-													<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-													<input asp-for="@item.Id" type="hidden" class="form-control">
-													<!--begin::Scroll-->
-											<div class="d-flex flex-column scroll-y me-n7 pe-7"
-												id="kt_modal_add_user_scroll" data-kt-scroll="true"
-												data-kt-scroll-activate="{default: false, lg: true}"
-												data-kt-scroll-max-height="auto"
-												data-kt-scroll-dependencies="#kt_modal_add_user_header"
-												data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
-												data-kt-scroll-offset="300px">
-														<!--begin::Input group-->
-												<div class="fv-row mb-7">
-															<!--begin::Label-->
-													<label class="d-block fw-bold fs-6 mb-5">Edit Thread</label>
-															<!--end::Label-->
-															<!--begin::Image input-->
-													<div class="image-input image-input-outline"
-														data-kt-image-input="true"
-														style="background-image: url(~/assets/media/avatars/blank.png)">
-																<!--begin::Preview existing avatar-->
-																@* <div class="image-input-wrapper w-125px h-125px"
-																	asp-for="ImageFile" type="file"></div>
-																	<span asp-validation-for="ImageFile" class="text-danger"></span>
-																*@
-																<img src="@item.ImageSrc" alt="" class="w-33 h-33">
-																<!--end::Preview existing avatar-->
-																<!--begin::Label-->
-														<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-																	<i class="bi bi-pencil-fill fs-7"></i>
-																	<!--begin::Inputs-->
-															<input type="file" name="avatar"
-																accept=".png, .jpg, .jpeg" />
-																	<input type="hidden" name="avatar_remove" />
-																	<!--end::Inputs-->
-														</label>
-																<!--end::Label-->
-																<!--begin::Cancel-->
-														<span
-															class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-															data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-															title="Cancel avatar">
-																	<i class="bi bi-x fs-2"></i>
-																</span>
-																<!--end::Cancel-->
-																<!--begin::Remove-->
-														<span
-															class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-															data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-															title="Remove avatar">
-																	<i class="bi bi-x fs-2"></i>
-																</span>
-																<!--end::Remove-->
-													</div>
-															<!--end::Image input-->
-															<!--begin::Hint-->
-													<div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-															<!--end::Hint-->
-												</div>
-														<!--end::Input group-->
-														<!--begin::Input group-->
-												<div class="fv-row mb-7">
-															<!--begin::Label-->
-													<label class="required fw-bold fs-6 mb-2">Title</label>
-															<!--end::Label-->
-															<!--begin::Input-->
-													<input name="Title"
-														class="form-control form-control-solid mb-3 mb-lg-0"
-														value="@item.Title" />
-															<!--end::Input-->
-												</div>
-														<!--end::Input group-->
-														<!--begin::Input group-->
-												<div class="fv-row mb-7">
-															<!--begin::Label-->
-													<label class="required fw-bold fs-6 mb-2">Subject Post</label>
-															<!--end::Label-->
-															<!--begin::Input-->
-													<input type="text" name="PostSubject" class="form-control
-																form-control-solid mb-3 mb-lg-0" value='@item.PostSubject' />
-															<!--end::Input-->
-												</div>
-														<!--end::Input group-->
-											</div>
-													<!--end::Scroll-->
-													<!--begin::Actions-->
-											<div class="text-center pt-15">
-														<button type="reset" class="btn btn-white me-3"
-													data-kt-users-modal-action="cancel">Discard</button>
-														<button type="submit" class="btn btn-primary">
-															<span class="indicator-label">Edit</span>
-															<span class="indicator-progress">Please wait...
-																<span
-															class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-														</button>
-													</div>
-													<!--end::Actions-->
-										</form>
-
-												<!--end::Form-->
-									</div>
-											<!--end::Modal body-->
-								</div>
-										<!--end::Modal content-->
-							</div>
-									<!--end::Modal dialog-->
-						</div>
-								<!--end::Modal - Edit Thread-->
 
 								<!--begin::Post-->
 						<div class="mb-5">
 									<!--begin::Image-->
-							<div class="bgi-no-repeat bgi-size-cover rounded min-h-200px mb-5"> <img
-									src="@item.ImageSrc" width="450px"> </div>
+							<div class="bgi-no-repeat bgi-size-cover rounded min-h-200px mb-5"> 
+								@if(@item.ImageSrc != null){
+
+								}
+								<img src="@item.ImageSrc" width="450px" height="350px"> 
+								</div>
 									<!--end::Image-->
 							<p class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Title</p>
 									<!--begin::Text-->
@@ -450,7 +331,53 @@
 			<!--end::Col-->
 		</div>
 		<!--end::Row-->
+
+		<form asp-action="delete" method="post">
+            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="pos_middle">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body" style="padding: 20px 25px;">
+                                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                                <h4 class="text-center font-grey-gallery" style="font-weight: 600;">Are you sure to delete this item?</h4>
+                                <br />
+                                <div class="row">
+                                    <input type="hidden" id="itemId" name="Id" />
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-danger btn-block green uppercase"
+                                            data-backdrop="static" data-keyboard="false">Yes</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="~/post/index" class="btn btn-block red uppercase" data-backdrop="static"
+                                            data-keyboard="false" data-dismiss="modal">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </form>
+
 	</div>
 	<!--end::Post-->
 </div>
 <!--end::Container-->
+
+@section Scripts {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+		$("#btnDelete").click(function () {
+			var id = $(this).data('id');
+			console.log('Id Thread: ' + id);
+			//ubah value yang id = itemId yang ada di dalam class .modal-body
+			$(".modal-body #itemId").val(id);
+			//tampilkan modal/dialog
+			$("#confirmDelete").modal('show');
+		});
+    });
+</script>
+}

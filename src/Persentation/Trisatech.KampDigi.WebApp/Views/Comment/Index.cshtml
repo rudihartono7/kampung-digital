@@ -1,60 +1,17 @@
 @model IEnumerable<Trisatech.KampDigi.Application.Models.CommentModel>
-    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-         $("#btnComment").click(function () {
-            var komentar = $("#IdComment").val();
-            var idPost = $("#IdPost").val();
-
-            console.log(komentar);
-            console.log(idPost)
-            
-            var request = {
-                PostId : idPost,
-                Desc : komentar
-            }
-            
-            var requestComment = $.ajax({
-                url: "../create/" + idPost,
-                method: "POST",
-                data: request,
-            }).done(function (response){
-                $("#viewComment").append(
-                           ' <div class="d-flex mb-5" id="viewComment">' +
-                                '<div class="symbol symbol-45px me-5">' +
-                                    '<img src="../../images/aang.jpg" alt="" />' +
-                                '</div>' +
-                                '<div class="d-flex flex-column flex-row-fluid">' +
-                                    '<div class="d-flex align-items-center flex-wrap mb-1">' +
-                                                '<a href="#" class="text-gray-800 text-hover-primary fw-bolder me-2">Alice Danchik</a>' +
-                                                
-                                                '<div class="ms-auto text-gray-400">' +
-                                                '</div>' +
-                                            '</div>' +
-                                    '<span class="text-gray-800 fs-7 fw-normal pt-1">' + komentar + '</span>' +
-                                '</div>' +
-                            '</div>'                    
-                );
-            }).fail(function( jqXHR, textStatus ) {
-                alert("Maaf terdapat kesalahan, silakan anda masukkan kembali komentar anda");
-            });
-         });
-    });
-</script>
 
 @{
     ViewData["Title"] = "Comment";
     int i = 0;
     Layout = "_BaseTemplate";
-    
+
 }
 
 <!--begin::Feeds Widget 3-->
 <div class="card mb-5 mb-xl-8">
     <!--begin::Body-->
     <div class="card-body pb-0">
-        
+
         <!--begin::Header-->
         <div class="d-flex align-items-center mb-3">
             <!--begin::User-->
@@ -65,110 +22,30 @@
                 </div>
                 <!--end::Avatar-->
                 <!--begin::Info-->
-                
+
                 <div class="d-flex flex-column">
-                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Carles Nilson</a>
-                    <span class="text-gray-400 fw-bold">Yestarday at 5:06 PM</span>
+                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Sam Logan</a>
+                    <span class="text-gray-400 fw-bold">@ViewBag.PostSubject
+                        @if (ViewBag.UpdatedDate != null)
+                        {
+                            <p>Update : @ViewBag.UpdatedDate</p>
+                        }
+                        else
+                        {
+                            <p>Create : @ViewBag.CreatedDate</p>
+                        }
+                    </span>
                 </div>
                 <!--end::Info-->
             </div>
             <!--end::User-->
-            <!--begin::Menu-->
-            <div class="my-0">
-                <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
-                    <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks-2.svg-->
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                            height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
-                                <rect x="14" y="5" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                <rect x="5" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                <rect x="14" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                            </g>
-                        </svg>
-                    </span>
-                    <!--end::Svg Icon-->
-                </button>
-                <!--begin::Menu 2-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-200px"
-                    data-kt-menu="true">
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <div class="menu-content fs-6 text-dark fw-bolder px-3 py-4">Quick Actions</div>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu separator-->
-                    <div class="separator mb-3 opacity-75"></div>
-                    <!--end::Menu separator-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">New Ticket</a>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">New Customer</a>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start"
-                        data-kt-menu-flip="left-start, top">
-                        <!--begin::Menu item-->
-                        <a href="#" class="menu-link px-3">
-                            <span class="menu-title">New Group</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <!--end::Menu item-->
-                        <!--begin::Menu sub-->
-                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3">Admin Group</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3">Staff Group</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3">Member Group</a>
-                            </div>
-                            <!--end::Menu item-->
-                        </div>
-                        <!--end::Menu sub-->
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <a href="#" class="menu-link px-3">New Contact</a>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu separator-->
-                    <div class="separator mt-3 opacity-75"></div>
-                    <!--end::Menu separator-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                        <div class="menu-content px-3 py-3">
-                            <a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
-                        </div>
-                    </div>
-                    <!--end::Menu item-->
-                </div>
-                <!--end::Menu 2-->
-            </div>
-            <!--end::Menu-->
         </div>
         <!--end::Header-->
         <!--begin::Post-->
         <div class="mb-7">
             <!--begin::Text-->
-            <div class="text-gray-800 mb-5">Outlines keep you honest. They stop you from indulging in
-                poorly thought-out metaphors about driving and keep you focused on the overall structure
-                of your post</div>
+            <div class="text-gray-800 mb-5">
+                @ViewBag.Desc</div>
             <!--end::Text-->
         </div>
         <!--end::Post-->
@@ -179,148 +56,50 @@
             {
                 foreach (var item in Model)
                 {
-                    <!--begin::Reply-->
-                    <div class="d-flex mb-5">
-                        <!--begin::Avatar-->
-                        <div class="symbol symbol-45px me-5">
+                            <!--begin::Reply-->
+                            <div class="d-flex mb-5">
+                                <!--begin::Avatar-->
+                <div class="symbol symbol-45px me-5">
                                     <img src="~/images/aang.jpg" alt="" />
-                        </div>
+                                </div>
                                 <!--end::Avatar-->
                                 <!--begin::Info-->
-                        <div class="d-flex flex-column flex-row-fluid">
+                <div class="d-flex flex-column flex-row-fluid">
                                     <!--begin::Info-->
-                            <div class="d-flex align-items-center flex-wrap mb-1">
+                    <div class="d-flex align-items-center flex-wrap mb-1">
                                         <a href="#" class="text-gray-800 text-hover-primary fw-bolder me-2">Alice
                                             Danchik</a>
-                                        <span class="text-gray-400 fw-bold fs-7">
-                                            @if (item.UpdatedDate != null)
-                                            {
-                                                <p>Update : @item.UpdatedDate</p>
-                                            }
-                                            else
-                                            {
-                                                <p>Create : @item.CreatedDate</p>
-                                            }
-                                        </span>
                                         <div class="ms-auto text-gray-400">
-                                            @* <a asp-action="Edit" asp-route-id="@item.Id" class="text-hover-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" > *@
-                                                <a asp-action="Edit" asp-route-id="@item.Id" class="text-hover-primary" >
-                                                <!--begin::Svg Icon | path: assets/media/icons/duotone/Interface/Edit.svg-->
-                                        <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="5px" height="5px" viewBox="0 0 24 24"
-                                                fill="none">
-                                                        <rect opacity="0.25" x="3" y="21" width="18" height="2" rx="1" fill="#191213" />
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M4.08576 11.5L3.58579 12C3.21071 12.375 3 12.8838 3 13.4142V17C3 18.1045 3.89543 19 5 19H8.58579C9.11622 19 9.62493 18.7893 10 18.4142L10.5 17.9142L4.08576 11.5Z"
-                                                    fill="#121319" />
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M5.5 10.0858L11.5858 4L18 10.4142L11.9142 16.5L5.5 10.0858Z"
-                                                    fill="#121319" />
-                                                        <path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M18.1214 1.70705C16.9498 0.535476 15.0503 0.535476 13.8787 1.70705L13 2.58576L19.4142 8.99997L20.2929 8.12126C21.4645 6.94969 21.4645 5.0502 20.2929 3.87862L18.1214 1.70705Z"
-                                                    fill="#191213" />
+                                            <button type="button" id="btnDelete" class="text-hover-primary" data-id="@item.Id">
+                                                <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
+                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24" />
+                                                            <path
+                                                d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
+                                                fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                                            <path
+                                                d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z"
+                                                fill="#000000" />
+                                                        </g>
                                                     </svg></span>
                                                 <!--end::Svg Icon-->
-                                    </a>
+                            </button>
 
-                                            <a href="/Comment/delete/@item.Id" class="text-hover-primary">
-                                                <!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
-                                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <polygon points="0 0 24 0 24 24 0 24"/>
-                                                        <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                                                        <path d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z" fill="#000000"/>
-                                                    </g>
-                                                </svg></span>
-                                                <!--end::Svg Icon-->
-                                    </a>
+
                                         </div>
                                     </div>
                                     <!--end::Info-->
                                     <!--begin::Post-->
-                            <span class="text-gray-800 fs-7 fw-normal pt-1">@item.Desc</span>
+                    <span class="text-gray-800 fs-7 fw-normal pt-1">@item.Desc</span>
                                     <!--end::Post-->
-                        </div>
+                </div>
                                 <!--end::Info-->
-                    </div>
-                    <!--end::Reply-->
+            </div>
+                            <!--end::Reply-->
 
-                <!--begin::Modal - Edit Comment-->
-						<div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
-									<!--begin::Modal dialog-->
-							<div class="modal-dialog modal-dialog-centered mw-650px">
-										<!--begin::Modal content-->
-								<div class="modal-content">
-											<!--begin::Modal header-->
-									<div class="modal-header" id="kt_modal_add_user_header">
-												<!--begin::Modal title-->
-										<h2 class="fw-bolder">Edit Thread</h2>
-												<!--end::Modal title-->
-									</div>
-											<!--end::Modal header-->
-											<!--begin::Modal body-->
-									<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-												<!--begin::Form-->
-
-										<form class="form" asp-action="Edit" method="post" asp-route-id="@item.Id"
-											enctype="multipart/form-data">
-													<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-													<input asp-for="@item.Id" type="hidden" class="form-control">
-													<!--begin::Scroll-->
-											<div class="d-flex flex-column scroll-y me-n7 pe-7"
-												id="kt_modal_add_user_scroll" data-kt-scroll="true"
-												data-kt-scroll-activate="{default: false, lg: true}"
-												data-kt-scroll-max-height="auto"
-												data-kt-scroll-dependencies="#kt_modal_add_user_header"
-												data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
-												data-kt-scroll-offset="300px">
-														<!--begin::Input group-->
-												<div class="fv-row mb-7">
-															<!--begin::Label-->
-													<label class="d-block fw-bold fs-6 mb-5">Edit Thread</label>
-															<!--end::Label-->
-															<!--begin::Image input-->
-													
-												</div>
-														<!--end::Input group-->
-														<!--begin::Input group-->
-												<div class="fv-row mb-7">
-															<!--begin::Label-->
-													<label class="required fw-bold fs-6 mb-2">Comment</label>
-															<!--end::Label-->
-															<!--begin::Input-->
-													<input name="Desc"
-														class="form-control form-control-solid mb-3 mb-lg-0"
-														value="@item.Desc" />
-															<!--end::Input-->
-												</div>
-														<!--end::Input group-->
-											</div>
-													<!--end::Scroll-->
-													<!--begin::Actions-->
-											<div class="text-center pt-15">
-														<button type="reset" class="btn btn-white me-3"
-													data-kt-users-modal-action="cancel">Discard</button>
-														<button type="submit" class="btn btn-primary">
-															<span class="indicator-label">Edit</span>
-															<span class="indicator-progress">Please wait...
-																<span
-															class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-														</button>
-													</div>
-													<!--end::Actions-->
-										</form>
-
-												<!--end::Form-->
-									</div>
-											<!--end::Modal body-->
-								</div>
-										<!--end::Modal content-->
-							</div>
-									<!--end::Modal dialog-->
-						</div>
-								<!--end::Modal - Edit Comment-->
-            
                 }
             }
         </div>
@@ -328,10 +107,7 @@
         <!--begin::Separator-->
         <div class="separator mb-4"></div>
         <!--end::Separator-->
-        <!--begin::Reply input-->
-
-
-        <form class="position-relative mb-6" asp-action="Create" asp-controller="Comment">
+          <form class="position-relative mb-6" asp-action="Create" asp-controller="Comment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="text" id="IdPost" name="PostId" value="@ViewBag.Thread" hidden>
             <input class="form-control border-0 p-0 pe-10 resize-none min-h-25px" data-kt-autosize="true" rows="1"
@@ -355,12 +131,122 @@
             </div>
         </form>
 
-        @* <a href="/Comment/create/@item.PostId" class="btn btn-primary">+ Add Comment</a> *@
-            
-        <!--edit::Reply input-->
+        <form asp-action="delete" method="post">
+            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="pos_middle">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body" style="padding: 20px 25px;">
+                                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                                <h4 class="text-center font-grey-gallery" style="font-weight: 600;">Are you sure to delete this item?</h4>
+                                <br />
+                                <div class="row">
+                                    <input type="hidden" id="itemId" name="Id" />
+                                    <input type="hidden" id="itemIdPost" name="PostId" />
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-danger btn-block green uppercase"
+                                            data-backdrop="static" data-keyboard="false">Yes</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="btn btn-block red uppercase" data-backdrop="static"
+                                            data-keyboard="false" data-dismiss="modal">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </form>
+
     </div>
     <!--end::Body-->
 </div>
 
 <!--end::Feeds Widget 3-->
 
+@section Scripts {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnComment").click(function () {
+            var komentar = $("#IdComment").val();
+            var idPost = $("#IdPost").val();
+
+            console.log(komentar);
+            console.log(idPost)
+
+            var request = {
+                PostId: idPost,
+                Desc: komentar
+            }
+
+            var requestComment = $.ajax({
+                url: "../Create/" + idPost,
+                method: "POST",
+                data: request,
+            }).done(function (response) {
+                @* $("#viewComment").append(
+                        ' <div class="d-flex mb-5" id="viewComment">' +
+                        '<div class="symbol symbol-45px me-5">' +
+                        '<img src="../../images/aang.jpg" alt="" />' +
+                        '</div>' +
+                        '<div class="d-flex flex-column flex-row-fluid">' +
+                        '<div class="d-flex align-items-center flex-wrap mb-1">' +
+                        '<a href="#" class="text-gray-800 text-hover-primary fw-bolder me-2">Alice Danchik</a>' +
+
+                        '<div class="ms-auto text-gray-400">' +
+                        '<button class="" class="text-hover-primary">' +
+                        '<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">' +
+                        '<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
+                        '<polygon points="0 0 24 0 24 24 0 24" />' +
+                        '<path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />' +
+                        '<path d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z" fill="#000000" />' +
+                        '</g>' +
+                        '</svg></span>' +
+                        '</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '<span class="text-gray-800 fs-7 fw-normal pt-1">' + komentar + '</span>' +
+                        '</div>'
+                    ); *@
+                window.location.reload();
+            }).fail(function (jqXHR, textStatus) {
+                alert("Maaf terdapat kesalahan, silakan anda masukkan kembali komentar anda");
+            });
+        });
+
+        $("#btnDelete").click(function () {
+            var id = $(this).data('id');
+            var idPost = $("#IdPost").val();
+            console.log('Id Comment: ' + id);
+            //ubah value yang id = itemId yang ada di dalam class .modal-body
+            $(".modal-body #itemId").val(id);
+            $(".modal-body #itemIdPost").val(idPost);
+            //tampilkan modal/dialog
+            $("#confirmDelete").modal('show');
+
+            @* var request = {
+                        Id : id,
+                        PostId: idPost,
+                        Desc: komentar
+                        }
+
+                        var requestComment = $.ajax({
+                        url: "../delete/" + id,
+                        method: "POST",
+                        data: request,
+                        }).done(function (response) {
+                        $("#viewComment").remove(id);
+                        }).fail(function (jqXHR, textStatus) {
+                        alert("Maaf terdapat kesalahan, silakan anda masukkan kembali komentar anda");
+                        }); *@
+        });
+    });
+
+
+</script>
+}
