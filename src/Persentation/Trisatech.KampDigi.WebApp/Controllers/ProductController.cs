@@ -180,7 +180,6 @@ public class ProductController : BaseController
     {
        
         await _productService.Delete(id);
-
         return RedirectToAction("Index");
 
     }
