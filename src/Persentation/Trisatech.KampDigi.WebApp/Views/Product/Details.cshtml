@@ -1,0 +1,83 @@
+﻿@model Trisatech.KampDigi.Application.Models.ProductModel
+
+@{
+   ViewData["Title"] = "Detail Product";
+   ViewData["Menu"] = "Product";
+   Layout = "_BaseTemplate";
+}
+
+<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">
+										<a href="/Home/Index" class="text-white text-hover-primary">Home</a>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">
+                              <a href="/Product/Index" class="text-white text-hover-primary">Product</a>
+                           </li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item">
+										<span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+									</li>
+									<!--end::Item-->
+									<!--begin::Item-->
+									<li class="breadcrumb-item text-white opacity-75">Detail</li>
+									<!--end::Item-->
+</ul>
+
+
+<div class="card card-flush shadow-sm card-xl">
+    <div class="card-header">
+         <h3 class="card-title">Detail Product </h3>
+      </div>
+
+              <div class="row">
+                <div class="col-lg-6 col-md-6">
+                  <center>
+                      <img src="~/@Model.ImageUrl" height="350" width="400" /><br><br>
+                       <h6>@Model.Name</h6>
+                  </center>   
+                 
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  <div>
+                    <ul>
+            
+                        <h6>Product Id</h6>
+                        <p>@Model.Id</p>
+           
+             
+                        <h6>Price</h6>
+                        <p>@Model.Price</p>
+                    
+                  
+                        <h6>Public Link</h6>
+                        <p>@Model.PublicLink</p>
+               
+                    
+                        <h6>Seller Name</h6>
+                        <p>@Model.SellerName</p>
+                   
+                  
+                        <h6>Whatsapp</h6>
+                        <p>@Model.WhatsappNumber</p>
+                      
+                
+                        <h6>Accoount Name</h6>
+                        <p>@Model.NamaAkun</p>
+                  
+                
+                        <h6>Description</h6>
+                        <p>@Model.Desc</p>
+                    
+                  </div>
+                </div>
+              </div>
+</div>
