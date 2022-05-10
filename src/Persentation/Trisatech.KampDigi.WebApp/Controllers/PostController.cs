@@ -76,7 +76,7 @@ public class PostController : BaseController
         try
         {
             string fileName = string.Empty;
-
+        
             if (request.ImageFile != null)
             {
                 fileName = $"{Guid.NewGuid()}-{request.ImageFile?.FileName}";
@@ -89,7 +89,12 @@ public class PostController : BaseController
             }
             
             var post = request.ConvertToDbModelAdd();
-            post.Image = $"\\images\\{fileName}";
+            if (request.ImageFile != null)
+            {
+                post.Image = $"\\images\\{fileName}";
+            } else {
+                post.Image = "";
+            }
             
             await _postService.Add(post);
             return Redirect(nameof(Index));

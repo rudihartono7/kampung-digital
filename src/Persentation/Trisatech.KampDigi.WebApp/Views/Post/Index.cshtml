@@ -4,8 +4,9 @@
 @{
 	ViewData["Title"] = "Forum";
 	ViewData["Menu"] = "Welcome";
-	int i = 0;
 	Layout = "_BaseTemplate";
+	var i = 0;
+	var j = 0;
 }
 <!--begin::Container-->
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
@@ -28,16 +29,7 @@
 						<div class="d-flex align-items-center">
 							<!--begin::User-->
 							<div class="d-flex align-items-center flex-grow-1">
-								<!--begin::Avatar-->
-								<div class="symbol symbol-45px me-5">
-									<img src="~/images/avatar.jpg" alt="" />
-								</div>
-								<!--end::Avatar-->
-								<!--begin::Info-->
-								<div class="d-flex flex-column">
-									<a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@ViewBag.Name</a>
-								</div>
-								<!--end::Info-->
+								
 							</div>
 							<!--end::User-->
 							<div class="my-0">
@@ -53,14 +45,14 @@
 						<!--end::Header-->
 							
 							<div class="form-group">
-								<label name="PostSubject" for="exampleInput1"></label>
-								<input class="form-control" id="exampleInput1" placeholder="PostSubject"
-									name="PostSubject" required>
-							</div>
-							<div class="form-group">
 								<label name="Title" for="exampleInput2"></label>
 								<input class="form-control" id="exampleInput2" placeholder="Title" name="Title"
 									required>
+							</div>
+							<div class="form-group">
+								<label name="PostSubject" for="exampleInput1"></label>
+								<input class="form-control" id="exampleInput1" placeholder="PostSubject"
+									name="PostSubject" required>
 							</div>
 							<div class="form-group">
 								<label name="ImageFile" class="control-label"></label>
@@ -127,6 +119,7 @@
 				{
 					foreach (var item in Model)
 					{
+						j+=1;
 						<div class="card mb-5 mb-xl-8">
 
 							<!--begin::Body-->
@@ -142,7 +135,7 @@
 										<!--end::Avatar-->
 										<!--begin::Info-->
 								<div class="d-flex flex-column">
-											<a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Sam Logan</a>
+											<a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Title</a>
 											<span class="text-gray-400 fw-bold">@item.PostSubject
 
 												@if (item.UpdatedDate != null)
@@ -208,9 +201,9 @@
 												</a>
 												
 												
-										
+												
 													@* <a asp-action="Delete" asp-route-id="@item.Id" class="menu-link px-3"> *@
-												<a type="button" id="btnDelete" class="text-hover-primary" data-id="@item.Id" >
+												<a type="button" id=@($"btnDelete-{j}") class="text-hover-primary" data-id="@item.Id" >
 													<!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
 													<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -238,13 +231,15 @@
 								<!--begin::Post-->
 						<div class="mb-5">
 									<!--begin::Image-->
-							@if(@item.ImageSrc != null || @item.ImageSrc != ""){
-							<div class="bgi-no-repeat bgi-size-cover rounded min-h-200px mb-5"> 
+							@if(@item.Image == null || @item.Image == ""){
+								<div></div>
+							} else {
+								<div class="bgi-no-repeat bgi-size-cover rounded min-h-200px mb-5"> 
 									<img src="@item.ImageSrc" width="450px" height="350px"> 
-							</div>
+								</div>
 							}
 									<!--end::Image-->
-							<p class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Title</p>
+							
 									<!--begin::Text-->
 							<div class="text-gray-800 mb-5">@item.Desc</div>
 									<!--end::Text-->
@@ -349,7 +344,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-		$("#btnDelete").click(function () {
+		@foreach (var item in Model)
+        {
+             i+=1;
+        <text>
+            $("#btnDelete-@i").click(function () {
 			var id = $(this).data('id');
 			console.log('Id Thread: ' + id);
 			//ubah value yang id = itemId yang ada di dalam class .modal-body
@@ -357,6 +356,8 @@
 			//tampilkan modal/dialog
 			$("#confirmDelete").modal('show');
 		});
+		</text>
+		}
     });
 </script>
 }

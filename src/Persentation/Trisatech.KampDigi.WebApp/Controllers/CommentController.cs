@@ -35,6 +35,7 @@ public class CommentController : BaseController
     {
         var dbResult = await _commentService.GetComments(id);
 
+        var Title = await _postService.Get(id);
         var Desc = await _postService.Get(id);
         var PostSubject = await _postService.Get(id);
         var CreatedDate = await _postService.Get(id);
@@ -51,6 +52,7 @@ public class CommentController : BaseController
             });
         }
 
+        ViewBag.Title = Title;
         ViewBag.Desc = Desc.Desc;
         ViewBag.PostSubject = PostSubject.PostSubject;
         ViewBag.CreatedDate = CreatedDate.CreatedDate;

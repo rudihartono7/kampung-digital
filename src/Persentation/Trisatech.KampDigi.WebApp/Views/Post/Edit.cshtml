@@ -115,13 +115,10 @@
                     <div class="col-lg-8 fv-row">
                         @* <select asp-for="PostType" aria-label="Select a Language" data-control="select2" asp-items="Html.GetEnumSelectList<PostType>()" class="form-select form-select-solid form-select-lg">
                         </select> *@
-                        <input type="hidden" id="type" value="@Model.Type">
-                        <select name="Type">
-                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
-                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
-                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
-                                <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option>
-                        </select>
+                        <!--begin::Input-->
+                    <select asp-for="Type" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<PostType>()">
+                    </select>
+                    <!--end::Input-->
                     </div>
                     <!--end::Col-->
                 </div>
