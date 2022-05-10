@@ -2,19 +2,24 @@
     var userName = User.Identity.Name;
 }
 <!--begin::Header-->
-<div id="kt_header" class="header align-items-stretch" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+<div id="kt_header" class="header align-items-stretch" data-kt-sticky="true" data-kt-sticky-name="header"
+    data-kt-sticky-offset="{default: '200px', lg: '300px'}">
     <!--begin::Container-->
     <div class="container d-flex align-items-center">
         <!--begin::Heaeder menu toggle-->
         <div class="d-flex topbar align-items-center d-lg-none ms-n2 me-3" title="Show aside menu">
-            <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" id="kt_header_menu_mobile_toggle">
+            <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
+                id="kt_header_menu_mobile_toggle">
                 <!--begin::Svg Icon | path: icons/duotone/Text/Menu.svg-->
                 <span class="svg-icon svg-icon-2x">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                        height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <rect x="0" y="0" width="24" height="24" />
                             <rect fill="#000000" x="4" y="5" width="16" height="3" rx="1.5" />
-                            <path d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z" fill="#000000" opacity="0.3" />
+                            <path
+                                d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L18.5,10 C19.3284271,10 20,10.6715729 20,11.5 C20,12.3284271 19.3284271,13 18.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z"
+                                fill="#000000" opacity="0.3" />
                         </g>
                     </svg>
                 </span>
@@ -35,23 +40,35 @@
             <!--begin::Navbar-->
             <div class="d-flex align-items-stretch" id="kt_header_nav">
                 <!--begin::Menu wrapper-->
-                <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+                <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu"
+                    data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
+                    data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start"
+                    data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true"
+                    data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
                     <!--begin::Menu-->
-                    <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
-                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item here show menu-lg-down-accordion me-lg-1">
+                    <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch"
+                        id="#kt_header_menu" data-kt-menu="true">
+                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
+                            class="menu-item here show menu-lg-down-accordion me-lg-1">
                             <a class="menu-link active py-3" asp-action="Index" asp-controller="Home">
                                 <span class="menu-title">Dashboard</span>
                                 <span class="menu-arrow d-lg-none"></span>
                             </a>
-                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                            <div
+                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
                                 <div class="menu-item">
                                     <a class="menu-link active py-3" asp-action="Index" asp-controller="Home">
                                         <span class="menu-icon">
                                             <!--begin::Svg Icon | path: icons/duotone/Design/PenAndRuller.svg-->
                                             <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                                    <path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3" />
-                                                    <path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                                    viewBox="0 0 24 24" version="1.1">
+                                                    <path
+                                                        d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                        fill="#000000" opacity="0.3" />
+                                                    <path
+                                                        d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                        fill="#000000" />
                                                 </svg>
                                             </span>
                                             <!--end::Svg Icon-->
@@ -64,7 +81,8 @@
                                         <span class="menu-icon">
                                             <!--begin::Svg Icon | path: icons/duotone/Design/Sketch.svg-->
                                             <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                                    viewBox="0 0 24 24" version="1.1">
                                                     <polygon fill="#000000" opacity="0.3" points="5 3 19 3 23 8 1 8" />
                                                     <polygon fill="#000000" points="23 8 12 20 1 8" />
                                                 </svg>
@@ -76,13 +94,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-lg-1">
+                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
+                            class="menu-item menu-lg-down-accordion me-lg-1">
                             <span class="menu-link py-3">
                                 <span class="menu-title">Admin Menu</span>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
-                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
-                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion">
+                            <div
+                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+                                    data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion">
                                     <div class="menu-item">
                                         <a class="menu-link py-3" asp-controller="Account" asp-action="Index">
                                             <span class="menu-bullet">
@@ -104,75 +125,313 @@
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
+                                            <span class="menu-title">list</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
+                            class="menu-item menu-lg-down-accordion me-lg-1">
+                            <span class="menu-link py-3">
+                                <span class="menu-title">Guest Book</span>
+                                <span class="menu-arrow d-lg-none"></span>
+                            </span>
+                            <div
+                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+                                    data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion">
+                                    <div class="menu-item">
+                                        <a class="menu-link py-3" asp-controller="GuestBook" asp-action="Index">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
                                             <span class="menu-title">Guest Book</span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--end::Menu-->
-                </div>
-                <!--end::Menu wrapper-->
-            </div>
-            <!--end::Navbar-->
-            <!--begin::Topbar-->
-            <div class="d-flex align-items-stretch flex-shrink-0">
-                <!--begin::Toolbar wrapper-->
-                <div class="topbar d-flex align-items-stretch flex-shrink-0">
-                    <!--begin::User-->
-                    <div class="d-flex align-items-center me-n3 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-                        <!--begin::Menu wrapper-->
-                        <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                            <img class="h-25px w-25px rounded" src="assets/media/avatars/150-25.jpg" alt="" />
-                        </div>
-                        <!--begin::Menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <div class="menu-content d-flex align-items-center px-3">
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-50px me-5">
-                                        <img alt="Logo" src="/assets/media/avatars/150-26.jpg" />
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Username-->
-                                    <div class="d-flex flex-column">
-                                        <div class="fw-bolder d-flex align-items-center fs-5">
-                                            @($"{char.ToUpper(userName[0])}{userName.Substring(1)}")
+
+    <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
+                            class="menu-item menu-lg-down-accordion me-lg-1">
+                            <span class="menu-link py-3">
+                                <span class="menu-title">Apps</span>
+                                <span class="menu-arrow d-lg-none"></span>
+                            </span>
+                            <div
+                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                                <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+                                    data-kt-menu-placement="right-start" class="menu-item menu-lg-down-accordion">
+                                    <span class="menu-link py-3">
+                                        <span class="menu-icon">
+                                            <!--begin::Svg Icon | path: icons/duotone/General/Shield-protected.svg-->
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                    height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24" />
+                                                        <path
+                                                            d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z"
+                                                            fill="#000000" opacity="0.3" />
+                                                        <path
+                                                            d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z"
+                                                            fill="#000000" />
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                            <!--end::Svg Icon-->
+                                        </span>
+                                        <span class="menu-title">User Management</span>
+                                        <span class="menu-arrow"></span>
+                                    </span>
+                                    <div
+                                        class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
+                                        <div data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+                                            data-kt-menu-placement="right-start"
+                                            class="menu-item menu-lg-down-accordion">
+                                            <span class="menu-link py-3">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Product</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div
+                                                class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-active-bg py-lg-4 w-lg-225px">
+                                                <div class="menu-item">
+                                                    <a class="menu-link py-3" href="/Product/Index">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Product List</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a class="menu-link py-3" href="apps/user-management/permissions.html">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Permissions</span>
+                                            </a>
                                         </div>
                                     </div>
-                                    <!--end::Username-->
                                 </div>
                             </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu separator-->
-                            <div class="separator my-2"></div>
-                            <!--end::Menu separator-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-5">
-                                <a asp-action="RedirectUser" asp-controller="Home" class="menu-link px-5">My Profile</a>
-                            </div>
-                            <!--end::Menu item-->
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-5">
-                                <a asp-action="Logout" asp-controller="Account" class="menu-link px-5">Sign Out</a>
-                            </div>
-                            <!--end::Menu item-->
-                        </div>
-                        <!--end::Menu-->
-                        <!--end::Menu wrapper-->
                     </div>
-                    <!--end::User -->
-                    <!--begin::Aside mobile toggle-->
-                    <!--end::Aside mobile toggle-->
+                    <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
+                        class="menu-item menu-lg-down-accordion me-lg-1">
+                        <span class="menu-link py-3">
+                            <span class="menu-title">Resources</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                        <div
+                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0 py-lg-4 w-lg-225px">
+                            <div class="menu-item">
+                                <a class="menu-link py-3" href="documentation/base/utilities.html"
+                                    title="Check out over 200 in-house components, plugins and ready for use solutions"
+                                    data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                    data-bs-placement="right">
+                                    <span class="menu-icon">
+                                        <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-arrange.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <path
+                                                        d="M5.5,4 L9.5,4 C10.3284271,4 11,4.67157288 11,5.5 L11,6.5 C11,7.32842712 10.3284271,8 9.5,8 L5.5,8 C4.67157288,8 4,7.32842712 4,6.5 L4,5.5 C4,4.67157288 4.67157288,4 5.5,4 Z M14.5,16 L18.5,16 C19.3284271,16 20,16.6715729 20,17.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,17.5 C13,16.6715729 13.6715729,16 14.5,16 Z"
+                                                        fill="#000000" />
+                                                    <path
+                                                        d="M5.5,10 L9.5,10 C10.3284271,10 11,10.6715729 11,11.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,12.5 C20,13.3284271 19.3284271,14 18.5,14 L14.5,14 C13.6715729,14 13,13.3284271 13,12.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z"
+                                                        fill="#000000" opacity="0.3" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                    <span class="menu-title">Components</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start"
+                        class="menu-item menu-lg-down-accordion me-lg-1">
+                        <span class="menu-link py-3">
+                            <span class="menu-title">Mega Menu</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                        <div
+                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown w-100 w-lg-600px p-5 p-lg-5">
+                            <!--begin:Row-->
+                            <div class="row" data-kt-menu-dismiss="true">
+                                <!--begin:Col-->
+                                <div class="col-lg-4 border-left-lg-1">
+                                    <div class="menu-inline menu-column menu-active-bg">
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end:Col-->
+                                <!--begin:Col-->
+                                <div class="col-lg-4 border-left-lg-1">
+                                    <div class="menu-inline menu-column menu-active-bg">
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
+                                            <a href="#" class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Example link</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end:Col-->
+                            </div>
+                            <!--end:Row-->
+                        </div>
+                    </div>
                 </div>
-                <!--end::Toolbar wrapper-->
+                <!--end::Menu-->
             </div>
-            <!--end::Topbar-->
+            <!--end::Menu wrapper-->
         </div>
-        <!--end::Wrapper-->
+        <!--end::Navbar-->
+        <!--begin::Topbar-->
+        <div class="d-flex align-items-stretch flex-shrink-0">
+            <!--begin::Toolbar wrapper-->
+            <div class="topbar d-flex align-items-stretch flex-shrink-0">
+                <!--begin::User-->
+                <div class="d-flex align-items-center me-n3 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+                    <!--begin::Menu wrapper-->
+                    <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
+                        data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end"
+                        data-kt-menu-flip="bottom">
+                        <img class="h-25px w-25px rounded" src="assets/media/avatars/150-25.jpg" alt="" />
+                    </div>
+                    <!--begin::Menu-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
+                        data-kt-menu="true">
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <div class="menu-content d-flex align-items-center px-3">
+                                <!--begin::Avatar-->
+                                <div class="symbol symbol-50px me-5">
+                                    <img alt="Logo" src="/assets/media/avatars/150-26.jpg" />
+                                </div>
+                                <!--end::Avatar-->
+                                <!--begin::Username-->
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bolder d-flex align-items-center fs-5">
+                                            @($"{char.ToUpper(userName[0])}{userName.Substring(1)}")
+                                    </div>
+                                </div>
+                                <!--end::Username-->
+                            </div>
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu separator-->
+                        <div class="separator my-2"></div>
+                        <!--end::Menu separator-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a asp-action="RedirectUser" asp-controller="Home" class="menu-link px-5">My Profile</a>
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-5">
+                            <a asp-action="Logout" asp-controller="Account" class="menu-link px-5">Sign Out</a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
+                    <!--end::Menu-->
+                    <!--end::Menu wrapper-->
+                </div>
+                <!--end::User -->
+                <!--begin::Aside mobile toggle-->
+                <!--end::Aside mobile toggle-->
+            </div>
+            <!--end::Toolbar wrapper-->
+        </div>
+        <!--end::Topbar-->
     </div>
-    <!--end::Container-->
+    <!--end::Wrapper-->
+</div>
+<!--end::Container-->
 </div>
 <!--end::Header-->

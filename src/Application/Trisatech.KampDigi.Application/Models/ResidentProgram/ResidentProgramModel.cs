@@ -16,6 +16,8 @@ namespace Trisatech.KampDigi.Application.Models
       public string PersonInChargeName { get; set; }
       public virtual Trisatech.KampDigi.Domain.Entities.Resident PersonInCharge { get; set; }
 
+      public Guid CreatedBy { get; set; }
+      public Guid UpdatedBy { get; set; }
       public ResidentProgram ConvertToDbModel()
       {
          return new ResidentProgram()
@@ -29,7 +31,9 @@ namespace Trisatech.KampDigi.Application.Models
             ProgramPeriod = this.ProgramPeriod,
             StartDate = this.StartDate,
             EndDate = this.EndDate,
-            PersonInChargeId = this.PersonInChargeId
+            PersonInChargeId = this.PersonInChargeId,
+            CreatedBy = this.CreatedBy,
+            UpdatedBy = this.UpdatedBy
          };
       }
 
