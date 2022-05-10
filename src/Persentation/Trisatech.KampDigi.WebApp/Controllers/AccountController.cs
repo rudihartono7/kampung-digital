@@ -279,7 +279,7 @@ public class AccountController : BaseController
             ViewBag.Message = ex.Message;
             return View();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             throw;
         }
