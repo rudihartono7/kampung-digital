@@ -160,26 +160,6 @@
 									<!--end::User-->
 									<!--begin::Menu-->
 							<div class="my-0">
-								@* @if (Model != null && Model.Any())
-								{
-												@foreach (var item in Model.Post)
-									{
-												@switch (item.PostType){
-													case PostType.Report:
-														<div class="badge badge-light fw-bolder">Report</div>
-													break;
-													case PostType.Forum:
-														<div class="badge badge-light fw-bolder">Forum</div>
-													break;
-													case PostType.Announcement:
-														<div class="badge badge-light fw-bolder">Announcement</div>
-													break;
-													case PostType.Public:
-														<div class="badge badge-light fw-bolder">Public</div>
-													break;
-												}
-									}
-								} *@
 								<div class="badge badge-light fw-bolder">@item.Type</div>
 										<button type="button"
 									class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
@@ -258,12 +238,11 @@
 								<!--begin::Post-->
 						<div class="mb-5">
 									<!--begin::Image-->
+							@if(@item.ImageSrc != null || @item.ImageSrc != ""){
 							<div class="bgi-no-repeat bgi-size-cover rounded min-h-200px mb-5"> 
-								@if(@item.ImageSrc != null){
-
-								}
-								<img src="@item.ImageSrc" width="450px" height="350px"> 
-								</div>
+									<img src="@item.ImageSrc" width="450px" height="350px"> 
+							</div>
+							}
 									<!--end::Image-->
 							<p class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Title</p>
 									<!--begin::Text-->

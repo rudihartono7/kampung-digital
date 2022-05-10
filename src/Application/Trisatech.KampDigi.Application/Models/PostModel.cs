@@ -13,7 +13,7 @@ namespace Trisatech.KampDigi.Application.Models
         public string? Image { get; set; }
         public string ImageSrc {
             get {
-                return (string.IsNullOrEmpty(Image) ? "~/images/no-image.png" : Image);
+                return (string.IsNullOrEmpty(Image) ? null : Image);
             }
         }
         public IFormFile? ImageFile { get; set; }
