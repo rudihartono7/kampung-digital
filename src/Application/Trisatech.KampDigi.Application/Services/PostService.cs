@@ -14,12 +14,17 @@ public class PostService : BaseDbService, IPostService
 
     public async Task<Post> Add(Post obj)
     {
+         throw new NotImplementedException();
+    }
+
+    public async Task<Post> Add(Post obj, Guid Id)
+    {
         obj.Title = obj.Title;
         obj.Desc = obj.Desc;
         obj.Image = obj.Image;
         obj.Type = obj.Type;
         obj.AuditActivty = Trisatech.KampDigi.Domain.Entities.AuditActivtyType.INSERT;
-        obj.CreatedBy = Guid.NewGuid();
+        obj.CreatedBy = Id;
         obj.UpdatedBy = obj.CreatedBy;
         obj.CreatedDate = DateTime.Now;
         await Db.AddAsync(obj);
@@ -55,36 +60,25 @@ public class PostService : BaseDbService, IPostService
         .Take(limit).ToListAsync();
     }
 
-    public async Task<Post> Get(Guid id)
+    public async Task<PostModel> Get(Guid id)
     {
-        // var post = await (from p in Db.Posts
-        //                     join name in Db.Users on p.Id equals name.Id into tempName
-        //                     from name in tempName.DefaultIfEmpty()
-
-        //                     where p.Id == id
-        //                     select new PostModel
-        //                     {
-        //                         Id = p.Id,
-        //                         Name = name.Name,
-        //                     }).FirstOrDefaultAsync();
-        // var result = await (from a in Db.Posts
-        //                     join b in Db.Users on a.username equals b.username
-        //                     select new Post
-        //                     {
-        //                         Id = a.Id,
-        //                         PostSubject = a.PostSubject,
-        //                         Title = a.Title,
-        //                         Desc = a.Desc,
-        //                         Image = a.Image,
-        //                         Type = a.Type,
-        //                         IsResidentProgram = a.IsResidentProgram,
-        //                         CreatedDate = a.CreatedDate,
-        //                         UpdatedDate = a.UpdatedDate,
-        //                         Username = b.username,
-        //                     }).FirstOrDefaultAsync(x => x.Id == id);
-            
-        var result = await Db.Posts.FirstOrDefaultAsync(x => x.Id == id);
-
+        var result = await (from p in Db.Posts
+                            join u in Db.Users on p.CreatedBy equals u.Id
+                            select new PostModel
+                            {
+                                Id = p.Id,
+                                PostSubject = p.PostSubject,
+                                Title = p.Title,
+                                Desc = p.Desc,
+                                Image = p.Image,
+                                Type = p.Type,
+                                IsResidentProgram = p.IsResidentProgram,
+                                CreatedDate = p.CreatedDate,
+                                UpdatedDate = p.UpdatedDate,
+                                Name = u.Name,
+                            }).FirstOrDefaultAsync();      
+        // var result = await Db.Posts.FirstOrDefaultAsync(x => x.Id == id);
+        // result = await Db.Users.FirstOrDefaultAsync(x => x.Id == result.CreatedBy);
         if (result == null)
         {
             throw new InvalidOperationException($"Post with ID {id} doesn't exist");
@@ -103,9 +97,25 @@ public class PostService : BaseDbService, IPostService
         throw new NotImplementedException();
     }
 
-    public async Task<List<Post>> GetAll()
+    public async Task<List<PostModel>> GetAllPost()
     {
-        return await Db.Posts.ToListAsync();
+        var post = await (from p in Db.Posts
+                            join u in Db.Users on p.CreatedBy equals u.Id into tempName
+                            from u in tempName.DefaultIfEmpty()
+                            select new PostModel
+                            {
+                                Id = p.Id,
+                                PostSubject = p.PostSubject,
+                                Title = p.Title,
+                                Desc = p.Desc,
+                                Image = p.Image,
+                                Type = p.Type,
+                                IsResidentProgram = p.IsResidentProgram,
+                                CreatedDate = p.CreatedDate,
+                                UpdatedDate = p.UpdatedDate,
+                                Name = u.Name,
+                            }).ToListAsync();
+        return post;
     }
 
     public Task<List<PostModel>> GetAll(Guid PostId)
@@ -145,5 +155,15 @@ public class PostService : BaseDbService, IPostService
         await Db.SaveChangesAsync();
 
         return post;
+    }
+
+    Task<List<Post>> ICrudService<Post>.GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<Post> ICrudService<Post>.Get(Guid id)
+    {
+        throw new NotImplementedException();
     }
 }

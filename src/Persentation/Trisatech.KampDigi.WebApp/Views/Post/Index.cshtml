@@ -29,7 +29,19 @@
 						<div class="d-flex align-items-center">
 							<!--begin::User-->
 							<div class="d-flex align-items-center flex-grow-1">
-								
+								<!--begin::User-->
+							<div class="d-flex align-items-center flex-grow-1">
+								<!--begin::Avatar-->
+								<div class="symbol symbol-45px me-5">
+									<img src="~/images/avatar.jpg" alt="" />
+								</div>
+								<!--end::Avatar-->
+								<!--begin::Info-->
+								<div class="d-flex flex-column">
+									
+								</div>
+								<!--end::Info-->
+							</div>
 							</div>
 							<!--end::User-->
 							<div class="my-0">
@@ -135,18 +147,18 @@
 										<!--end::Avatar-->
 										<!--begin::Info-->
 								<div class="d-flex flex-column">
-											<a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Title</a>
-											<span class="text-gray-400 fw-bold">@item.PostSubject
-
+											<p class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name </p>
+											<p class="text-gray-400 text-hover-primary fs-6 fw-bolder">@item.Title | 
 												@if (item.UpdatedDate != null)
 												{
-													<p>Update : @item.UpdatedDate</p>
+													<span>Update : @item.UpdatedDate</span>
 												}
 												else
 												{
-													<p>Create : @item.CreatedDate</p>
+													<span>Create : @item.CreatedDate</span>
 												}
-											</span>
+											</p>
+											
 										</div>
 										<!--end::Info-->
 							</div>
@@ -239,7 +251,7 @@
 								</div>
 							}
 									<!--end::Image-->
-							
+							<span class="text-gray-400 fw-bold">@item.PostSubject</span>
 									<!--begin::Text-->
 							<div class="text-gray-800 mb-5">@item.Desc</div>
 									<!--end::Text-->
@@ -270,7 +282,7 @@
 									</button>
 										</a>
 
-										<a href="#"
+								@* <a href="#"
 									class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
 											<!--begin::Svg Icon | path: icons/duotone/General/Heart.svg-->
 									<span class="svg-icon svg-icon-2">
@@ -287,7 +299,7 @@
 											</span>
 											<!--end::Svg Icon-->
 											Like
-								</a>
+								</a> *@
 									</div>
 									<!--end::Toolbar-->
 						</div>

@@ -34,7 +34,8 @@ public class CommentController : BaseController
     public async Task<IActionResult> Index(Guid id)
     {
         var dbResult = await _commentService.GetComments(id);
-
+        
+        var Name = await _postService.Get(id);
         var Title = await _postService.Get(id);
         var Desc = await _postService.Get(id);
         var PostSubject = await _postService.Get(id);
@@ -52,6 +53,7 @@ public class CommentController : BaseController
             });
         }
 
+        ViewBag.Name = Name.Name;
         ViewBag.Title = Title;
         ViewBag.Desc = Desc.Desc;
         ViewBag.PostSubject = PostSubject.PostSubject;

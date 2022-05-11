@@ -29,27 +29,9 @@ public class PostController : BaseController
     [Authorize]
     public async Task<IActionResult> Index()
     {
-        var dbResult = await _postService.GetAll();
+        var dbResult = await _postService.GetAllPost();
 
-        var viewModels = new List<PostModel>();
-
-        for (int i = 0; i < dbResult.Count; i++)
-        {
-            viewModels.Add(new PostModel
-            {
-                Id = dbResult[i].Id,
-                PostSubject = dbResult[i].PostSubject,
-                Title = dbResult[i].Title,
-                Desc = dbResult[i].Desc,
-                Image = dbResult[i].Image,
-                Type = dbResult[i].Type,
-                IsResidentProgram = dbResult[i].IsResidentProgram,
-                CreatedDate = dbResult[i].CreatedDate,
-                UpdatedDate = dbResult[i].UpdatedDate
-            });
-        }
-
-        return View(viewModels);
+        return View(dbResult);
     }
 
     [Authorize]
@@ -96,7 +78,7 @@ public class PostController : BaseController
                 post.Image = "";
             }
             
-            await _postService.Add(post);
+            await _postService.Add(post, GetCurrentUserGuid());
             return Redirect(nameof(Index));
         }
         catch (InvalidOperationException ex)
@@ -239,4 +221,10 @@ public class PostController : BaseController
 
         return View(id);
     }
+
+    public Guid GetCurrentUserGuid()
+        {
+            Guid userId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            return userId;
+        }
 }

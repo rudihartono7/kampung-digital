@@ -5,6 +5,11 @@ namespace Trisatech.KampDigi.Application.Interfaces;
 public interface IPostService : ICrudService<Post>
 {
     //mengambil data berdasarkan id username pada tabel users
-    Task<Post> Get(Guid id);
+
+    Task<Post> Add(Post obj, Guid Id);
+
+    Task<List<PostModel>> GetAllPost();
+
+    Task<PostModel> Get(Guid id);
     
 }
