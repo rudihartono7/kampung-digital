@@ -42,8 +42,13 @@
     <div class="content flex-row-fluid" id="kt_content">
         @if (ViewBag.Message != null)
         {
-            <div class="alert alert-success text-center" role="alert">
-                @ViewBag.Message
+            <div class="alert alert-dismissible alert-success d-flex flex-column flex-sm-row mb-10 p-0">
+                <div class="d-flex flex-column pe-0 inline-block justify-content-center mx-auto">
+                    <span>@ViewBag.Message</span>
+                </div>
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-2x svg-icon-light">X</span>
+                </button>
             </div>
         }
         <!--begin::Layout-->
@@ -621,7 +626,7 @@
         </div>
         <!--end::Layout-->
         <!--begin::Modal - Update password-->
-        <div class="modal fade" id="kt_modal_update_password" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="kt_modal_update_password" data-bs-toggle="modal" tabindex="-1" aria-hidden="true">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
@@ -632,7 +637,7 @@
                         <h2 class="fw-bolder">Update Password</h2>
                         <!--end::Modal title-->
                         <!--begin::Close-->
-                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" data-kt-users-modal-action="close">
                             <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                             <span class="svg-icon svg-icon-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -698,7 +703,7 @@
                             <!--end::Input group=-->
                             <!--begin::Actions-->
                             <div class="text-center pt-15">
-                                <button type="reset" class="btn btn-white me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                <button type="reset" class="btn btn-white me-3" data-bs-dismiss="modal" data-kt-users-modal-action="cancel">Discard</button>
                                 <button type="submit" class="btn btn-primary">
                                     <span class="indicator-label">Submit</span>
                                     <span class="indicator-progress">
@@ -719,7 +724,7 @@
         </div>
         <!--end::Modal - Update password-->
         <!--begin::Modal - Add task-->
-        <div class="modal fade" id="kt_modal_add_guest" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="kt_modal_add_guest" data-bs-toggle="modal" tabindex="-1" aria-hidden="true">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
@@ -730,7 +735,7 @@
                         <h2 class="fw-bolder">Tambah tamu</h2>
                         <!--end::Modal title-->
                         <!--begin::Close-->
-                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" data-kt-guest-modal-action="close">
                             <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
                             <span class="svg-icon svg-icon-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -859,7 +864,7 @@
                             <!--end::Scroll-->
                             <!--begin::Actions-->
                             <div class="text-center pt-15">
-                                <button type="reset" class="btn btn-white me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                <button type="reset" class="btn btn-white me-3" data-bs-dismiss="modal" data-kt-users-modal-action="cancel">Discard</button>
                                 <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                     <span class="indicator-label">Submit</span>
                                     <span class="indicator-progress">
