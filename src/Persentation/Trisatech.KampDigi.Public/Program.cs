@@ -1,4 +1,21 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using Trisatech.KampDigi.Application.Interfaces;
+using Trisatech.KampDigi.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<Trisatech.KampDigi.Domain.KampDigiContext>(
+            dbContextOptions => dbContextOptions
+                .UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")))
+                // The following three options help with debugging, but should
+                // be changed or removed for production.
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+        );
+
+builder.Services.AddScoped<IProductPublicService, ProductPublicService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

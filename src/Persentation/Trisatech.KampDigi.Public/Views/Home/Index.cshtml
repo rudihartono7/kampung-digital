@@ -1,8 +1,461 @@
-﻿@{
+﻿@model List<Trisatech.KampDigi.Domain.Entities.Product>
+
+@{
     ViewData["Title"] = "Home Page";
+    int i = 0;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="slider">
+            <div class="Modern-Slider content-section" id="top">
+                <!-- Item -->
+                <div class="item item-1">
+                    <div class="img-fill">
+                    <div class="image"></div>
+                    <div class="info">
+                        <div>
+                          <h1>Beautiful Template<br>Sentra</h1>
+                          <p>Sentra is free Bootstrap CSS Template by templatemo website.<br>
+                          	Please share our site link to your friends.</p>
+                          <div class="white-button button">
+                              <a href="#featured">Discover More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item -->
+                <!-- Item -->
+                <div class="item item-2">
+                    <div class="img-fill">
+                        <div class="image"></div>
+                        <div class="info">
+                        <div>
+                          <h1>Please tell <br>your friends</h1>
+                          <p>Support templatemo by sharing a link to your friends.
+							<br>Thank you for helping us.</p>
+                          
+                          <div class="white-button button">
+                              <a href="#featured">Share More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item -->
+                <!-- Item -->
+                <div class="item item-3">
+                    <div class="img-fill">
+                        <div class="image"></div>
+                        <div class="info">
+                        <div>
+                          <h1>Suspendisse suscipit<br>nulla sed</h1>
+                          <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices <br>posuere cubilia Curae; Sed at massa turpis.</p>
+                          
+                          <div class="white-button button">
+                              <a href="#featured">Learn More</a>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Item -->
+            </div>
+        </div>
+
+        <div class="page-content">
+            <section id="featured" class="content-section">
+                <div class="section-heading">
+                    <h1>Produk<br><em>Kami</em></h1>
+                    
+                </div>
+                <div class="section-content">
+                    <div class="owl-carousel owl-theme">
+                        @if (Model != null && Model.Any())
+                        {
+
+                        foreach (var item in Model) {
+                        <div class="item">
+                            <div class="image">
+                                <img src="@item.ImageUrl" alt="">
+                                <div class="featured-button button">
+                                    <a href="#projects">Continue Reading</a>
+                                </div>
+                            </div>
+                            <div class="text-content">
+                                <h4>@item.Name</h4>
+                                <span>Rp. @item.Price</span>
+                                <p>@item.SellerName</p>
+                                <p>@item.PublicLink</p>
+                            </div>
+                        </div>
+                        }
+                        }
+                        
+                    </div>
+                </div>
+            </section>
+            
+            <section id="blog" class="content-section">
+                <div class="section-heading">
+                    <h1>Blog<br><em>Entries</em></h1>
+                    <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum. 
+                    <br>Phasellus luctus odio eget dui imperdiet.</p>
+                </div>
+                <div class="section-content">
+                    <div class="tabs-content">
+                        <div class="wrapper">
+                            <ul class="tabs clearfix" data-tabgroup="first-tab-group">
+                              <li><a href="#tab1" class="active">July 2018</a></li>
+                              <li><a href="#tab2">June 2018</a></li>
+                              <li><a href="#tab3">May 2018</a></li>
+                              <li><a href="#tab4">April 2018</a></li>
+                            </ul>
+                            <section id="first-tab-group" class="tabgroup">
+                                <div id="tab1">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_1.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Integer ultrices augue</h4>
+                                                    <span>25 July 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_2.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Cras commodo odio ut</h4>
+                                                    <span>16 July 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_3.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Sed at massa turpis</h4>
+                                                    <span>10 July 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tab2">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_3.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Sed at massa turpis</h4>
+                                                    <span>30 June 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_1.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Lorem ipsum dolor sit</h4>
+                                                    <span>24 June 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_2.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Cras commodo odio ut</h4>
+                                                    <span>12 June 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tab3">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_2.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Cras commodo odio ut</h4>
+                                                    <span>26 May 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_1.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Lorem ipsum dolor sit</h4>
+                                                    <span>22 May 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_3.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Integer ultrices augue</h4>
+                                                    <span>8 May 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tab4">
+                                    <ul>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_1.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Lorem ipsum dolor sit</h4>
+                                                    <span>26 April 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>                                
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_3.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Integer ultrices augue eu</h4>
+                                                    <span>24 April 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="item">
+                                                <img src="assets/img/blog_2.jpg" alt="">
+                                                <div class="text-content">
+                                                    <h4>Cras commodo odio ut</h4>
+                                                    <span>20 April 2018</span>
+                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
+                                                    
+                                                    <div class="accent-button button">
+                                                        <a href="#contact">Continue Reading</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section> 
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="content-section">
+			<div id="contact-content">
+                    <div class="section-content">
+                        <form id="contact" action="#" method="post">
+                            <div class="row">
+                                <div class="service-counter text-center">
+									<div class="gallary-header text-center">
+										<h2>
+											Contact Us
+										</h2>
+										<p>
+											Below you can see the contact information.
+										</p>
+									</div><!--/.gallery-header-->
+
+
+									<div class="col-md-4 col-sm-4">
+										<div class="single-service-box">
+											<div class="service-content">
+												<h2>
+													<a href="#">
+													Address
+													</a>
+												</h2>
+											</div><!--/.service-content-->
+											<div class="service-img">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="10%" height="10%">
+												<path d="M12 0C7 0 3 4 3 9c0 7.4 8.1 14.3 8.4 14.5l.6.5.6-.5c.3-.2 8.4-7.1 8.4-14.5 0-5-4-9-9-9zm0 21.5C10.2 19.9 5 14.3 5 9c0-3.9 3.1-7 7-7s7 3.1 7 7c0 5.3-5.2 10.9-7 12.5zM12 5C9.8 5 8 6.8 8 9s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path></svg>
+											</div><!--/.service-img-->
+											<div class="service-content">
+												<p>Jl. Cisitu VI No 6, Kota Bandung Jawa Barat</p>
+											</div><!--/.service-content-->
+										</div><!--/.single-service-box-->
+									</div><!--/.col-->
+
+									<div class="col-md-4 col-sm-4">
+										<div class="single-service-box">
+											<div class="service-content">
+												<h2>
+													<a href="https://wa.me/6281280009341">
+													Phone
+													</a>
+												</h2>
+											</div><!--/.service-content-->
+											<div class="service-img">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="10%" height="10%">
+												<path d="M18.9 24l-.7-.4C14.4 21.5 11 19.1 7.9 16 4.9 13 2.4 9.6.4 5.8L0 5.1 5.1 0l6.2 6.2-2 2.9 5.5 5.5 2.9-2 6.2 6.2-5 5.2zm-9.6-9.3c2.8 2.7 5.8 5 9.2 6.9l2.7-2.7-3.6-3.6-2.9 2-7.9-7.9 2-2.9-3.7-3.7-2.6 2.7c1.9 3.4 4.1 6.4 6.8 9.2z"></path></svg>
+											</div><!--/.service-img-->
+											<div class="service-content">
+												<p><a href="https://wa.me/6281200000000">+62-812-0000-0000</a></p>
+											</div><!--/.service-content-->
+										</div><!--/.single-service-box-->
+									</div><!--/.col-->
+
+									<div class="col-md-4 col-sm-4">
+										<div class="single-service-box">
+											<div class="service-content">
+												<h2>
+													<a href="mailto:info.KampDigi@gmail.com">
+													Email
+													</a>
+												</h2>
+											</div><!--/.service-content-->
+											<div class="statistics-img">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="10%" height="10%">
+												<path d="M0 4v16h24V4H0zm19.8 2L12 10.7 4.2 6h15.6zM2 18V7l10 6 10-6v11H2z"></path></svg>
+											</div><!--/.service-img-->
+											<div class="service-content">
+											<p><a href="mailto:info.balihauzvisa@gmail.com">info.KampDigi@gmail.com</a></p>
+											</div><!--/.service-content-->
+										</div><!--/.single-service-box-->
+									</div><!--/.col-->
+
+								</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="map">
+                
+                	<!-- How to change your own map point
+                           1. Go to Google Maps
+                           2. Click on your location point
+                           3. Click "Share" and choose "Embed map" tab
+                           4. Copy only URL and paste it within the src="" field below
+                    -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1197183.8373802372!2d-1.9415093691103689!3d6.781986417238027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdb96f349e85efd%3A0xb8d1e0b88af1f0f5!2sKumasi+Central+Market!5e0!3m2!1sen!2sth!4v1532967884907" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </section>
+            
+        </div>
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+     
+
+@* <h1>Data Produk</h1>
+
+
+<p class="text-danger">@ViewBag.ErrorMessage</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                Nama Produk
+            </th>
+            <th>
+                Harga
+            </th>
+            <th>
+                Gambar
+            </th>
+                      
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+@if (Model != null && Model.Any())
+{
+
+foreach (var item in Model) {
+    i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.ImageUrl
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                <img src="~/@item.ImageUrl" width="50" height="50" />
+            </td>
+            
+        </tr>
+        }
+    }else{
+        <tr>
+            <td colspan="4">Data kosong</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
 </div>
+
+@section Scripts {
+    
+} *@
+

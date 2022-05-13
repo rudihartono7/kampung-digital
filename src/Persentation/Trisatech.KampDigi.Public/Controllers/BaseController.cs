@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+// using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Trisatech.KampDigi.WebApp.Controllers;
