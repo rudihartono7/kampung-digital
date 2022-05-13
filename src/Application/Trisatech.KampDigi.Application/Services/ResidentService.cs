@@ -6,6 +6,7 @@ using Trisatech.KampDigi.Domain;
 using Trisatech.KampDigi.Domain.Entities;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Trisatech.KampDigi.Application.Models.ResidentFamilies;
 
 namespace Trisatech.KampDigi.Application.Services
 {
@@ -41,7 +42,7 @@ namespace Trisatech.KampDigi.Application.Services
         {
             if (await Db.Residents.AnyAsync(x => x.IdentityNumber == model.IdentityNumber))
             {
-                throw new InvalidOperationException($"Username {model.IdentityNumber} sudah terdaftar");
+                throw new InvalidOperationException($"Warga dengan NIK {model.IdentityNumber} sudah terdaftar");
             }
 
             var newResident = new Resident
@@ -92,10 +93,10 @@ namespace Trisatech.KampDigi.Application.Services
             var account = Db.Users.FirstOrDefault(x => x.ResidentId == idResident);
             if (resident == null || account == null)
             {
-                throw new InvalidOperationException($"User dengan ID {idResident} tidak dapat ditemukan");
+                throw new InvalidOperationException($"User/Resident dengan ID {idResident} tidak dapat ditemukan");
             }
 
-            
+
             //Db.RemoveRange(resident, account);
             Db.Remove(resident);
             Db.Remove(account);
@@ -127,11 +128,40 @@ namespace Trisatech.KampDigi.Application.Services
                                           HouseNumber = c.Number,
                                           IsOccupant = b.IsOccupant,
                                           Role = a.Role,
-                                          Join = b.CreatedDate
+                                          Join = b.CreatedDate,
                                       }).FirstOrDefaultAsync();
 
             return dataResident;
 
+        }
+
+        public async Task<ResidentEditModel> ResidentGetEditModel(Guid id)
+        {
+            var dataEdited = await Db.Residents.FirstOrDefaultAsync(x => x.Id == id);
+            if (dataEdited == null)
+            {
+                throw new InvalidOperationException($"User dengan ID {id} tidak dapat ditemukan");
+            }
+
+            var dataResident = new ResidentEditModel
+            {
+                Id = dataEdited.Id,
+                Name = dataEdited.Name,
+                IdentityNumber = dataEdited.IdentityNumber,
+                ContactNumber = dataEdited.ContactNumber,
+                OccupantType = dataEdited.OccupantType,
+                TotalOccupant = dataEdited.TotalOccupant,
+                IsOccupant = dataEdited.IsOccupant,
+                IdentityPhoto = dataEdited.IdentityPhoto,
+                IdentityFamilyPhoto = dataEdited.IdentityFamilyPhoto,
+                Gender = dataEdited.Gender,
+                EmergencyCallName = dataEdited.EmergencyCallName,
+                EmergencyCallNumber = dataEdited.EmergencyCallNumber,
+                EmergencyCallRelation = dataEdited.EmergencyCallRelation,
+                HouseId = dataEdited.HouseId,
+            };
+
+            return dataResident;
         }
 
         public async Task<ResidentEditModel> ResidentEdit(ResidentEditModel dataResident, Guid idCurrentUser)

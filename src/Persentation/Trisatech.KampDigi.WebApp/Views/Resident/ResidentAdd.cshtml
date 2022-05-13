@@ -4,97 +4,386 @@
 @{
     Layout = "_BaseTemplate";
 }
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="ResidentAdd" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdentityNumber" class="control-label"></label>
-                <input asp-for="IdentityNumber" class="form-control" />
-                <span asp-validation-for="IdentityNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
-                <span asp-validation-for="ContactNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OccupantType" class="control-label"></label>
-                <select asp-for="OccupantType" asp-items="Html.GetEnumSelectList<OccupantType>()">
-                </select>
-                <span asp-validation-for="OccupantType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalOccupant" class="control-label"></label>
-                <input asp-for="TotalOccupant" class="form-control" />
-                <span asp-validation-for="TotalOccupant" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
-                </select>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmergencyCallName" class="control-label"></label>
-                <input asp-for="EmergencyCallName" class="form-control" />
-                <span asp-validation-for="EmergencyCallName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmergencyCallNumber" class="control-label"></label>
-                <input asp-for="EmergencyCallNumber" class="form-control" />
-                <span asp-validation-for="EmergencyCallNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmergencyCallRelation" class="control-label"></label>
-                <select asp-for="EmergencyCallRelation" asp-items="Html.GetEnumSelectList<Relationship>()">
-                    </select>
-                <span asp-validation-for="EmergencyCallRelation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KTP" class="control-label"></label>
-                <input asp-for="KTP" class="form-control" />
-                <span asp-validation-for="KTP" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KK" class="control-label"></label>
-                <input asp-for="KK" class="form-control" />
-                <span asp-validation-for="KK" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HouseId" class="control-label"></label>
-                <select asp-for="HouseId" class="form-control" asp-items="ViewBag.House"></select>
-                <span asp-validation-for="HouseId" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsOccupant" /> @Html.DisplayNameFor(model => model.IsOccupant)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" asp-items="Html.GetEnumSelectList<Role>()">
-                    </select>
-                <span asp-validation-for="Role" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+<div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container d-flex flex-stack flex-wrap">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column me-3">
+            <!--begin::Title-->
+            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Tambah Data Warga</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">
+                    <a href="index.html" class="text-white text-hover-primary">Admin</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">Tambah Data Warga</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
     </div>
+    <!--end::Container-->
 </div>
+
+@if (ViewBag.Message != null)
+{
+        <div class="alert alert-dismissible alert-success d-flex flex-column flex-sm-row mb-10 p-0">
+                    <div class="d-flex flex-column pe-0 inline-block justify-content-center mx-auto">
+                        <span>@ViewBag.Message</span>
+                    </div>
+                    <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon" data-bs-dismiss="alert">
+                        <span class="svg-icon svg-icon-2x svg-icon-light">X</span>
+                    </button>
+                </div>
+}
+
+<!--begin::Basic info-->
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+        <!--begin::Card title-->
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">Add Resident</h3>
+        </div>
+        <!--end::Card title-->
+    </div>
+    <!--begin::Card header-->
+    <!--begin::Content-->
+    <div id="kt_account_profile_details" class="collapse show">
+        <!--begin::Form-->
+        <form asp-action="ResidentAdd" id="kt_account_profile_details_form" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">KTP dan KK</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-4">
+                        <label class="d-block fw-bold fs-6 mb-5">KTP</label>
+                        <!--begin::Image input-->
+                        <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
+                            <!--begin::Image preview wrapper-->
+                            <div class="image-input-wrapper w-125px h-125px"></div>
+                            <!--end::Image preview wrapper-->
+                            <!--begin::Edit button-->
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                   data-kt-image-input-action="change"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-dismiss="click"
+                                   title="Pilih gambar">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+
+                                <!--begin::Inputs-->
+                                <input type="file" name="KTP" accept=".png, .jpg, .jpeg" />
+                                <input type="hidden" name="avatar_remove" />
+                                <!--end::Inputs-->
+                            </label>
+                            <!--end::Edit button-->
+                            <!--begin::Cancel button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="cancel"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Hapus gambar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Cancel button-->
+                            <!--begin::Remove button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="remove"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Hapus gambar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Remove button-->
+                        </div>
+                        <!--end::Image input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                        <!--end::Hint-->
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="d-block fw-bold fs-6 mb-5">KK</label>
+                        <!--begin::Image input-->
+                        <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
+                            <!--begin::Image preview wrapper-->
+                            <div class="image-input-wrapper w-125px h-125px"></div>
+                            <!--end::Image preview wrapper-->
+                            <!--begin::Edit button-->
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                   data-kt-image-input-action="change"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-dismiss="click"
+                                   title="Pilih gambar">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+
+                                <!--begin::Inputs-->
+                                <input type="file" name="KK" accept=".png, .jpg, .jpeg" />
+                                <input type="hidden" name="avatar_remove" />
+                                <!--end::Inputs-->
+                            </label>
+                            <!--end::Edit button-->
+                            <!--begin::Cancel button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="cancel"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Hapus gambar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Cancel button-->
+                            <!--begin::Remove button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="remove"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Hapus gambar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Remove button-->
+                        </div>
+                        <!--end::Image input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                        <!--end::Hint-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Lengkap</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Name" class="form-control form-control-lg form-control-solid" placeholder="Nama Lengkap" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">No KTP</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="number" name="IdentityNumber" class="form-control form-control-lg form-control-solid" placeholder="Nomor KTP" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>No Telepon</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Phone number must be active"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="ContactNumber" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Jenis Kelamin</span>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <select name="Gender" aria-label="Select a Language" data-control="select2" asp-items="Html.GetEnumSelectList<Gender>()" class="form-select form-select-solid form-select-lg">
+                        </select>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Jumlah Anggota Keluarga</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="number" name="TotalOccupant" class="form-control form-control-lg form-control-solid" placeholder="Jumlah Anggota Keluarga" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--begin::Input group-->
+                <div class="card-title pt-2">
+                    <h3 class="m-0 text-gray-800">Anggota keluarga yang dapat dihubungi</h3>
+                </div>
+                <div class="separator border-2 my-5"></div>
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Nama</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Nama keluarga yang dapat dihubungi"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="EmergencyCallName" class="form-control form-control-lg form-control-solid" placeholder="Nama" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>No Telepon</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Nomor keluarga yang dapat dihubungi"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="EmergencyCallNumber" class="form-control form-control-lg form-control-solid" placeholder="No Telepon" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Hubungan</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Hubungan dengan anggota keluarga ini"></i>
+                    </label>
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <!--begin::Input-->
+                        <select name="EmergencyCallRelation" asp-items="Html.GetEnumSelectList<Relationship>()" aria-label="Pilih relasi" data-control="select2" data-placeholder="Pilih relasi" class="form-select form-select-solid form-select-lg">
+                        </select>
+                        <!--end::Input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Please select a preferred language, including date, time, and number formatting.</div>
+                        <!--end::Hint-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="card-title pt-2">
+                    <h3 class="m-0 text-gray-800">Data Rumah</h3>
+                </div>
+                <div class="separator border-2 my-5"></div>
+
+                <!--begin::Input group-->
+
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Nomor Rumah</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Nomor rumah yang dihuni"></i>
+                    </label>
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <!--begin::Input-->
+                        <select name="HouseId" asp-items="ViewBag.House" aria-label="Pilih nomor rumah" data-control="select2" data-placeholder="Pilih nomor rumah" class="form-select form-select-solid form-select-lg">
+                        </select>
+                        <!--end::Input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Please select a preferred language, including date, time, and number formatting.</div>
+                        <!--end::Hint-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Tipe Kepemilikan</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Tipe Kepemilikan Rumah"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <select name="OccupantType" aria-label="Tipe Kepemilikan" data-control="select2" asp-items="Html.GetEnumSelectList<OccupantType>()" class="form-select form-select-solid form-select-lg">
+                        </select>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="row mb-0">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Apakah penduduk asli/permanen?</label>
+                    <!--begin::Label-->
+                    <!--begin::Label-->
+                    <div class="col-lg-8 d-flex align-items-center">
+                        <div class="form-check form-check-solid form-switch fv-row">
+                            <input class="form-check-input w-45px h-30px" type="checkbox" id="IsOccupant" checked="checked" />
+                            <label class="form-check-label" for="IsOccupant"></label>
+                        </div>
+                    </div>
+                    <!--begin::Label-->
+                </div>
+                <div class="card-title pt-2">
+                    <h3 class="m-0 text-gray-800">Data Akun</h3>
+                </div>
+                <div class="separator border-2 my-5"></div>
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Username</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Username" class="form-control form-control-lg form-control-solid" placeholder="Username Akun" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Password</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Password" class="form-control form-control-lg form-control-solid" placeholder="Password Akun" value="" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Kedudukan</span>
+                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Posisi dan kedudukan warga ini"></i>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <select name="Role" aria-label="Kedudukan warga ini" data-control="select2" asp-items="Html.GetEnumSelectList<Role>()" class="form-select form-select-solid form-select-lg">
+                        </select>
+                    </div>
+                    <!--end::Col-->
+                </div>
+            </div>
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Add Resident</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Basic info-->
