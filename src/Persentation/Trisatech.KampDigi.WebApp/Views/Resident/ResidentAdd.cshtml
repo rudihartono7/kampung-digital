@@ -38,9 +38,14 @@
 
 @if (ViewBag.Message != null)
 {
-    <div class="alert alert-danger text-center" role="alert">
-        @ViewBag.Message
-    </div>
+        <div class="alert alert-dismissible alert-success d-flex flex-column flex-sm-row mb-10 p-0">
+                    <div class="d-flex flex-column pe-0 inline-block justify-content-center mx-auto">
+                        <span>@ViewBag.Message</span>
+                    </div>
+                    <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon" data-bs-dismiss="alert">
+                        <span class="svg-icon svg-icon-2x svg-icon-light">X</span>
+                    </button>
+                </div>
 }
 
 <!--begin::Basic info-->
@@ -80,7 +85,7 @@
                                    data-kt-image-input-action="change"
                                    data-bs-toggle="tooltip"
                                    data-bs-dismiss="click"
-                                   title="Change avatar">
+                                   title="Pilih gambar">
                                 <i class="bi bi-pencil-fill fs-7"></i>
 
                                 <!--begin::Inputs-->
@@ -94,7 +99,7 @@
                                   data-kt-image-input-action="cancel"
                                   data-bs-toggle="tooltip"
                                   data-bs-dismiss="click"
-                                  title="Cancel avatar">
+                                  title="Hapus gambar">
                                 <i class="bi bi-x fs-2"></i>
                             </span>
                             <!--end::Cancel button-->
@@ -103,7 +108,7 @@
                                   data-kt-image-input-action="remove"
                                   data-bs-toggle="tooltip"
                                   data-bs-dismiss="click"
-                                  title="Remove avatar">
+                                  title="Hapus gambar">
                                 <i class="bi bi-x fs-2"></i>
                             </span>
                             <!--end::Remove button-->
@@ -125,7 +130,7 @@
                                    data-kt-image-input-action="change"
                                    data-bs-toggle="tooltip"
                                    data-bs-dismiss="click"
-                                   title="Change avatar">
+                                   title="Pilih gambar">
                                 <i class="bi bi-pencil-fill fs-7"></i>
 
                                 <!--begin::Inputs-->
@@ -139,7 +144,7 @@
                                   data-kt-image-input-action="cancel"
                                   data-bs-toggle="tooltip"
                                   data-bs-dismiss="click"
-                                  title="Cancel avatar">
+                                  title="Hapus gambar">
                                 <i class="bi bi-x fs-2"></i>
                             </span>
                             <!--end::Cancel button-->
@@ -148,7 +153,7 @@
                                   data-kt-image-input-action="remove"
                                   data-bs-toggle="tooltip"
                                   data-bs-dismiss="click"
-                                  title="Remove avatar">
+                                  title="Hapus gambar">
                                 <i class="bi bi-x fs-2"></i>
                             </span>
                             <!--end::Remove button-->
@@ -320,7 +325,7 @@
                 </div>
                 <div class="row mb-0">
                     <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label fw-bold fs-6">Apakah penduduk?</label>
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Apakah penduduk asli/permanen?</label>
                     <!--begin::Label-->
                     <!--begin::Label-->
                     <div class="col-lg-8 d-flex align-items-center">
@@ -373,7 +378,6 @@
             <!--end::Card body-->
             <!--begin::Actions-->
             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                <button type="reset" class="btn btn-white btn-active-light-primary me-2">Discard</button>
                 <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Add Resident</button>
             </div>
             <!--end::Actions-->

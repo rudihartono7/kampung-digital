@@ -61,7 +61,6 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             }
             try
             {
-
                 dataResident.IdentityPhoto = await SaveFile(dataResident.KTP);
                 dataResident.IdentityFamilyPhoto = await SaveFile(dataResident.KK);
 

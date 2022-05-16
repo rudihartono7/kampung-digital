@@ -42,8 +42,13 @@
     <div class="content flex-row-fluid" id="kt_content">
         @if (ViewBag.Message != null)
         {
-            <div class="alert alert-success text-center" role="alert">
-                @ViewBag.Message
+            <div class="alert alert-dismissible alert-success d-flex flex-column flex-sm-row mb-10 p-0">
+                <div class="d-flex flex-column pe-0 inline-block justify-content-center mx-auto">
+                    <span>@ViewBag.Message</span>
+                </div>
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-2x svg-icon-light">X</span>
+                </button>
             </div>
         }
         <!--begin::Card-->
@@ -81,9 +86,9 @@
                                     <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"></rect>
                                     <rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1"></rect>
                                 </svg>
-                                </span>
-                                Add Resident
-                            </a>
+                            </span>
+                            Add Resident
+                        </a>
                         <!--end::Add user-->
                     </div>
                     <!--end::Toolbar-->
@@ -171,17 +176,46 @@
                                             <div class="menu-item px-3">
                                                     <a asp-action="ResidentDetail" asp-route-id="@item.Id" class="menu-link px-3">Detail</a>
                                                 </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                    @*<a asp-action="ResidentDelete" data-kt-users-table-filter="delete_row">Delete</a>*@
-                                                    <form asp-action="ResidentDelete">
-                                                        <input type="hidden" name="id" value="@item.Id" />
-                                                        <a onclick="this.parentElement.submit()" class="menu-link text-danger px-3">Delete</a>
-                                                    </form>
+                                                <div class="menu-item px-3">
+                                                    <a class="menu-link text-danger px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_@item.Username">Delete</a>
                                                 </div>
-                                                <!--end::Menu item-->
-                                        </div>
+                                            </div>
+                                            <div class="modal fade" tabindex="-1" id="kt_modal_@item.Username">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="d-flex justify-content-center py-5">
+                                                            <div class="swal2-header">
+                                                                <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex;">
+                                                                    <div class="swal2-icon-content">
+                                                                        !
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                        <div class="swal2-content pb-5">
+                                                            <div id="swal2-content" class="swal2-html-container">
+                                                                Apakah anda ingin menghapus data warga @item.Name ?
+                                                                <br>
+                                                                <span class="text-danger"><small>Data akun dan juga data warga akan terhapus!</small></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="swal2-actions pb-10">
+                                                            <form asp-action="ResidentDelete">
+                                                                <input type="hidden" name="id" value="@item.Id" />
+                                                                <button type="submit" class="swal2-confirm btn fw-bold btn-danger" style="display: inline-block;" aria-label="">
+                                                                    Yes, delete!
+                                                                </button>
+                                                            </form>
+                                                            <button type="button" class="swal2-cancel btn fw-bold btn-active-light-primary" aria-label="" data-bs-dismiss="modal">
+                                                                No, cancel
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!--end::Menu-->
                                     </td>
                                         <!--end::Action=-->

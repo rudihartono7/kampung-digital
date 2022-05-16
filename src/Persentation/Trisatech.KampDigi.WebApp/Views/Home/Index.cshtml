@@ -41,8 +41,13 @@
 <!--end::Toolbar-->
 @if (ViewBag.Message != null)
 {
-    <div class="alert alert-success text-center" role="alert">
-        @ViewBag.Message
+    <div class="alert alert-dismissible alert-success d-flex flex-column flex-sm-row mb-10 p-0">
+        <div class="d-flex flex-column pe-0 inline-block justify-content-center mx-auto">
+            <span>@ViewBag.Message</span>
+        </div>
+        <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon" data-bs-dismiss="alert">
+            <span class="svg-icon svg-icon-2x svg-icon-light">X</span>
+        </button>
     </div>
 }
 
@@ -65,49 +70,67 @@
                 @if (Model.Guests.Count() != 0)
                 {
 
-                    @foreach (var item in Model.Guests)
-                    {
-                        <div class="d-flex align-items-sm-center mb-7">
-                            <!--begin::Symbol-->
-                    <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                <div class="symbol-label">
-                                    <div class="symbol-label fs-3 bg-light-danger text-danger">
-                                        @item.Name[0]
-                                    </div>
-                                    @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
-                                </div>
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Section-->
-
-                    <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users" role="grid">
+                        <!--begin::Table head-->
+                    <thead>
+                            <!--begin::Table row-->
+                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
+                                <th class="min-w-125px sorting text-center" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 257.783px;" aria-label="User: activate to sort column ascending">Nama</th>
+                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 145.317px;" aria-label="Telephone: activate to sort column ascending">Rumah</th>
+                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 145.3px;" aria-label="Gender: activate to sort column ascending">Status</th>
+                            </tr>
+                            <!--end::Table row-->
+                    </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                    <tbody class="text-gray-600 fw-bold">
+                            @foreach (var item in Model.Guests)
+                            {
+                                <tr class="odd">
+                                    <!--begin::User=-->
+                            <td class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <div class="symbol-label">
+                                                <div class="symbol-label fs-3 bg-light-danger text-danger">@item.Name[0]</div>
+                                                @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
+                                            </div>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::User details-->
                                 <div class="flex-grow-1 me-2">
-                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name</a>
-                                    <span class="text-muted fw-bold d-block fs-7">@item.EndDate?.ToString("dd/MM/yyyy")</span>
-                                </div>
-                                <div class="flex-grow-1 me-2">
-                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.HouseOwner</a>
-                                </div>
-                                @if (DateTime.Compare(@item.EndDate.Value, DateTime.Now) < 0)
-                                {
-                                    <div class="badge badge-light-success">Selesai</div>
-                                }
-                                else
-                                {
-                                    <div class="badge badge-light-primary">Berkunjung</div>
-                                }
-                            </div>
-                            <!--end::Section-->
-                </div>
-                    }
-                }
-                else
-                {
-                    <div class="text-center"><strong>Tidak ada tamu yang berkunjung</strong></div>
-                }
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name</a>
+                                            <span class="text-muted fw-bold d-block fs-7">@item.EndDate?.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <!--begin::User details-->
+                            </td>
+                                    <!--end::User=-->
+                                    <!--begin::Role=-->
+                            <td data-order="2022-04-13T11:22:22+07:00">
+                                        <div class="flex-grow-1 me-2">
+                                            <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.HouseOwner</a>
+                                        </div>
+                                    </td>
+                                    <!--end::Role=-->
+                                    <!--begin::Last login=-->
+                            <td data-order="2022-04-13T11:22:22+07:00">
+                                        @if (DateTime.Compare(@item.EndDate.Value, DateTime.Now) < 0)
+                                        {
+                                            <div class="badge badge-light-success">Selesai</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-light-primary">Berkunjung</div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <!--end::Table body-->
+                </table>
+                }   
                 <!--end::Item-->
             </div>
-
             <!--end::Body-->
         </div>
         <!--end::List Widget 4-->
