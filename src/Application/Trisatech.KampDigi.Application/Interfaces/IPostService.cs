@@ -12,4 +12,5 @@ public interface IPostService : ICrudService<Post>
 
     Task<PostModel> Get(Guid id);
     
+    Task<List<PostModel>> GetPostLanding();
 }

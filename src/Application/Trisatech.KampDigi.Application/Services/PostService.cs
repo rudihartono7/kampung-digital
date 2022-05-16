@@ -166,4 +166,24 @@ public class PostService : BaseDbService, IPostService
     {
         throw new NotImplementedException();
     }
+
+    public async Task<List<PostModel>> GetPostLanding(){
+        var post = await (from p in Db.Posts
+                            join u in Db.Users on p.CreatedBy equals u.Id into tempName
+                            from u in tempName.DefaultIfEmpty()
+                            select new PostModel
+                            {
+                                Id = p.Id,
+                                PostSubject = p.PostSubject,
+                                Title = p.Title,
+                                Desc = p.Desc,
+                                Image = p.Image,
+                                Type = p.Type,
+                                IsResidentProgram = p.IsResidentProgram,
+                                CreatedDate = p.CreatedDate,
+                                UpdatedDate = p.UpdatedDate,
+                                Name = u.Name,
+                            }).Take(5).ToListAsync();
+        return post;
+    }
 }
