@@ -16,6 +16,8 @@ builder.Services.AddDbContext<Trisatech.KampDigi.Domain.KampDigiContext>(
                 .EnableDetailedErrors()
         );
 
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IResidentFundService, ResidentFundService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IResidentService, ResidentService>();
