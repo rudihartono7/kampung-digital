@@ -590,14 +590,46 @@
                                                 </div>
                                                 
                                                
-                                            <div class="menu-item px-3">
-                                                    <form asp-action="Delete" asp-controller="ResidentFamily" asp-route-id="@fam.Id">
-                                                        <input type="hidden" name="id" value="@fam.Id" />
-                                                        <a onclick="this.parentElement.submit()" class="menu-link text-danger px-3">Delete</a>
-                                                    </form>
-                                                </div>
+                                            <div class="menu-item px-3">         
+                                                <a class="menu-link text-danger px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_@fam.Id">Delete</a>
+                                            </div>
                                                 <!--end::Menu item-->
                                         </div>
+
+                                        <div class="modal fade" tabindex="-1" id="kt_modal_@fam.Id">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="d-flex justify-content-center py-5">
+                                                            <div class="swal2-header">
+                                                                <div class="swal2-icon swal2-warning swal2-icon-show" style="display: flex;">
+                                                                    <div class="swal2-icon-content">
+                                                                        !
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                        <div class="swal2-content pb-5">
+                                                            <div id="swal2-content" class="swal2-html-container">
+                                                                Apakah anda ingin menghapus @fam.Name ?
+                                                            </div>
+                                                        </div>
+                                                        <div class="swal2-actions pb-10">
+                                                            <form asp-action="Delete" asp-controller="ResidentFamily">
+                                                                <input type="hidden" name="id" value="@fam.Id" />
+                                                                <button type="submit" class="swal2-confirm btn fw-bold btn-danger" style="display: inline-block;" aria-label="">
+                                                                    Yes, delete!
+                                                                </button>
+                                                            </form>
+                                                            <button type="button" class="swal2-cancel btn fw-bold btn-active-light-primary" aria-label="" data-bs-dismiss="modal">
+                                                                No, cancel
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!--end::Menu-->
                                     </td>
                                         <!--end::Action=-->
