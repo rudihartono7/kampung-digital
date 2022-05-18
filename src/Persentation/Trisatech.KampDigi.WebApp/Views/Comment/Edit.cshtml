@@ -1,0 +1,25 @@
+@model Trisatech.KampDigi.Application.Models.CommentModel
+@{
+    ViewData["Title"] = "Edit Comment";
+    int i = 0;
+    Layout = "_BaseTemplate";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Edit</h4>
+            <form asp-controller="Comment" asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Id" type="text" class="form-control" hidden>
+                <input asp-for="PostId" type="text" class="form-control" hidden>
+                <div class="form-group">
+                    <label asp-for="Desc" for="exampleInput3"></label>
+                    <input class="form-control" id="exampleInput3" asp-for="Desc">
+                    <span asp-validation-for="Desc" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Edit</button>
+            </form>
+        </div>
+    </div>
+</div>

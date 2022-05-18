@@ -1,0 +1,21 @@
+@model List<Trisatech.KampDigi.Application.Models.ResidentProgramModel>
+@{
+   ViewData["Title"] = "Agenda Kegiatan Kampung";
+   ViewData["Menu"] = "Kegiatan";
+   Layout = "_BaseTemplate";
+}
+<div class="text-center">
+   <div class="card card-flush shadow-sm">
+      <div class="card-header">
+         <h3 class="card-title">@ViewData["Title"]</h3>
+         <div class="card-toolbar">
+            <a asp-action="Create" class="btn btn-sm btn-primary">
+               Create New
+            </a>
+         </div>
+      </div>
+      <div class="card-body py-5">
+         
+      </div>
+   </div>
+</div>

@@ -1,0 +1,151 @@
+@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.PostModel
+@{
+    ViewData["Title"] = "Edit Thread";
+    int i = 0;
+    Layout = "_BaseTemplate";
+}
+
+<!--begin::Basic info-->
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+        <!--begin::Card title-->
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">Edit Thread</h3>
+        </div>
+        <!--end::Card title-->
+    </div>
+    <!--begin::Card header-->
+    <!--begin::Content-->
+    <div id="kt_account_profile_details" class="collapse show">
+        <!--begin::Form-->
+        <form asp-controller="Post" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden">
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Gambar Thread</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-4">
+                        <label class="d-block fw-bold fs-6 mb-5">Gambar Thread</label>
+                        <!--begin::Image input-->
+                        <div class="image-input image-input-empty" data-kt-image-input="true" style="background-image: url(/assets/media/avatars/blank.png)">
+                            <!--begin::Image preview wrapper-->
+                            <div class="image-input-wrapper w-125px h-125px"></div>
+                            <!--end::Image preview wrapper-->
+                            <!--begin::Edit button-->
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                   data-kt-image-input-action="change"
+                                   data-bs-toggle="tooltip"
+                                   data-bs-dismiss="click"
+                                   title="Change avatar">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+
+                                <!--begin::Inputs-->
+                                <input asp-for="ImageFile" type="file" class="form-control" />
+                                <input type="hidden" name="avatar_remove" />
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                
+                                <!--end::Inputs-->
+                            </label>
+                            <!--end::Edit button-->
+                            <!--begin::Cancel button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="cancel"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Cancel avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Cancel button-->
+                            <!--begin::Remove button-->
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                                  data-kt-image-input-action="remove"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-dismiss="click"
+                                  title="Remove avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <!--end::Remove button-->
+                        </div>
+                        <!--end::Image input-->
+                        <!--begin::Hint-->
+                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                        <!--end::Hint-->
+                    </div>
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Judul Thread</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Title" class="form-control form-control-lg form-control-solid" placeholder="Judul Thread" value="@Model.Title" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                 <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Subject</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="PostSubject" class="form-control form-control-lg form-control-solid" placeholder="Subject" value="@Model.PostSubject" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">
+                        <span>Tipe Thread</span>
+                    </label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        @* <select asp-for="PostType" aria-label="Select a Language" data-control="select2" asp-items="Html.GetEnumSelectList<PostType>()" class="form-select form-select-solid form-select-lg">
+                        </select> *@
+                        <!--begin::Input-->
+                    <select asp-for="Type" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<PostType>()">
+                    </select>
+                    <!--end::Input-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->   
+                <!--begin::Input group-->
+                <div class="row mb-6">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Description Thread</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 fv-row">
+                        <input type="text" name="Desc" class="form-control form-control-lg form-control-solid" placeholder="Description Thread" value="@Model.Desc" />
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Input group-->
+            </div>
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <a type="reset" asp-action="Index" class="btn btn-white btn-active-light-primary me-2">Discard</a>
+                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Edit Thread</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Basic info-->

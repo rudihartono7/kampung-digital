@@ -4,13 +4,56 @@
     Layout = "_BaseTemplate";
 }
 
+<div class="toolbar py-5 py-lg-15" id="kt_toolbar">
+    <!--begin::Container-->
+    <div id="kt_toolbar_container" class="container d-flex flex-stack flex-wrap">
+        <!--begin::Page title-->
+        <div class="page-title d-flex flex-column me-3">
+            <!--begin::Title-->
+            <h1 class="d-flex text-white fw-bolder my-1 fs-3">Edit Role</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">
+                    <a href="index.html" class="text-white text-hover-primary">Admin</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">Role</li>
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-white opacity-75">Edit Role</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        <!--end::Page title-->
+    </div>
+    <!--end::Container-->
+</div>
+
+
 <div class="modal-content">
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         @if (ViewBag.Message != null)
         {
-            <div class="alert alert-success text-center" role="alert">
-                @ViewBag.Message
+            <div class="alert alert-dismissible alert-success d-flex flex-column flex-sm-row mb-10 p-0">
+                <div class="d-flex flex-column pe-0 inline-block justify-content-center mx-auto">
+                    <span>@ViewBag.Message</span>
+                </div>
+                <button type="button" class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon" data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-2x svg-icon-light">X</span>
+                </button>
             </div>
         }
         <!--begin::Modal title-->
@@ -31,7 +74,7 @@
                 <!--begin::Input group-->
                 <div class="fv-row mb-7 fv-plugins-icon-container">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">UserName</label>
+                    <label class="required fw-bold fs-6 mb-2">Username</label>
                     <!--end::Label-->
                     <!--begin::Input-->
                     <input asp-for="Username" type="text" disabled class="form-control form-control-solid mb-3 mb-lg-0" value="@Model.Username">
@@ -43,7 +86,7 @@
                 <!--begin::Input group-->
                 <div class="fv-row mb-7 fv-plugins-icon-container">
                     <!--begin::Label-->
-                    <label class="required fw-bold fs-6 mb-2">Email</label>
+                    <label class="required fw-bold fs-6 mb-2">Role</label>
                     <!--end::Label-->
                     <!--begin::Input-->
                     <select asp-for="Role" class="form-control form-control-solid mb-3 mb-lg-0" asp-items="Html.GetEnumSelectList<Role>()">

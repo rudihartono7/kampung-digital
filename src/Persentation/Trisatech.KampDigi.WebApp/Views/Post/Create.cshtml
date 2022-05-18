@@ -1,0 +1,47 @@
+@model Trisatech.KampDigi.Application.Models.PostModel
+@{
+    ViewData["Title"] = "Create Thread";
+    int i = 0;
+    Layout = "_BaseTemplate";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create Thread</h4>
+            <form class="forms-sample" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @* <input asp-for="Id" hidden> *@
+                <div class="form-group">
+                    <label asp-for="PostSubject" for="exampleInput1"></label>
+                    <input class="form-control" id="exampleInput1" placeholder="PostSubject" asp-for="PostSubject">
+                    <span asp-validation-for="PostSubject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title" for="exampleInput2"></label>
+                    <input class="form-control" id="exampleInput2" placeholder="Title" asp-for="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Desc" for="exampleInput3"></label>
+                    <input class="form-control" id="exampleInput3" placeholder="Description" asp-for="Desc">
+                    <span asp-validation-for="Desc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select name="type" id="">
+                        <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Informasi</option>
+                        <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
+                        <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Publik</option>
+                        <option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Lapor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
+            </form>
+            <a asp-action="Index" class="btn btn-light">Cancel</a>
+        </div>
+    </div>
+</div>

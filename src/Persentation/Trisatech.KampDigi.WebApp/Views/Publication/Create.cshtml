@@ -1,0 +1,165 @@
+@model Trisatech.KampDigi.Application.Models.PublicationModel
+
+@{
+    ViewData["Title"] = "Create";
+    
+    Layout = "_BaseTemplate"; 
+}
+
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Create User</h2>
+        <!--end::Modal title-->
+        <!--begin::Close-->
+
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-10 mx-xl-15 my-15">
+        <!--begin::Form-->
+        <form asp-action="Create" method="post" enctype="multipart/form-data"
+            class="form fv-plugins-bootstrap5 fv-plugins-framework">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" class="form-control" />
+            <!--begin::Scroll-->
+            
+                <!--begin::Input group-->
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Title</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input asp-for="Title" type="text" class="form-control form-control-solid mb-3 mb-lg-0" />
+                    <!--end::Input-->
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Slag</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input asp-for="Slag" type="text" class="form-control form-control-solid mb-3 mb-lg-0" />
+                    <!--end::Input-->
+                    <span asp-validation-for="Slag" class="text-danger"></span>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                
+                @* <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Image File</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input asp-for="ImageFile" type="file" class="form-control form-control-solid mb-3 mb-lg-0" />
+                    <!--end::Input-->
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    <img src="~/@Model.ImageLink" height="100" />
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div> *@
+                <div class="fv-row mb-7 fv-plugins-icon-container" >
+                    <!--begin::Label-->
+                    <label class="d-block fw-bold fs-6 mb-5">Image File</label>
+                    <!--end::Label-->
+                    <!--begin::Image input-->
+                    <div class="image-input image-input-outline" data-kt-image-input="true"
+                        style="background-image: url(/@Model.ImageLink)">
+                        <!--begin::Preview existing avatar-->
+                        <div class="image-input-wrapper w-125px h-125px"
+                            style="background-image: url(/@Model.ImageLink);"></div>
+                        <!--end::Preview existing avatar-->
+                        <!--begin::Label-->
+                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                            data-kt-image-input-action="change" data-bs-toggle="tooltip" title=""
+                            data-bs-original-title="Change avatar">
+                            <i class="bi bi-pencil-fill fs-7"></i>
+                            <!--begin::Inputs-->
+                            <input type="file" name="ImageFile"  accept=".png, .jpg, .jpeg">
+                            <input type="hidden" name="avatar_remove">
+                            <!--end::Inputs-->
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Cancel-->
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title=""
+                            data-bs-original-title="Cancel avatar">
+                            <i class="bi bi-x fs-2"></i>
+                        </span>
+                        <!--end::Cancel-->
+                        <!--begin::Remove-->
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
+                            data-kt-image-input-action="remove" data-bs-toggle="tooltip" title=""
+                            data-bs-original-title="Remove avatar">
+                            <i class="bi bi-x fs-2"></i>
+                        </span>
+                        <!--end::Remove-->
+                    </div>
+                    <!--end::Image input-->
+                    <!--begin::Hint-->
+                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                    <!--end::Hint-->
+                </div>
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Content</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <textarea asp-for="Content" class="form-control form-control-solid" rows="3"></textarea>
+                    <!--end::Input-->
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Writer</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input asp-for="Writer" type="text" class="form-control form-control-solid mb-3 mb-lg-0" />
+                    <!--end::Input-->
+                    <span asp-validation-for="Writer" class="text-danger"></span>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Source</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input asp-for="Source" type="text" class="form-control form-control-solid mb-3 mb-lg-0" />
+                    <!--end::Input-->
+                    <span asp-validation-for="Source" class="text-danger"></span>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+
+                <!--end::Input group-->
+            
+            <!--end::Scroll-->
+            <!--begin::Actions-->
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-white me-3" data-kt-users-modal-action="cancel">Discard</button>
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">Submit</span>
+                </button>
+            </div>
+            <!--end::Actions-->
+            <div></div>
+            <div></div>
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>
+
+    @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

@@ -1,0 +1,95 @@
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@using Trisatech.KampDigi.Domain.Entities
+@model Trisatech.KampDigi.Application.Models.ResidentProgramModel
+
+@{
+   ViewData["Title"] = "Agenda Kegiatan Kampung";
+   ViewData["Menu"] = "Create Kegiatan";
+   Layout = "_BaseTemplate";
+}
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id">
+            <div class="form-group mb-3">
+               <label class="control-label">Tahun</label>
+               <input asp-for="Year" type="text" class="form-control" />
+               <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Judul Kegiatan</label>
+               <input asp-for="Title" type="text" class="form-control" />
+               <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Subjek Program</label>
+               <input asp-for="ProgramSubject" type="text" class="form-control" />
+               <span asp-validation-for="ProgramSubject" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Periode Program</label>
+               <select asp-for="ProgramPeriod" id="ProgramPeriod" class="form-select form-select-solid"
+                  data-control="select2" data-placeholder="Select an option">
+                  <option value="@ProgramPeriod.None">None</option>
+                  <option value="@ProgramPeriod.Daily">Daily</option>
+                  <option value="@ProgramPeriod.Weekly">Weekly</option>
+                  <option value="@ProgramPeriod.BiWeekly">BiWeekly</option>
+                  <option value="@ProgramPeriod.Monthly">Monthly</option>
+               </select>
+            </div>
+
+            <div class="form-group mb-3">
+               <label class="control-label">Mulai Kegiatan</label>
+               <input type="text" class="form-control form-control-solid date" placeholder="Pick a date"
+                  asp-for="StartDate">
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Selesai Kegiatan</label>
+               <input type="text" class="form-control form-control-solid date" placeholder="Pick a date"
+                  asp-for="EndDate">
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Deskripsi</label>
+               <textarea asp-for="Desc" id="Desc" class="form-control" col="5" rows="10">
+               </textarea>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Penanggung Jawab</label>
+               <select asp-for="PersonInChargeId" asp-items="@ViewBag.ResidentDataSource" id="PersonInChargeId"
+                  class="form-select form-select-solid" data-control="select2" data-placeholder="Select an option">
+               </select>
+            </div>
+            <div class="form-group mb-3">
+               <label class="control-label">Estimasi Biaya</label>
+               <input type="text" asp-for="Cost" class="form-control">
+            </div>
+
+            <div class="form-group mb-3">
+               <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+         </form>
+      </div>
+   </div>
+   <div>
+      <a asp-action="Index">Back to List</a>
+   </div>
+</div>
+@section Scripts {
+<script>
+   $(".date").daterangepicker({
+      singleDatePicker: true,
+      timePicker: true,
+      showDropdowns: true,
+      minYear: 1901,
+      maxYear: parseInt(moment().format("YYYY"), 10),
+      timePicker24Hour: true,
+      locale: {
+         format: "DD-MM-YYYY hh:mm A"
+      }
+   }, function (start, end, label) {
+      console.log(end);
+   });
+</script>
+}

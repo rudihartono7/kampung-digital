@@ -1,0 +1,109 @@
+@model List<Trisatech.KampDigi.Application.Models.PublicationModel>
+
+@{
+	ViewData["Title"] = "List Publication";
+
+	Layout = "_BaseTemplate";
+	int i = 0;
+
+}
+<div class="container">
+	<div class="card">
+		<div class="card-body p-10 p-lg-16">
+			<!--begin::Section-->
+			<div class="mb-17">
+				<!--begin::Title-->
+				<h3 class="text-black mb-7">List Publication for Kampung Digital</h3>
+				<!--end::Title-->
+				<!--begin::Separator-->
+				<div class="separator separator-dashed mb-9"></div>
+				<!--end::Separator-->
+				<!--begin::Row-->
+				@if (Model != null && Model.Any())
+				{
+					foreach (var item in Model)
+					{
+						<div class="row">
+							<!--begin::Col-->
+
+							<!--end::Col-->
+					<div class="col-md-3">
+								<!--begin::Feature post-->
+						<div class="h-100 d-flex flex-column justify-content-between pe-lg-6 mb-lg-0 mb-10">
+									<!--begin::Video-->
+							<div class="mb-3">
+										<img src="/@item.ImageLink" width="240px" height="140" />
+									</div>
+									<!--end::Video-->
+									<!--begin::Body-->
+
+									<!--end::Body-->
+									<!--begin::Footer-->
+
+									<!--end::Footer-->
+						</div>
+								<!--end::Feature post-->
+					</div>
+							<!--begin::Col-->
+					<div class="col-md-9 justify-content-between d-flex flex-column">
+								<!--begin::Post-->
+
+
+
+						<div class="ps-lg-6 mb-16 mt-md-0 mt-17">
+									<!--begin::Body-->
+							<div class="mb-6">
+										<!--begin::Title-->
+								<a href="/publication/details/@item.Id"
+									class="fw-bolder text-dark mb-4 fs-2 lh-base text-hover-primary">
+											@item.Title</a>
+										<!--end::Title-->
+										<!--begin::Text-->
+								<div class="fw-bold fs-5 mt-4 text-gray-600 text-dark">Writer: @item.Writer</div>
+										<div class="fw-bold fs-5 mt-4 text-gray-600 text-dark">Source: @item.Source</div>
+										<!--end::Text-->
+							</div>
+									<!--end::Body-->
+									<!--begin::Footer-->
+							<div class="d-flex flex-stack flex-wrap">
+										<!--begin::Item-->
+								<div class="d-flex align-items-center pe-2">
+											<!--begin::Avatar-->
+
+											<!--end::Avatar-->
+											<!--begin::Text-->
+									<div class="fs-5 fw-bolder">
+
+												<span class="text-muted">Publish: @item.PublishDate</span>
+											</div>
+											<!--end::Text-->
+								</div>
+										<!--end::Item-->
+										<!--begin::Label-->
+								<span class="badge badge-light-info fw-bolder my-2">BLOG</span>
+										<!--end::Label-->
+							</div>
+									<!--end::Footer-->
+						</div>
+								<!--end::Post-->
+
+					</div>
+							<!--end::Col-->
+				</div>
+					}
+				}
+				<!--begin::Row-->
+			</div>
+			<!--end::Section-->
+			<!--begin::Section-->
+
+			<!--end::Section-->
+			<!--begin::Section-->
+
+			<!--end::Section-->
+			<!--begin::latest instagram-->
+
+			<!--end::latest instagram-->
+		</div>
+	</div>
+</div>

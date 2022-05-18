@@ -16,5 +16,4 @@ public static class Common
         streamContent.CopyTo(ms);
         return ms.ToArray();
     }
-
 }

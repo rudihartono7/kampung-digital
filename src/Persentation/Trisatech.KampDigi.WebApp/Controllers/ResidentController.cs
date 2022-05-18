@@ -1,28 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trisatech.KampDigi.Application.Models.Resident;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Trisatech.KampDigi.WebApp.Helpers;
 using Trisatech.KampDigi.Application.Interfaces;
 using Trisatech.KampDigi.Domain;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Trisatech.KampDigi.Application;
+using Trisatech.KampDigi.Application.Models;
 
 namespace Trisatech.KampDigi.WebApp.Controllers
 {
     public class ResidentController : BaseController
     {
-        private readonly IWebHostEnvironment _webHost;
         private readonly IResidentService _residentService;
         private readonly KampDigiContext _digiContext;
-        public ResidentController(IWebHostEnvironment webHost, 
-            IResidentService residentService,
-            KampDigiContext digiContext)
+        private readonly IGuestBookService _guestBookService;
+        private readonly IResidentFamilyService _residentFamilyService;
+        public ResidentController(IResidentService residentService,
+            KampDigiContext digiContext,
+            IGuestBookService guestBookService,
+            IResidentFamilyService residentFamilyService)
         {
-            _webHost = webHost;
             _residentService = residentService;
             _digiContext = digiContext;
+            _guestBookService = guestBookService;
+            _residentFamilyService = residentFamilyService;
         }
 
         [Authorize(Roles = AppConstant.ADMIN)]
@@ -53,15 +55,14 @@ namespace Trisatech.KampDigi.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["message"] = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
+                ViewBag.Message = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
+                ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
                 return View(dataResident);
             }
             try
             {
-
                 dataResident.IdentityPhoto = await SaveFile(dataResident.KTP);
                 dataResident.IdentityFamilyPhoto = await SaveFile(dataResident.KK);
-
 
                 await _residentService.ResidentAdd(dataResident, GetCurrentUserGuid());
 
@@ -70,14 +71,14 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                ViewBag.Message = ex.Message;
+                ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+                return View(dataResident);
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return View(dataResident);
         }
 
         [Authorize]
@@ -89,14 +90,46 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 return RedirectToAction("ErrorAction", "Home");
             }
 
-            ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+            var residentDetail = await _residentService.ResidentDetail(id);
+            var guestList = await _guestBookService.GuestResidentList(id);
+            var familyList = await _residentFamilyService.GetId(id);
 
             if (TempData["message"] != null)
             {
                 ViewBag.Message = TempData["message"].ToString();
                 TempData.Remove("message");
             }
-            return View(await _residentService.ResidentDetail(id));
+
+            ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+            ViewBag.HeadOfFamilyId = new SelectList(_digiContext.Residents,"Id","Name");
+            return View(new UserDetailModel
+            {
+                Residents = residentDetail,
+                Guests = guestList,
+                Family = familyList,
+                GuestEdit = new Application.Models.GuestBook.GuestBookListModel(),
+            });
+        }
+
+        public async Task<IActionResult> ResidentEdit(Guid id)
+        {
+            var residentDetail = await _residentService.ResidentGetEditModel(id);
+            if (residentDetail == null)
+            {
+                TempData["message"] = "Data warga tidak ditemukan. Apakah data warga sudah di input?";
+                return RedirectToAction("ErrorAction", "Home");
+            }
+
+
+            if (TempData["message"] != null)
+            {
+                ViewBag.Message = TempData["message"].ToString();
+                TempData.Remove("message");
+            }
+
+            ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+
+            return View(residentDetail);
         }
 
         [Authorize]
@@ -106,8 +139,9 @@ namespace Trisatech.KampDigi.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["message"] = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
-                return RedirectToAction("ErrorAction", "Home");
+                ViewBag.Message = "Data input tidak valid. Pastikan data sudah terisi lengkap.";
+                ViewBag.House = new SelectList(_digiContext.Houses, "Id", "Number");
+                return View(dataResident);
             }
             try
             {
@@ -123,19 +157,18 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 
                 await _residentService.ResidentEdit(dataResident, GetCurrentUserGuid());
 
-                TempData["message"] = "Data bewrhasil di ubah.";
+                TempData["message"] = "Data berhasil di ubah.";
                 return RedirectToAction("Index");
             }
             catch (InvalidOperationException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
+                TempData["message"] = ex.Message;
+                return RedirectToAction("ErrorAction", "Home");
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return View(dataResident);
         }
 
 
@@ -152,10 +185,18 @@ namespace Trisatech.KampDigi.WebApp.Controllers
                 return RedirectToAction("ErrorAction", "Home");
             }
 
-            await _residentService.ResidentDelete(id);
+            try
+            {
+                await _residentService.ResidentDelete(id);
 
-            TempData["message"] = "Data warga berhasil di input";
-            return RedirectToAction("Index");
+                TempData["message"] = "Data warga berhasil di hapus";
+                return RedirectToAction("Index");
+            }
+            catch (InvalidOperationException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(dataResident);
+            }
 
         }
 
@@ -165,23 +206,23 @@ namespace Trisatech.KampDigi.WebApp.Controllers
             return userId;
         }
 
-        public async Task<string> SaveFile(IFormFile dataFile)
-        {
-            var fileName = String.Empty;
-            if (dataFile != null)
-            {
-                fileName = $"{Guid.NewGuid()}-{dataFile?.FileName}";
-                string filePathName = _webHost.ContentRootPath + $"/images/{fileName}";
+        //public async Task<string> SaveFile(IFormFile dataFile)
+        //{
+        //    var fileName = String.Empty;
+        //    if (dataFile != null)
+        //    {
+        //        fileName = $"{Guid.NewGuid()}-{dataFile?.FileName}";
+        //        string filePathName = _webHost.ContentRootPath + $"/images/{fileName}";
 
-                using (var StreamWriter = System.IO.File.Create(filePathName))
-                {
-                    //await StreamWriter.WriteAsync(Common.StreamToBytes(request.GambarFile.OpenReadStream()));
-                    await StreamWriter.WriteAsync(dataFile.OpenReadStream().ToBytes());
-                }
+        //        using (var StreamWriter = System.IO.File.Create(filePathName))
+        //        {
+        //            //await StreamWriter.WriteAsync(Common.StreamToBytes(request.GambarFile.OpenReadStream()));
+        //            await StreamWriter.WriteAsync(dataFile.OpenReadStream().ToBytes());
+        //        }
 
-                return $"images/{fileName}";
-            }
-            return String.Empty;
-        }
+        //        return $"images/{fileName}";
+        //    }
+        //    return String.Empty;
+        //}
     }
 }

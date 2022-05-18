@@ -1,0 +1,375 @@
+@model IEnumerable<Trisatech.KampDigi.Application.Models.PostModel>
+@using Trisatech.KampDigi.Domain.Entities
+
+@{
+	ViewData["Title"] = "Forum";
+	ViewData["Menu"] = "Welcome";
+	Layout = "_BaseTemplate";
+	var i = 0;
+	var j = 0;
+}
+<!--begin::Container-->
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container">
+	<!--begin::Post-->
+	<div class="content flex-row-fluid" id="kt_content">
+		<!--begin::Row-->
+		<div class="row g-5 g-xl-8">
+			<!--begin::Col-->
+			<div class="col-xl-6">
+				<!--begin::Feeds Widget 1-->
+				<div class="card mb-5 mb-xl-8">
+					<!--begin::Body-->
+					<div class="card-body pb-0">
+						
+						<!--begin::Form-->
+						<form id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3" asp-action="Create"
+							method="post" enctype="multipart/form-data">
+							<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+							<!--begin::Header-->
+						<div class="d-flex align-items-center">
+							<!--begin::User-->
+							<div class="d-flex align-items-center flex-grow-1">
+								<!--begin::User-->
+							<div class="d-flex align-items-center flex-grow-1">
+								<!--begin::Avatar-->
+								<div class="symbol symbol-45px me-5">
+									<img src="~/images/avatar.jpg" alt="" />
+								</div>
+								<!--end::Avatar-->
+								<!--begin::Info-->
+								<div class="d-flex flex-column">
+									
+								</div>
+								<!--end::Info-->
+							</div>
+							</div>
+							<!--end::User-->
+							<div class="my-0">
+								<select name="type" id="">
+									<option
+									value="@Trisatech.KampDigi.Domain.Entities.PostType.Announcement">Announcement</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Forum">Forum</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Public">Public</option>
+									<option value="@Trisatech.KampDigi.Domain.Entities.PostType.Report">Report</option>
+								</select>
+							</div>
+						</div>
+						<!--end::Header-->
+							
+							<div class="form-group">
+								<label name="Title" for="exampleInput2"></label>
+								<input class="form-control" id="exampleInput2" placeholder="Title" name="Title"
+									required>
+							</div>
+							<div class="form-group">
+								<label name="PostSubject" for="exampleInput1"></label>
+								<input class="form-control" id="exampleInput1" placeholder="PostSubject"
+									name="PostSubject" required>
+							</div>
+							<div class="form-group">
+								<label name="ImageFile" class="control-label"></label>
+								<input name="ImageFile" type="file" class="form-control" />
+							</div>
+							<!--begin::Editor-->
+							@* <textarea id="kt_forms_widget_1_editor" name="Desc" width="100px" height="30px">Write your description in here ...</textarea> *@
+							<div class="form-floating" style="margin-top: 20px;">
+								<textarea class="form-control" name="Desc" placeholder="Write your description in here ..." id="floatingTextarea"></textarea>
+								<label for="floatingTextarea">Your description</label>
+							</div>
+							<div id="kt_forms_widget_1_editor" class="py-6" name="Desc" hidden></div>
+							<!--end::Editor-->
+							<div class="separator"></div>
+							<!--begin::Toolbar-->
+							<div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2">
+								<div class="me-2">
+									<span class="ql-formats ql-size ms-0">
+										<select class="ql-size w-75px"></select>
+									</span>
+									<span class="ql-formats">
+										<button class="ql-bold"></button>
+										<button class="ql-italic"></button>
+										<button class="ql-underline"></button>
+										<button class="ql-strike"></button>
+										<button class="ql-link"></button>
+										<button class="ql-clean"></button>
+									</span>
+								</div>
+								<div class="me-n3">
+									<span class="btn btn-icon btn-sm btn-active-color-primary">
+										<i class="flaticon2-clip-symbol icon-ms"></i>
+									</span>
+									<span class="btn btn-icon btn-sm btn-active-color-primary">
+										<i class="flaticon2-pin icon-ms"></i>
+									</span>
+								</div>
+								@* Button create thread *@
+								<button type="submit" class="my-0">
+									<!--begin::Svg Icon | path: assets/media/icons/duotone/Communication/Send.svg-->
+									<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
+											xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+											viewBox="0 0 24 24" version="1.1">
+											<path
+												d="M3,13.5 L19,12 L3,10.5 L3,3.7732928 C3,3.70255344 3.01501031,3.63261921 3.04403925,3.56811047 C3.15735832,3.3162903 3.45336217,3.20401298 3.70518234,3.31733205 L21.9867539,11.5440392 C22.098181,11.5941815 22.1873901,11.6833905 22.2375323,11.7948177 C22.3508514,12.0466378 22.2385741,12.3426417 21.9867539,12.4559608 L3.70518234,20.6826679 C3.64067359,20.7116969 3.57073936,20.7267072 3.5,20.7267072 C3.22385763,20.7267072 3,20.5028496 3,20.2267072 L3,13.5 Z"
+												fill="#000000" />
+										</svg></span>
+									<!--end::Svg Icon-->
+								</button>
+							</div>
+							<!--end::Toolbar-->
+						</form>
+						<!--end::Form-->
+					</div>
+					<!--end::Body-->
+				</div>
+				<!--end::Feeds Widget 1-->
+			</div>
+			<!--end::Col-->
+			<!--begin::Col-->
+			<div class="col-xl-6">
+				<!--begin::Feeds Widget 5-->
+				@if (Model != null && Model.Any())
+				{
+					foreach (var item in Model)
+					{
+						j+=1;
+						<div class="card mb-5 mb-xl-8">
+
+							<!--begin::Body-->
+					<div class="card-body pb-0">
+								<!--begin::Header-->
+						<div class="d-flex align-items-center mb-5">
+									<!--begin::User-->
+							<div class="d-flex align-items-center flex-grow-1">
+										<!--begin::Avatar-->
+								<div class="symbol symbol-45px me-5">
+											<img src="~/images/avatar.jpg" alt="" />
+										</div>
+										<!--end::Avatar-->
+										<!--begin::Info-->
+								<div class="d-flex flex-column">
+											<p class="text-gray-800 text-hover-primary fs-6 fw-bolder">@item.Name </p>
+											<p class="text-gray-400 text-hover-primary fs-6 fw-bolder">@item.Title | 
+												@if (item.UpdatedDate != null)
+												{
+													<span>Update : @item.UpdatedDate</span>
+												}
+												else
+												{
+													<span>Create : @item.CreatedDate</span>
+												}
+											</p>
+											
+										</div>
+										<!--end::Info-->
+							</div>
+									<!--end::User-->
+									<!--begin::Menu-->
+							<div class="my-0">
+								<div class="badge badge-light fw-bolder">@item.Type</div>
+										<button type="button"
+									class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+									data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+									data-kt-menu-flip="top-end">
+											<!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks-2.svg-->
+									<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg"
+											xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+											viewBox="0 0 24 24" version="1.1">
+													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
+														<rect x="14" y="5" width="5" height="5" rx="1" fill="#000000"
+													opacity="0.3" />
+														<rect x="5" y="14" width="5" height="5" rx="1" fill="#000000"
+													opacity="0.3" />
+														<rect x="14" y="14" width="5" height="5" rx="1" fill="#000000"
+													opacity="0.3" />
+													</g>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+								</button>
+										<!--begin::Menu 2-->
+								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-200px"
+									data-kt-menu="true">
+											<!--begin::Menu separator-->
+									<div class="separator mt-3 opacity-75"></div>
+											<!--end::Menu separator-->
+											<!--begin::Menu item-->
+									<div class="menu-item px-3">
+												<!--begin::Menu separator-->
+													<div class="separator mt-3 opacity-75"></div>
+												<!--end::Menu separator-->
+												
+												<a asp-action="Edit" asp-route-id="@item.Id" class="menu-link px-3">
+													<!--begin::Svg Icon | path: assets/media/icons/duotone/Interface/Edit.svg-->
+													<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect opacity="0.25" x="3" y="21" width="18" height="2" rx="1" fill="#191213"/>
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.08576 11.5L3.58579 12C3.21071 12.375 3 12.8838 3 13.4142V17C3 18.1045 3.89543 19 5 19H8.58579C9.11622 19 9.62493 18.7893 10 18.4142L10.5 17.9142L4.08576 11.5Z" fill="#121319"/>
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 10.0858L11.5858 4L18 10.4142L11.9142 16.5L5.5 10.0858Z" fill="#121319"/>
+													<path opacity="0.25" fill-rule="evenodd" clip-rule="evenodd" d="M18.1214 1.70705C16.9498 0.535476 15.0503 0.535476 13.8787 1.70705L13 2.58576L19.4142 8.99997L20.2929 8.12126C21.4645 6.94969 21.4645 5.0502 20.2929 3.87862L18.1214 1.70705Z" fill="#191213"/>
+													</svg></span>
+													<!--end::Svg Icon-->
+													Edit Thread
+												</a>
+												
+												
+												
+													@* <a asp-action="Delete" asp-route-id="@item.Id" class="menu-link px-3"> *@
+												<a type="button" id=@($"btnDelete-{j}") class="text-hover-primary" data-id="@item.Id" >
+													<!--begin::Svg Icon | path: assets/media/icons/duotone/Files/Deleted-file.svg-->
+													<span class="svg-icon svg-icon-muted svg-icon-2hx"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<polygon points="0 0 24 0 24 24 0 24"/>
+															<path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+															<path d="M10.5857864,13 L9.17157288,11.5857864 C8.78104858,11.1952621 8.78104858,10.5620972 9.17157288,10.1715729 C9.56209717,9.78104858 10.1952621,9.78104858 10.5857864,10.1715729 L12,11.5857864 L13.4142136,10.1715729 C13.8047379,9.78104858 14.4379028,9.78104858 14.8284271,10.1715729 C15.2189514,10.5620972 15.2189514,11.1952621 14.8284271,11.5857864 L13.4142136,13 L14.8284271,14.4142136 C15.2189514,14.8047379 15.2189514,15.4379028 14.8284271,15.8284271 C14.4379028,16.2189514 13.8047379,16.2189514 13.4142136,15.8284271 L12,14.4142136 L10.5857864,15.8284271 C10.1952621,16.2189514 9.56209717,16.2189514 9.17157288,15.8284271 C8.78104858,15.4379028 8.78104858,14.8047379 9.17157288,14.4142136 L10.5857864,13 Z" fill="#000000"/>
+														</g>
+													</svg></span>
+													<!--end::Svg Icon-->
+													Delete Thread
+												</a>
+												
+											</div>
+											<!--end::Menu item-->
+											<!--begin::Menu separator-->
+												<div class="separator mt-3 opacity-75"></div>
+											<!--end::Menu separator-->
+								</div>
+										<!--end::Menu 2-->
+							</div>
+									<!--end::Menu-->
+						</div>
+								<!--end::Header-->
+
+								<!--begin::Post-->
+						<div class="mb-5">
+									<!--begin::Image-->
+							@if(@item.Image == null || @item.Image == ""){
+								<div></div>
+							} else {
+								<div class="bgi-no-repeat bgi-size-cover rounded min-h-200px mb-5"> 
+									<img src="@item.ImageSrc" width="450px" height="350px"> 
+								</div>
+							}
+									<!--end::Image-->
+							<span class="text-gray-400 fw-bold">@item.PostSubject</span>
+									<!--begin::Text-->
+							<div class="text-gray-800 mb-5">@item.Desc</div>
+									<!--end::Text-->
+
+
+								<!--begin::Separator-->
+									<div class="separator mb-4"></div>
+								<!--end::Separator-->
+									<!--begin::Toolbar-->
+							<div class="d-flex align-items-center mb-5">
+										<a asp-controller="Comment" asp-action="Index" asp-route-id="@item.Id">
+											<button type="submit"
+										class="btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4">
+												<!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
+										<span class="svg-icon svg-icon-3">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+												viewBox="0 0 24 24" version="1.1">
+														<path
+													d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z"
+													fill="#000000" />
+														<path
+													d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z"
+													fill="#000000" opacity="0.3" />
+													</svg>
+												</span>
+												<!--end::Svg Icon-->
+												Comment
+									</button>
+										</a>
+
+								@* <a href="#"
+									class="btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2">
+											<!--begin::Svg Icon | path: icons/duotone/General/Heart.svg-->
+									<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg"
+											xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+											viewBox="0 0 24 24" version="1.1">
+													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<polygon points="0 0 24 0 24 24 0 24" />
+														<path
+													d="M16.5,4.5 C14.8905,4.5 13.00825,6.32463215 12,7.5 C10.99175,6.32463215 9.1095,4.5 7.5,4.5 C4.651,4.5 3,6.72217984 3,9.55040872 C3,12.6834696 6,16 12,19.5 C18,16 21,12.75 21,9.75 C21,6.92177112 19.349,4.5 16.5,4.5 Z"
+													fill="#000000" fill-rule="nonzero" />
+													</g>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+											Like
+								</a> *@
+									</div>
+									<!--end::Toolbar-->
+						</div>
+								<!--end::Post-->
+								<!--begin::Separator-->
+						<div class="separator mb-4"></div>
+								<!--end::Separator-->
+					</div>
+							<!--end::Body-->
+				</div>
+					}
+				}
+				<!--end::Feeds Widget 5-->
+			</div>
+			<!--end::Col-->
+		</div>
+		<!--end::Row-->
+
+		<form asp-action="delete" method="post">
+            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="pos_middle">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body" style="padding: 20px 25px;">
+                                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                                <h4 class="text-center font-grey-gallery" style="font-weight: 600;">Are you sure to delete this item?</h4>
+                                <br />
+                                <div class="row">
+                                    <input type="hidden" id="itemId" name="Id" />
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-danger btn-block green uppercase"
+                                            data-backdrop="static" data-keyboard="false">Yes</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="~/post/index" class="btn btn-block red uppercase" data-backdrop="static"
+                                            data-keyboard="false" data-dismiss="modal">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </form>
+
+	</div>
+	<!--end::Post-->
+</div>
+<!--end::Container-->
+
+@section Scripts {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+		@foreach (var item in Model)
+        {
+             i+=1;
+        <text>
+            $("#btnDelete-@i").click(function () {
+			var id = $(this).data('id');
+			console.log('Id Thread: ' + id);
+			//ubah value yang id = itemId yang ada di dalam class .modal-body
+			$(".modal-body #itemId").val(id);
+			//tampilkan modal/dialog
+			$("#confirmDelete").modal('show');
+		});
+		</text>
+		}
+    });
+</script>
+}
