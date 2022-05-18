@@ -72,10 +72,7 @@ public class ResidenceController : BaseController
 
    public async Task<IActionResult> Edit(Guid Id)
    {
-      if (Id == null)
-      {
-         throw new InvalidOperationException("Tidak ada data diterima");
-      }
+ 
       var residence = await _residenceService.getData(Id);
       await SetDataSource(residence.PersonInCharge);
       return View(new ResidenceModel()

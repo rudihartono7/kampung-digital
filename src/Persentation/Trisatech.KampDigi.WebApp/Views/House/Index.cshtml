@@ -49,22 +49,21 @@
          <div class="card-toolbar">
             <!--begin::Toolbar-->
             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-               <!--begin::Add user-->
-               <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+               @if (userRole)
+               {
+                  <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                   title="Klik untuk menambah keterangan rumah">
-                  <button type="button" class="btn btn-sm btn-light-primary b-modal" data-bs-toggle="modal"
+                     <button type="button" class="btn btn-sm btn-light-primary b-modal" data-bs-toggle="modal"
                      data-bs-target="#modalCreate">
-                     <!--begin::Svg Icon | path: assets/media/icons/duotone/Home/Home2.svg-->
-                     <span class="svg-icon svg-icon-muted "><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                        <span class="svg-icon svg-icon-muted "><svg xmlns="http://www.w3.org/2000/svg" width="24"
                            height="24" viewBox="0 0 24 24" fill="none">
-                           <path
+                              <path
                               d="M21.4622 10.699C21.4618 10.6986 21.4613 10.6981 21.4609 10.6977L13.3016 2.53955C12.9538 2.19165 12.4914 2 11.9996 2C11.5078 2 11.0454 2.1915 10.6974 2.5394L2.54246 10.6934C2.53971 10.6961 2.53696 10.699 2.53422 10.7018C1.82003 11.42 1.82125 12.5853 2.53773 13.3017C2.86506 13.6292 3.29739 13.8188 3.75962 13.8387C3.77839 13.8405 3.79732 13.8414 3.81639 13.8414H4.14159V19.8453C4.14159 21.0334 5.10833 22 6.29681 22H9.48897C9.81249 22 10.075 21.7377 10.075 21.4141V16.707C10.075 16.1649 10.516 15.7239 11.0582 15.7239H12.941C13.4832 15.7239 13.9242 16.1649 13.9242 16.707V21.4141C13.9242 21.7377 14.1866 22 14.5102 22H17.7024C18.8909 22 19.8576 21.0334 19.8576 19.8453V13.8414H20.1592C20.6508 13.8414 21.1132 13.6499 21.4613 13.302C22.1786 12.5844 22.1789 11.4171 21.4622 10.699V10.699Z"
                               fill="#00B2FF" />
-                        </svg></span>
-                     <!--end::Svg Icon--> Create New
-                  </button>
-               </div>
-               <!--end::Add user-->
+                           </svg></span> Create New
+                     </button>
+                  </div>
+               }
             </div>
             <!--end::Toolbar-->
             <!--begin::Group actions-->
@@ -132,13 +131,13 @@
                         <td class="d-flex align-items-center">
                               <!--begin:: Avatar -->
                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                              <div class="symbol-label">
-                                 <div class="symbol-label fs-3 bg-light-danger text-danger">@item.Number
+                                 <div class="symbol-label">
+                                    <div class="symbol-label fs-3 bg-light-danger text-danger">@item.Number
+                                    </div>
+                                    @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
                                  </div>
-                                 @*<img src="assets/media/avatars/150-1.jpg" alt="Emma Smith" class="w-100" />*@
                               </div>
-                           </div>
-                           <!--end::Avatar-->
+                              <!--end::Avatar-->
                         </td>
                            <!--end::User=-->
                            <!--begin::Role=-->
@@ -169,18 +168,23 @@
                            @if (userRole)
                            {
                               <td class="text-center">
-                                 <a asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Klik untuk Detail">
+                                 <a asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-icon btn-info"
+                              data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+                              title="Klik untuk Detail">
                                     <!--begin::Svg Icon | path: assets/media/icons/duotone/Code/Info-circle.svg-->
-                                    <span class="svg-icon">
-                                       <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                              <span class="svg-icon">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
+                                    version="1.1">
                                           <circle fill="#ffffff" opacity="0.3" cx="12" cy="12" r="10" />
                                           <rect fill="#ffffff" x="11" y="10" width="2" height="7" rx="1" />
                                           <rect fill="#ffffff" x="11" y="7" width="2" height="2" rx="1" />
                                        </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                 </a>
-                                 <button type="button" data-id="@item.Id" class="btn btn-icon btn-warning b-edit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Klik untuk Edit">
+                           </a>
+                                 <button type="button" data-id="@item.Id" class="btn btn-icon btn-warning b-edit"
+                              data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+                              title="Klik untuk Edit">
                                     <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
                                     viewBox="0 0 20 20" version="1.1">
                                           <path
@@ -190,7 +194,9 @@
                                           <rect fill="#ffffff" opacity="0.3" x="5" y="20" width="15" height="2" rx="1" />
                                        </svg></span>
                                  </button>
-                                 <button type="button" data-id="@item.Id" class="btn btn-icon btn-danger b-hapus" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Klik untuk Hapus">
+                                 <button type="button" data-id="@item.Id" class="btn btn-icon btn-danger b-hapus"
+                              data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
+                              title="Klik untuk Hapus">
                                     <!--begin::Svg Icon | path: assets/media/icons/duotone/General/Trash.svg-->
                               <span class="svg-icon"><svg xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
